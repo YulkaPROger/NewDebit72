@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ip">ИП</string>
+    <string name="avto">Авто</string>
+    <string name="property">Имущество</string>
+    <string name="other">Прочее</string>
+
+</resources>
