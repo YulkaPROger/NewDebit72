@@ -16,6 +16,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 
@@ -23,9 +24,9 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 @Composable
 fun BottomNavigationBar(navController: NavController) {
     val items = listOf(
-        NavigationItem.Objects,
-        NavigationItem.Services,
-        NavigationItem.Materials,
+        NavigationItem.IP,
+        NavigationItem.Property,
+        NavigationItem.Home,
         NavigationItem.Profile
     )
     BottomNavigation(
@@ -47,7 +48,7 @@ fun BottomNavigationBar(navController: NavController) {
                         tint = Color.White
                     )
                 },
-                label = { Text(text = stringResource(item.title), color = Color.White) },
+                label = { Text(text = stringResource(item.title), color = Color.White, fontSize = 10.sp) },
                 selectedContentColor = Color.White,
                 unselectedContentColor = Color.White.copy(0.4f),
                 alwaysShowLabel = true,
