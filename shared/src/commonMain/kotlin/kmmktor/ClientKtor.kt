@@ -10,8 +10,16 @@ class ClientKtor {
     private val client = HttpClient()
     private val homeDirectory = "http://109.194.162.125/debit72/hs/debit72/"
     private val info = "PostJSON"
+
+    private val aPIkey = "Колосов Виктор Константинович"
+    private val birthday = "14.04.1955 00:00:00"
     suspend fun generalInformation(): GeneralInformation {
-        val response = client.get(homeDirectory + info)
+        val response = client.get(homeDirectory + info){
+            url {
+                parameters.append("APIkey", aPIkey)
+                parameters.append("Birthday", birthday)
+            }
+        }
         return response.body<GeneralInformation>()
     }
 
