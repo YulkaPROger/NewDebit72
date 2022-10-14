@@ -48,7 +48,13 @@ fun BottomNavigationBar(navController: NavController) {
                         tint = Color.White
                     )
                 },
-                label = { Text(text = stringResource(item.title), color = Color.White, fontSize = 10.sp) },
+                label = {
+                    Text(
+                        text = stringResource(item.title),
+                        color = Color.White,
+                        fontSize = 10.sp
+                    )
+                },
                 selectedContentColor = Color.White,
                 unselectedContentColor = Color.White.copy(0.4f),
                 alwaysShowLabel = true,

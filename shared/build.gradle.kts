@@ -18,13 +18,15 @@ kotlin {
     }
 
     sourceSets {
-        val ktorVersion = "2.0.0"
+        val ktorVersion = "2.1.2"
         val napierVersion = "2.5.0"
 
         val commonMain by getting {
             dependencies {
                 // Logging
                 implementation("io.github.aakira:napier:$napierVersion")
+                //Coroutines
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
 
                 // Ktor
                 implementation("io.ktor:ktor-client-core:$ktorVersion")
