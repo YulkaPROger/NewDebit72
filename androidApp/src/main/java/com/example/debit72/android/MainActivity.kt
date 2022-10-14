@@ -5,6 +5,7 @@ import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
+import androidx.compose.material.Text
 import androidx.compose.material.Typography
 import androidx.compose.runtime.*
 import androidx.compose.ui.text.font.Font
@@ -49,5 +50,6 @@ fun MainScreen() {
                 }
             }
         }
+        Text(text = text)
     }
 }
