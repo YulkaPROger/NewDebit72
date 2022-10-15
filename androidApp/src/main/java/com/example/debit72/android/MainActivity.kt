@@ -44,7 +44,7 @@ fun MainScreen() {
         LaunchedEffect(true) {
             scope.launch {
                 text = try {
-                    ClientKtor().greeting()
+                    ClientKtor().generalInformation().toString()
                 } catch (e: Exception) {
                     e.localizedMessage ?: "error"
                 }
