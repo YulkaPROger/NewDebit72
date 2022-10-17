@@ -14,7 +14,7 @@
     <string name="arrested_property">"Арестованное имущество"</string>
     <string name="claimants_on_ROSP">"Взыскатели по РОСП"</string>
 
-    <string name="count">Количество</string>
+    <string name="count">Количество дел</string>
     <string name="balance_owed">Остаток долга</string>
     <string name="total_debt">Общая сумма долга</string>
     <string name="amount_of_duty">Сумма пошлины</string>

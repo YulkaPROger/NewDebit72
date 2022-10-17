@@ -5,6 +5,7 @@ import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Image
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
@@ -152,29 +153,36 @@ fun HomeScreen(navController: NavHostController) {
                 .padding(horizontal = 16.dp),
             horizontalArrangement = Arrangement.SpaceAround
         ) {
+            val widthPieChart = 150.dp
             if (pieChartDataModel != null) {
                 Column {
                     PieChart(
                         modifier = Modifier
-                            .size(150.dp),
+                            .size(widthPieChart),
                         pieChartData = pieChartDataModel!!.pieChartData,
                         sliceDrawer = SimpleSliceDrawer(sliceThickness = pieChartDataModel!!.sliceThickness),
                     )
-                    Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                        Column {
+                    Row(
+                        horizontalArrangement = Arrangement.SpaceAround,
+                        modifier = Modifier.width(widthPieChart)
+                    ) {
+                        Column (horizontalAlignment = Alignment.CenterHorizontally){
                             TextRow(
                                 name = R.string.count,
                                 info?.count?.toDouble()?.toInt().toString()
                             )
                         }
-                        Column {
+                        Column (horizontalAlignment = Alignment.CenterHorizontally) {
                             TextRow(name = R.string.balance_owed, info?.balanceOwed ?: "")
                         }
                     }
 
                 }
                 info?.let {
-                    Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                    Column(
+                        verticalArrangement = Arrangement.spacedBy(4.dp),
+                        horizontalAlignment = Alignment.End
+                    ) {
                         TextRow(name = R.string.total_debt, it.totalDebt)
                         TextRow(name = R.string.amount_of_duty, it.amountOfDuty)
                         TextRow(name = R.string.amount_of_legal_services, it.amountOfLegalServices)
