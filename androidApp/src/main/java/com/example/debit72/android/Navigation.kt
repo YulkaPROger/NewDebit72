@@ -4,10 +4,10 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.debit72.android.UI.HomeScreen
-import com.example.debit72.android.UI.IPScreen
-import com.example.debit72.android.UI.ProfileScreen
-import com.example.debit72.android.UI.PropertyScreen
+import com.example.debit72.android.presenter.HomeScreen
+import com.example.debit72.android.presenter.IPScreen
+import com.example.debit72.android.presenter.ProfileScreen
+import com.example.debit72.android.presenter.PropertyScreen
 
 
 @Composable

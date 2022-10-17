@@ -5,14 +5,11 @@ import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
 import androidx.compose.material.Typography
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.navigation.compose.rememberNavController
-import com.example.debit72.repository.InfoRepository
-import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
@@ -38,18 +35,5 @@ fun MainScreen() {
     ) {
         it.calculateBottomPadding()
         Navigation(navController)
-
-        val scope = rememberCoroutineScope()
-        var text by remember { mutableStateOf("Loading") }
-        LaunchedEffect(true) {
-            scope.launch {
-                text = try {
-                    InfoRepository().getInfo().toString()
-                } catch (e: Exception) {
-                    e.localizedMessage ?: "error"
-                }
-            }
-        }
-        Text(text = text)
     }
 }

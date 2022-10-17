@@ -5,4 +5,22 @@
     <string name="property">Имущество</string>
     <string name="other">Прочее</string>
 
+    <string name="ip_register">"Реестр ИП"</string>
+    <string name="auto">"Автомобили"</string>
+    <string name="contract_work">"Приказная работа"</string>
+    <string name="claimants">"Взыскатели"</string>
+    <string name="search_auto_real_time">"Поиск авто real-time"</string>
+    <string name="arrested_cars">"Арестованные автомобили"</string>
+    <string name="arrested_property">"Арестованное имущество"</string>
+    <string name="claimants_on_ROSP">"Взыскатели по РОСП"</string>
+
+    <string name="count">Количество</string>
+    <string name="balance_owed">Остаток долга</string>
+    <string name="total_debt">Общая сумма долга</string>
+    <string name="amount_of_duty">Сумма пошлины</string>
+    <string name="amount_of_legal_services">Сумма юр услуг</string>
+    <string name="amount_penalty">Сумма пени</string>
+    <string name="amount_of_communal_services">Сумма взыскания ЖКУ</string>
+
+
 </resources>
