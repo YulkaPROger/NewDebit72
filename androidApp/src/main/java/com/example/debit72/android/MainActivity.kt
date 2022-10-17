@@ -11,7 +11,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.navigation.compose.rememberNavController
-import kmmktor.ClientKtor
+import com.example.debit72.repository.InfoRepository
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
@@ -44,7 +44,7 @@ fun MainScreen() {
         LaunchedEffect(true) {
             scope.launch {
                 text = try {
-                    ClientKtor().generalInformation().toString()
+                    InfoRepository().getInfo().toString()
                 } catch (e: Exception) {
                     e.localizedMessage ?: "error"
                 }

@@ -1,5 +1,8 @@
 package model
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class GeneralInformation(
     val count: String,
     val balanceOwed: String,

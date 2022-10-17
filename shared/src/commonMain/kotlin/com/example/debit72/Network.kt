@@ -13,8 +13,14 @@ import kotlin.native.concurrent.ThreadLocal
 @ThreadLocal
 object Network {
 
-    const val BASE_URL = "https://4315-91-194-113-1.eu.ngrok.io/"
     private var httpClient: HttpClient? = null
+
+    const val BASE_URL = "http://109.194.162.125/debit72/hs/debit72/"
+    const val INFO = "PreviewInfoV2"
+
+    const val KEY_API = "V784hfdsjUUreregTgv\$fgjhgkQhkNonStopfdgfJJonAV039MAS0714"
+    const val FIO = "Колосов Виктор Константинович"
+    const val BIRTHDAY = "14.04.1955 00:00:00"
 
     fun getHttpClient(): HttpClient {
         if (httpClient == null) {
@@ -22,7 +28,7 @@ object Network {
                 install(Auth) {
                     basic {
                         credentials {
-                            BasicAuthCredentials("AABBASOV", "12345678z") //впиши свое //
+                            BasicAuthCredentials("administrator", "Fiona2005") //впиши свое //
                         }
                     }
                 }
