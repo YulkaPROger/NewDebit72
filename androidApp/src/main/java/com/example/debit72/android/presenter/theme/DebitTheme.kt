@@ -1,9 +1,8 @@
-package com.rosa.consultant.ui.theme
+package com.example.debit72.android.presenter.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
-import com.example.debit72.android.presenter.theme.*
 
 
 @Composable

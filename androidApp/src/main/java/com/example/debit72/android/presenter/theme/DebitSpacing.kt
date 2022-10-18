@@ -1,4 +1,4 @@
-package com.rosa.consultant.ui.theme
+package com.example.debit72.android.presenter.theme
 
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.staticCompositionLocalOf

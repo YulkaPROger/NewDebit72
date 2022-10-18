@@ -1,11 +1,10 @@
-package com.rosa.consultant.ui.theme
+package com.example.debit72.android.presenter.theme
 
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
-import com.example.debit72.android.presenter.theme.DebitFont
 
 @Immutable
 data class DebitTypography(
