@@ -10,16 +10,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.navigation.compose.rememberNavController
+import com.example.debit72.android.presenter.theme.DebitTheme
 
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            MaterialTheme(
-                typography = Typography(
-                    defaultFontFamily = FontFamily(Font(R.font.montserrat_medium))
-                )
+            DebitTheme(
+
             ) {
                 MainScreen()
             }
