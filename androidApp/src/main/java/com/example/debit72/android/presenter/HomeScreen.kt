@@ -40,19 +40,33 @@ fun HomeScreen(navController: NavHostController) {
         verticalArrangement = Arrangement.SpaceBetween
     ) {
 
-        val fillWidth = Modifier.fillMaxWidth()
-
         Column(
-            modifier = fillWidth,
-            verticalArrangement = Arrangement.spacedBy(16.dp)
+            modifier = Modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.SpaceBetween
         ) {
             AvatarRow()
             AutoNumber()
             StoriesRow()
+            InfoWidget()
             PieChartAndData()
         }
+    }
+}
 
-
+@Composable
+fun InfoWidget() {
+    Row(
+        modifier = Modifier
+            .padding(16.dp)
+            .fillMaxWidth()
+            .height(150.dp)
+            .border(
+                width = 4.dp,
+                color = DebitTheme.colors.black54,
+                shape = RoundedCornerShape(8.dp)
+            )
+    ) {
+        Text(text = "Some text")
     }
 }
 
@@ -194,6 +208,13 @@ fun PieChartAndData() {
                         TextRow(name = R.string.balance_owed, info?.balanceOwed ?: "")
                     }
                 }
+            }
+        } else {
+            Surface(
+                modifier = Modifier
+                    .size(widthPieChart)
+            ) {
+
             }
         }
     }
