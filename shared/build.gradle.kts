@@ -27,8 +27,6 @@ kotlin {
             dependencies {
                 // Logging
                 implementation("io.github.aakira:napier:$napierVersion")
-                //Coroutines
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
 
                 // Ktor
                 implementation("io.ktor:ktor-client-core:$ktorVersion")
@@ -88,4 +86,5 @@ android {
         minSdk = 28
         targetSdk = 32
     }
+    namespace = "com.example.debit72"
 }

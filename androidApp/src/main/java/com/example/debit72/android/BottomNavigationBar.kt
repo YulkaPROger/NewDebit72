@@ -24,9 +24,8 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 @Composable
 fun BottomNavigationBar(navController: NavController) {
     val items = listOf(
-        NavigationItem.IP,
-        NavigationItem.Property,
-        NavigationItem.Home,
+        NavigationItem.Main,
+        NavigationItem.Service,
         NavigationItem.Profile
     )
     BottomNavigation(
@@ -43,7 +42,7 @@ fun BottomNavigationBar(navController: NavController) {
             BottomNavigationItem(
                 icon = {
                     Icon(
-                        painter = painterResource(item.icon),
+                        imageVector = item.icon,
                         contentDescription = stringResource(item.title),
                         tint = Color.White
                     )

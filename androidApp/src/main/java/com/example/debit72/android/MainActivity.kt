@@ -1,22 +1,24 @@
 package com.example.debit72.android
 
+import android.content.Context
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
-import androidx.compose.material.Typography
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.platform.LocalContext
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.rememberNavController
 import com.example.debit72.android.presenter.theme.DebitTheme
+import com.example.debit72.datastore.UserSettingsRepository
+import com.example.debit72.datastore.getDataStore
 
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
+            //val vm = mainViewModel(LocalContext.current)
             DebitTheme(
 
             ) {
@@ -24,6 +26,11 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
+//    @Composable
+//    fun mainViewModel(context: Context) = viewModel {
+//        DebitViewModel(UserSettingsRepository(getDataStore(context)))
+//    }
 }
 
 @Composable
