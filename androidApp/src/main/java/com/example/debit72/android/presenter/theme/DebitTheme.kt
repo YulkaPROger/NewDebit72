@@ -1,13 +1,12 @@
 package com.example.debit72.android.presenter.theme
 
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 
 
 @Composable
 fun DebitTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
+    darkTheme: Boolean = true,
     content: @Composable () -> Unit
 ) {
     val colors = when (darkTheme) {
@@ -47,7 +46,7 @@ fun DebitTheme(
 
 }
 
-object ConsultantTheme {
+object DebitTheme {
     val colors: DebitColors
         @Composable
         get() = LocalConsultantColors.current

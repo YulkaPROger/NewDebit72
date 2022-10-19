@@ -17,6 +17,8 @@ kotlin {
         }
     }
 
+    val dataStoreVersion = "1.1.0-dev01"
+
     sourceSets {
         val ktorVersion = "2.1.2"
         val napierVersion = "2.5.0"
@@ -25,8 +27,6 @@ kotlin {
             dependencies {
                 // Logging
                 implementation("io.github.aakira:napier:$napierVersion")
-                //Coroutines
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
 
                 // Ktor
                 implementation("io.ktor:ktor-client-core:$ktorVersion")
@@ -34,6 +34,13 @@ kotlin {
                 implementation("io.ktor:ktor-client-logging:$ktorVersion")
                 implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
                 implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
+
+                implementation("androidx.collection:collection:1.3.0-dev01")
+
+                // Lower-level APIs with support for custom serialization
+                implementation("androidx.datastore:datastore-core-okio:$dataStoreVersion")
+                // Higher-level APIs for storing values of basic types
+                implementation("androidx.datastore:datastore-preferences-core:$dataStoreVersion")
             }
         }
 
@@ -79,4 +86,5 @@ android {
         minSdk = 28
         targetSdk = 32
     }
+    namespace = "com.example.debit72"
 }
