@@ -15,7 +15,8 @@ data class DebitTypography(
     val bodyNormal14: TextStyle,
     val bodySmall12bigText: TextStyle,
     val bodySmall12: TextStyle,
-    val bodyVerySmall10: TextStyle
+    val bodyVerySmall10: TextStyle,
+    val autoNumberStyle: TextStyle
 
 )
 
@@ -56,6 +57,11 @@ val typography: DebitTypography = DebitTypography(
         fontSize = 10.sp,
         letterSpacing = 0.1.sp,
         fontWeight = FontWeight.Normal
+    ),
+    autoNumberStyle = TextStyle(
+        fontSize = 32.sp,
+        letterSpacing = 1.sp,
+        fontWeight = FontWeight.Bold
     )
 )
 

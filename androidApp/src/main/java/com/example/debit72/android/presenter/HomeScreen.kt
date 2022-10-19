@@ -1,18 +1,27 @@
 package com.example.debit72.android.presenter
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Image
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.debit72.android.R
+import com.example.debit72.android.presenter.theme.DebitTheme
+import com.example.debit72.android.presenter.theme.DebitTheme.colors
+import com.example.debit72.android.presenter.theme.typography
 import com.example.debit72.android.widgets.NavigationButton
 import com.example.debit72.android.widgets.pie.PieChart
 import com.example.debit72.android.widgets.pie.PieChartDataModel
@@ -24,7 +33,81 @@ import model.GeneralInformation
 
 @Composable
 fun HomeScreen(navController: NavHostController) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(bottom = 100.dp),
+        verticalArrangement = Arrangement.SpaceBetween
+    ) {
 
+        val fillWidth = Modifier.fillMaxWidth()
+
+        Column(
+            modifier = fillWidth,
+            verticalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
+            AvatarRow()
+            AutoNumber()
+            StoriesRow()
+            PieChartAndData()
+        }
+
+
+    }
+}
+
+@Composable
+fun AutoNumber() {
+    Row(
+        modifier = Modifier
+            .padding(16.dp)
+            .fillMaxWidth()
+    ) {
+        Row(
+            modifier = Modifier
+                .padding(2.dp)
+                .background(colors.black87)
+        ) {
+            Box(contentAlignment = Alignment.Center) {
+                Surface(
+                    modifier = Modifier
+                        .size(200.dp, 50.dp)
+                        .border(
+                            width = 4.dp,
+                            color = DebitTheme.colors.black54,
+                            shape = RoundedCornerShape(8.dp)
+                        )
+                ) {
+                }
+                Text(
+                    text = "v 000 VV", style = typography.autoNumberStyle.copy(
+                        color = DebitTheme.colors.black54
+                    )
+                )
+            }
+            Box(contentAlignment = Alignment.Center) {
+                Surface(
+                    modifier = Modifier
+                        .size(50.dp, 50.dp)
+                        .border(
+                            width = 4.dp,
+                            color = DebitTheme.colors.black54,
+                            shape = RoundedCornerShape(8.dp)
+                        )
+                ) {
+                }
+                Text(
+                    text = "72", style = typography.autoNumberStyle.copy(
+                        color = DebitTheme.colors.black54
+                    )
+                )
+            }
+        }
+    }
+}
+
+@Composable
+fun PieChartAndData() {
     val scope = rememberCoroutineScope()
     var info: GeneralInformation? by remember { mutableStateOf(null) }
     var pieChartDataModel: PieChartDataModel? by remember {
@@ -67,134 +150,138 @@ fun HomeScreen(navController: NavHostController) {
             }
         }
     }
-
-
-    Column(
+    Row(
         modifier = Modifier
-            .fillMaxSize()
-            .padding(bottom = 100.dp),
-        verticalArrangement = Arrangement.SpaceBetween
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp),
+        horizontalArrangement = Arrangement.SpaceAround
     ) {
-        val modifierRow = Modifier.weight(1f)
-        Column(
-            modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(16.dp)
-        ) {
-
-            Row(
-                horizontalArrangement = Arrangement.SpaceAround,
-                modifier = Modifier.fillMaxWidth()
+        val widthPieChart = 150.dp
+        info?.let {
+            Column(
+                verticalArrangement = Arrangement.spacedBy(4.dp),
+                horizontalAlignment = Alignment.End
             ) {
-                NavigationButton(
-                    imageVector = Icons.Default.Image,
-                    name = R.string.ip_register,
-                    modifier = modifierRow,
-                    {}
+                TextRow(name = R.string.total_debt, it.totalDebt)
+                TextRow(name = R.string.amount_of_duty, it.amountOfDuty)
+                TextRow(name = R.string.amount_of_legal_services, it.amountOfLegalServices)
+                TextRow(name = R.string.amount_penalty, it.amountPenalty)
+                TextRow(
+                    name = R.string.amount_of_communal_services,
+                    it.amountOfCommunalServices
                 )
-                NavigationButton(
-                    imageVector = Icons.Default.Image,
-                    name = R.string.auto,
-                    modifier = modifierRow,
-                    {}
-                )
-                NavigationButton(
-                    imageVector = Icons.Default.Image,
-                    name = R.string.contract_work,
-                    modifier = modifierRow,
-                    {}
-                )
-            }
-            Row(
-                horizontalArrangement = Arrangement.SpaceAround,
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                NavigationButton(
-                    imageVector = Icons.Default.Image,
-                    name = R.string.claimants,
-                    modifier = modifierRow,
-                    {}
-                )
-                NavigationButton(
-                    imageVector = Icons.Default.Image,
-                    name = R.string.search_auto_real_time,
-                    modifier = modifierRow,
-                    {}
-                )
-                NavigationButton(
-                    imageVector = Icons.Default.Image,
-                    name = R.string.arrested_cars,
-                    modifier = modifierRow,
-                    {}
-                )
-            }
-            Row(
-                horizontalArrangement = Arrangement.SpaceAround,
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                NavigationButton(
-                    imageVector = Icons.Default.Image,
-                    name = R.string.arrested_property,
-                    modifier = modifierRow,
-                    {}
-                )
-                NavigationButton(
-                    imageVector = Icons.Default.Image,
-                    name = R.string.claimants_on_ROSP,
-                    modifier = modifierRow,
-                    {}
-                )
-                Spacer(modifier = modifierRow)
             }
         }
-
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp),
-            horizontalArrangement = Arrangement.SpaceAround
-        ) {
-            val widthPieChart = 150.dp
-            if (pieChartDataModel != null) {
-                Column {
-                    PieChart(
-                        modifier = Modifier
-                            .size(widthPieChart),
-                        pieChartData = pieChartDataModel!!.pieChartData,
-                        sliceDrawer = SimpleSliceDrawer(sliceThickness = pieChartDataModel!!.sliceThickness),
-                    )
-                    Row(
-                        horizontalArrangement = Arrangement.SpaceAround,
-                        modifier = Modifier.width(widthPieChart)
-                    ) {
-                        Column (horizontalAlignment = Alignment.CenterHorizontally){
-                            TextRow(
-                                name = R.string.count,
-                                info?.count?.toDouble()?.toInt().toString()
-                            )
-                        }
-                        Column (horizontalAlignment = Alignment.CenterHorizontally) {
-                            TextRow(name = R.string.balance_owed, info?.balanceOwed ?: "")
-                        }
-                    }
-
-                }
-                info?.let {
-                    Column(
-                        verticalArrangement = Arrangement.spacedBy(4.dp),
-                        horizontalAlignment = Alignment.End
-                    ) {
-                        TextRow(name = R.string.total_debt, it.totalDebt)
-                        TextRow(name = R.string.amount_of_duty, it.amountOfDuty)
-                        TextRow(name = R.string.amount_of_legal_services, it.amountOfLegalServices)
-                        TextRow(name = R.string.amount_penalty, it.amountPenalty)
+        if (pieChartDataModel != null) {
+            Column {
+                PieChart(
+                    modifier = Modifier
+                        .size(widthPieChart),
+                    pieChartData = pieChartDataModel!!.pieChartData,
+                    sliceDrawer = SimpleSliceDrawer(sliceThickness = pieChartDataModel!!.sliceThickness),
+                )
+                Row(
+                    horizontalArrangement = Arrangement.SpaceAround,
+                    modifier = Modifier.width(widthPieChart)
+                ) {
+                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
                         TextRow(
-                            name = R.string.amount_of_communal_services,
-                            it.amountOfCommunalServices
+                            name = R.string.count,
+                            info?.count?.toDouble()?.toInt().toString()
                         )
                     }
+                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        TextRow(name = R.string.balance_owed, info?.balanceOwed ?: "")
+                    }
                 }
             }
         }
+    }
+}
+
+@Composable
+fun StoriesRow() {
+    val screenWidth = LocalConfiguration.current.screenWidthDp
+    val storisWidth = Modifier.size((screenWidth / 3.5).dp)
+    LazyRow() {
+        items(1) {
+            NavigationButton(
+                imageVector = Icons.Default.Image,
+                name = R.string.ip_register,
+                modifier = storisWidth,
+                {}
+            )
+            NavigationButton(
+                imageVector = Icons.Default.Image,
+                name = R.string.auto,
+                modifier = storisWidth,
+                {}
+            )
+            NavigationButton(
+                imageVector = Icons.Default.Image,
+                name = R.string.contract_work,
+                modifier = storisWidth,
+                {}
+            )
+            NavigationButton(
+                imageVector = Icons.Default.Image,
+                name = R.string.claimants,
+                modifier = storisWidth,
+                {}
+            )
+            NavigationButton(
+                imageVector = Icons.Default.Image,
+                name = R.string.search_auto_real_time,
+                modifier = storisWidth,
+                {}
+            )
+            NavigationButton(
+                imageVector = Icons.Default.Image,
+                name = R.string.arrested_cars,
+                modifier = storisWidth,
+                {}
+            )
+            NavigationButton(
+                imageVector = Icons.Default.Image,
+                name = R.string.arrested_property,
+                modifier = storisWidth,
+                {}
+            )
+            NavigationButton(
+                imageVector = Icons.Default.Image,
+                name = R.string.claimants_on_ROSP,
+                modifier = storisWidth,
+                {}
+            )
+        }
+    }
+}
+
+@Composable
+fun AvatarRow() {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = 32.dp, start = 16.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Box(contentAlignment = Alignment.Center) {
+            Surface(
+                modifier = Modifier
+                    .size(32.dp)
+                    .background(DebitTheme.colors.promoPrice)
+                    .border(
+                        width = 16.dp,
+                        color = DebitTheme.colors.promoPrice,
+                        shape = RoundedCornerShape(16.dp)
+                    )
+            ) {
+
+            }
+            Text(text = "A", style = typography.titleMedium16)
+        }
+        Spacer(modifier = Modifier.size(4.dp))
+        Text(text = "Arests", style = typography.titleMedium16)
     }
 }
 

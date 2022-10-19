@@ -12,11 +12,11 @@ import com.example.debit72.android.presenter.PropertyScreen
 @Composable
 fun Navigation(navController: NavHostController) {
     NavHost(navController, startDestination = NavigationItem.Main.route) {
-        composable(NavigationItem.Service.route) {
-            PropertyScreen()
-        }
         composable(NavigationItem.Main.route) {
             HomeScreen(navController)
+        }
+        composable(NavigationItem.Service.route) {
+            PropertyScreen()
         }
         composable(NavigationItem.Profile.route) {
             ProfileScreen()
