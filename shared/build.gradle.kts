@@ -17,6 +17,8 @@ kotlin {
         }
     }
 
+    val dataStoreVersion = "1.1.0-dev01"
+
     sourceSets {
         val ktorVersion = "2.1.2"
         val napierVersion = "2.5.0"
@@ -38,9 +40,9 @@ kotlin {
                 implementation("androidx.collection:collection:1.3.0-dev01")
 
                 // Lower-level APIs with support for custom serialization
-                implementation("androidx.datastore:datastore-core-okio:1.1.0-dev01")
+                implementation("androidx.datastore:datastore-core-okio:$dataStoreVersion")
                 // Higher-level APIs for storing values of basic types
-                implementation("androidx.datastore:datastore-preferences-core:1.1.0-dev01")
+                implementation("androidx.datastore:datastore-preferences-core:$dataStoreVersion")
             }
         }
 
