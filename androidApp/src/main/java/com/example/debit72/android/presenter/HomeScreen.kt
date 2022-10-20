@@ -102,7 +102,7 @@ fun AutoNumber() {
             Box(contentAlignment = Alignment.Center) {
                 Surface(
                     modifier = Modifier
-                        .size(50.dp, 50.dp)
+                        .size(70.dp, 50.dp)
                         .border(
                             width = 4.dp,
                             color = DebitTheme.colors.black54,
@@ -111,7 +111,7 @@ fun AutoNumber() {
                 ) {
                 }
                 Text(
-                    text = "72", style = typography.autoNumberStyle.copy(
+                    text = "172", style = typography.autoNumberStyle.copy(
                         color = DebitTheme.colors.black54
                     )
                 )
