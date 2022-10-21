@@ -290,10 +290,10 @@ fun AvatarRow() {
             Surface(
                 modifier = Modifier
                     .size(32.dp)
-                    .background(DebitTheme.colors.promoPrice)
+                    .background(DebitTheme.colors.error)
                     .border(
                         width = 16.dp,
-                        color = DebitTheme.colors.promoPrice,
+                        color = DebitTheme.colors.error,
                         shape = RoundedCornerShape(16.dp)
                     )
             ) {

@@ -1,12 +1,10 @@
 package com.example.debit72.android.presenter.theme
 
-import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
-import com.example.debit72.android.presenter.theme.DebitTheme.colors
 
 @Immutable
 data class DebitTypography(
@@ -20,8 +18,8 @@ data class DebitTypography(
 
 )
 
-val LocalConsultantTypography = staticCompositionLocalOf<DebitTypography> {
-    error("No colors provided")
+val LocalDebitTypography = staticCompositionLocalOf<DebitTypography> {
+    typography
 }
 
 val typography: DebitTypography = DebitTypography(

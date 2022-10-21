@@ -1,65 +1,46 @@
 package com.example.debit72.android.presenter.theme
 
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.remember
 
 
 @Composable
 fun DebitTheme(
-    darkTheme: Boolean = true,
-    content: @Composable () -> Unit
+    spaces: DebitSpacing = DebitTheme.spacing,
+    typography: DebitTypography = DebitTheme.typography,
+    colors: DebitColors = DebitTheme.colors,
+    elevation: DebitElevation = DebitTheme.elevation,
+    shape: DebitShape = DebitTheme.shape,
+    darkTheme: Boolean = isSystemInDarkTheme(),
+    content: @Composable () -> Unit,
 ) {
-    val colors = when (darkTheme) {
-        true -> {
-            baseLightPalette
-        }
-        else -> {
-            baseDarkPalette
-        }
-    }
-    val typography = typography.copy(
-        bodyNormal14 = typography.bodyNormal14.copy(
-            color = colors.gray400
-        ),
-        bodyLarge16 = typography.bodyLarge16.copy(
-            color = colors.gray400
-        ),
-        titleMedium16 = typography.titleMedium16.copy(
-            color = colors.gray400
-        ),
-        bodySmall12 = typography.bodySmall12.copy(
-            color = colors.gray400
-        ),
-        bodySmall12bigText = typography.bodySmall12bigText.copy(
-            color = colors.gray400
-        ),
-    )
-
+    val rememberedColors = remember { colors.copy() }.apply { updateColorsFrom(colors) }
     CompositionLocalProvider(
-        LocalConsultantColors provides colors,
-        LocalConsultantTypography provides typography,
-        LocalConsultantElevation provides elevation,
-        LocalConsultantSpacing provides spacing,
-        LocalConsultantShape provides shape,
+        LocalDebitColors provides rememberedColors,
+        LocalDebitTypography provides typography,
+        LocalDebitElevation provides elevation,
+        LocalDebitSpacing provides spacing,
+        LocalDebitShape provides shape,
         content = content
     )
-
 }
 
 object DebitTheme {
     val colors: DebitColors
         @Composable
-        get() = LocalConsultantColors.current
+        get() = LocalDebitColors.current
     val typography: DebitTypography
         @Composable
-        get() = LocalConsultantTypography.current
+        get() = LocalDebitTypography.current
     val elevation: DebitElevation
         @Composable
-        get() = LocalConsultantElevation.current
+        get() = LocalDebitElevation.current
     val spacing: DebitSpacing
         @Composable
-        get() = LocalConsultantSpacing.current
+        get() = LocalDebitSpacing.current
     val shape: DebitShape
         @Composable
-        get() = LocalConsultantShape.current
+        get() = LocalDebitShape.current
 }

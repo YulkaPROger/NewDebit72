@@ -37,7 +37,8 @@ class MainActivity : AppCompatActivity() {
 fun MainScreen() {
     val navController = rememberNavController()
     Scaffold(
-        bottomBar = { BottomNavigationBar(navController) }
+        bottomBar = { BottomNavigationBar(navController) },
+        backgroundColor = DebitTheme.colors.background
     ) {
         it.calculateBottomPadding()
         Navigation(navController)

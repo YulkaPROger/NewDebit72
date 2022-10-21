@@ -34,7 +34,7 @@ fun NavigationButton(
             .padding(6.dp)
             .border(
                 width = 3.dp,
-                color = colors.promoPrice,
+                color = colors.error,
                 shape = RoundedCornerShape(8.dp)
             )
     ) {
