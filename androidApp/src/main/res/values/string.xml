@@ -28,4 +28,16 @@
 
 
     <string name="claimants_on_rosp">Взыскатели\nпо РОСП</string>
+
+
+    <string name="settings">Настройки</string>
+    
+    <string name="general_settings">Общие настройки</string>
+    <string name="them_settings">Тема приложения</string>
+    <string name="language">Язык русский / английский</string>
+    
+    <string name="application_login">Вход в приложение</string>
+    <string name="api_key">API key</string>
+    <string name="stars">***************</string>
+
 </resources>
