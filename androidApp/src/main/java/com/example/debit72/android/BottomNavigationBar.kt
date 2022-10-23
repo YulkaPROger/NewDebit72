@@ -19,6 +19,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
+import com.example.debit72.android.presenter.theme.DebitTheme
 
 
 @Composable
@@ -29,8 +30,8 @@ fun BottomNavigationBar(navController: NavController) {
         NavigationItem.Profile
     )
     BottomNavigation(
-        backgroundColor = colorResource(id = R.color.colorPrimary),
-        contentColor = Color.White,
+        backgroundColor = DebitTheme.colors.surface,
+        contentColor = DebitTheme.colors.surface,
         modifier = Modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(15.dp, 15.dp, 0.dp, 0.dp))

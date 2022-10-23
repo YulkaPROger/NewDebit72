@@ -4,7 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.debit72.android.presenter.HomeScreen
+import com.example.debit72.android.presenter.home.HomeScreen
 import com.example.debit72.android.presenter.ProfileScreen
 import com.example.debit72.android.presenter.PropertyScreen
 

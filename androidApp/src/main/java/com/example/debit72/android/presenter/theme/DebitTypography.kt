@@ -8,12 +8,12 @@ import androidx.compose.ui.unit.sp
 
 @Immutable
 data class DebitTypography(
-    val titleMedium16: TextStyle,
+    val titleMedium20: TextStyle,
     val bodyLarge16: TextStyle,
-    val bodyNormal14: TextStyle,
-    val bodySmall12bigText: TextStyle,
-    val bodySmall12: TextStyle,
-    val bodyVerySmall10: TextStyle,
+    val bodyNormal18: TextStyle,
+    val body14: TextStyle,
+    val body12: TextStyle,
+    val body10: TextStyle,
     val autoNumberStyle: TextStyle
 
 )
@@ -23,11 +23,15 @@ val LocalDebitTypography = staticCompositionLocalOf<DebitTypography> {
 }
 
 val typography: DebitTypography = DebitTypography(
-    titleMedium16 = TextStyle(
-        fontSize = 16.sp,
-        letterSpacing = 0.1.sp,
-        fontWeight = FontWeight.Medium,
+    titleMedium20 = TextStyle(
+        fontSize = 20.sp,
+        fontWeight = FontWeight.Bold,
         fontFamily = DebitFont,
+    ),
+    bodyNormal18 = TextStyle(
+        fontSize = 18.sp,
+        fontWeight = FontWeight.Normal,
+        fontFamily = DebitFont
     ),
     bodyLarge16 = TextStyle(
         fontSize = 16.sp,
@@ -35,23 +39,16 @@ val typography: DebitTypography = DebitTypography(
         fontWeight = FontWeight.Normal,
         fontFamily = DebitFont
     ),
-    bodyNormal14 = TextStyle(
+    body14 = TextStyle(
         fontSize = 14.sp,
-        letterSpacing = 0.25.sp,
         fontWeight = FontWeight.Normal,
         fontFamily = DebitFont
     ),
-    bodySmall12bigText = TextStyle(
+    body12 = TextStyle(
         fontSize = 12.sp,
-        fontWeight = FontWeight.Normal,
-        fontFamily = DebitFont
+        fontWeight = FontWeight.Bold
     ),
-    bodySmall12 = TextStyle(
-        fontSize = 12.sp,
-        letterSpacing = 0.15.sp,
-        fontWeight = FontWeight.Normal
-    ),
-    bodyVerySmall10 = TextStyle(
+    body10 = TextStyle(
         fontSize = 10.sp,
         letterSpacing = 0.1.sp,
         fontWeight = FontWeight.Normal

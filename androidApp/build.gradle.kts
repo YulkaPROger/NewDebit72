@@ -58,4 +58,10 @@ dependencies {
     // Coil
     implementation("io.coil-kt:coil-compose:2.2.1")
 
+    //Accompanist
+    val accompanist_version = "0.23.1"
+    implementation ("com.google.accompanist:accompanist-pager:$accompanist_version")
+    implementation("com.google.accompanist:accompanist-pager-indicators:$accompanist_version")
+    implementation ("com.google.accompanist:accompanist-placeholder-material:$accompanist_version")
+
 }
