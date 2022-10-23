@@ -133,12 +133,12 @@ fun ColumnData() {
                 }
             }
         }
-        RowWithOnceData(width, R.string.balance_owed, info?.balanceOwed)
         RowWithOnceData(width, R.string.total_debt, info?.totalDebt)
+        RowWithOnceData(width, R.string.balance_owed, info?.balanceOwed)
+        RowWithOnceData(width, R.string.amount_of_communal_services, info?.amountOfCommunalServices)
+        RowWithOnceData(width, R.string.amount_penalty, info?.amountPenalty)
         RowWithOnceData(width, R.string.amount_of_duty, info?.amountOfDuty)
         RowWithOnceData(width, R.string.amount_of_legal_services, info?.amountOfLegalServices)
-        RowWithOnceData(width, R.string.amount_penalty, info?.amountPenalty)
-        RowWithOnceData(width, R.string.amount_of_communal_services, info?.amountOfCommunalServices)
     }
 }
 

@@ -1,4 +1,4 @@
-package com.example.debit72.android.presenter
+package com.example.debit72.android.presenter.service
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
@@ -22,7 +22,7 @@ import com.example.debit72.android.R
 import com.example.debit72.android.presenter.theme.DebitTheme
 
 @Composable
-fun PropertyScreen() {
+fun ServiceScreen() {
     val width = LocalConfiguration.current.screenWidthDp
     val widthLongButton = (width * 0.6).dp
     val widthShortButton = (width * 0.3).dp
@@ -134,7 +134,7 @@ fun AutoButton(widthLongButton: Dp, widthShortButton: Dp, heightBanner: Dp) {
                 .clip(RoundedCornerShape(8.dp))
         ) {
             Image(
-                painter = painterResource(id = R.drawable.auto_button),
+                painter = painterResource(id = R.drawable.search_auto_rt),
                 contentDescription = "count icon",
                 modifier = Modifier
                     .width(widthLongButton)
@@ -156,7 +156,7 @@ fun AutoButton(widthLongButton: Dp, widthShortButton: Dp, heightBanner: Dp) {
                 .clip(RoundedCornerShape(8.dp))
         ) {
             Image(
-                painter = painterResource(id = R.drawable.search_auto),
+                painter = painterResource(id = R.drawable.auto_button),
                 contentDescription = "count icon",
                 modifier = Modifier
                     .width(widthShortButton)
@@ -183,7 +183,28 @@ fun AutoHouseAndIPButton(widthLongButton: Dp, widthShortButton: Dp, heightBanner
             .padding(vertical = 8.dp),
         horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-
+        Box(
+            modifier = Modifier
+                .width(widthShortButton)
+                .clip(RoundedCornerShape(8.dp))
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.ip),
+                contentDescription = "count icon",
+                modifier = Modifier
+                    .width(widthShortButton)
+                    .height(heightBanner)
+                    .align(Alignment.BottomEnd),
+                contentScale = ContentScale.Crop
+            )
+            Text(
+                text = stringResource(id = R.string.ip_register),
+                style = DebitTheme.typography.body12.copy(
+                    color = DebitTheme.colors.text
+                ),
+                modifier = Modifier.padding(8.dp)
+            )
+        }
         Box(
             modifier = Modifier
                 .width(widthShortButton)
@@ -222,28 +243,6 @@ fun AutoHouseAndIPButton(widthLongButton: Dp, widthShortButton: Dp, heightBanner
             )
             Text(
                 text = stringResource(id = R.string.arrested_property),
-                style = DebitTheme.typography.body12.copy(
-                    color = DebitTheme.colors.text
-                ),
-                modifier = Modifier.padding(8.dp)
-            )
-        }
-        Box(
-            modifier = Modifier
-                .width(widthShortButton)
-                .clip(RoundedCornerShape(8.dp))
-        ) {
-            Image(
-                painter = painterResource(id = R.drawable.ip),
-                contentDescription = "count icon",
-                modifier = Modifier
-                    .width(widthShortButton)
-                    .height(heightBanner)
-                    .align(Alignment.BottomEnd),
-                contentScale = ContentScale.Crop
-            )
-            Text(
-                text = stringResource(id = R.string.ip_register),
                 style = DebitTheme.typography.body12.copy(
                     color = DebitTheme.colors.text
                 ),

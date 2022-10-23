@@ -6,7 +6,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.debit72.android.presenter.home.HomeScreen
 import com.example.debit72.android.presenter.ProfileScreen
-import com.example.debit72.android.presenter.PropertyScreen
+import com.example.debit72.android.presenter.service.ServiceScreen
 
 
 @Composable
@@ -16,7 +16,7 @@ fun Navigation(navController: NavHostController) {
             HomeScreen(navController)
         }
         composable(NavigationItem.Service.route) {
-            PropertyScreen()
+            ServiceScreen()
         }
         composable(NavigationItem.Profile.route) {
             ProfileScreen()
