@@ -15,8 +15,8 @@ data class DebitShape(
     val bottomSheetShape: CornerBasedShape,
     )
 
-val LocalConsultantShape = staticCompositionLocalOf<DebitShape> {
-    error("No colors provided")
+val LocalDebitShape = staticCompositionLocalOf<DebitShape> {
+    shape
 }
 
 val shape = DebitShape(

@@ -1,21 +1,24 @@
 package com.example.debit72.android.presenter.theme
 
-import androidx.compose.runtime.Immutable
-import androidx.compose.runtime.staticCompositionLocalOf
+import androidx.compose.runtime.*
 import androidx.compose.ui.graphics.Color
 
 @Immutable
-data class DebitColors(
-    val yellowPrimary: Color,
-    val greenPrimary: Color,
-    val linkColor: Color,
-    val promoPrice: Color,
-    val certificate: Color,
-    val promo: Color,
-    val delivery: Color,
-    val tinting: Color,
-    val cut: Color,
-    val orderInfo: Color,
+class DebitColors(
+    text: Color,
+    background: Color,
+    success: Color,
+    error: Color,
+    isLight: Boolean,
+    val primary: Color = Color(0xFFE91E63),
+    val primaryVariant: Color = Color(0xFFC21858),
+    val secondary: Color = Color(0xFF9C27B0),
+    val secondaryVariant: Color = Color(0xFF5728B0),
+    val onSurface: Color = Color(0xFF272AB0),
+    val surface: Color = Color(0xFF276880),
+    val onPrimary: Color = Color(0xFF57DCBE),
+    val onSecondary: Color = Color(0xFF60C689),
+    val onError: Color = Color.Red,
     val black: Color = Color.Black,
     val black87: Color = Color.Black.copy(alpha = 0.87f),
     val black60: Color = Color.Black.copy(alpha = 0.6f),
@@ -32,42 +35,68 @@ data class DebitColors(
     val gray100: Color = Color(0xFFF5F5F5),
     val gray50: Color = Color(0xFFFAFAFA),
     val darkGreen: Color = Color(0xFF1E4420),
-    val white: Color = Color.White,
-    val colorControlActivated: Color = yellowPrimary,
-    val error: Color
+    val white: Color = Color.White
+) {
+
+    var text by mutableStateOf(text)
+        private set
+
+    var success by mutableStateOf(success)
+        private set
+
+    var error by mutableStateOf(error)
+        private set
+
+    var background by mutableStateOf(background)
+        private set
+
+    var isLight by mutableStateOf(isLight)
+        private set
+
+
+    fun copy(
+        primary: Color = this.primary,
+        text: Color = this.text,
+        background: Color = this.background,
+        success: Color = this.success,
+        error: Color = this.error,
+        isLight: Boolean = this.isLight,
+    ) = DebitColors(
+        primary = primary,
+        text = text,
+        background = background,
+        success = success,
+        error = error,
+        isLight = isLight,
     )
 
-
-val LocalConsultantColors = staticCompositionLocalOf<DebitColors> {
-    error("No colors provided")
+    fun updateColorsFrom(other: DebitColors) {
+        text = other.text
+        success = other.success
+        background = other.background
+        error = other.error
+        isLight = other.isLight
+    }
 }
 
 
+val LocalDebitColors = staticCompositionLocalOf<DebitColors> {
+    baseDarkPalette
+}
+
 val baseLightPalette = DebitColors(
-    yellowPrimary = Color(0xFFFFCF4C),
-    greenPrimary = Color(0xFF3DA442),
-    linkColor = Color(0xFF2196F3),
-    promoPrice = Color(0xFFFF5252),
-    certificate = Color(0xFF779441),
-    promo = Color(0xFFF5B42C),
-    delivery = Color(0xFF39667B),
-    tinting = Color(0xFF465DA1),
-    cut = Color(0xFF969755),
-    orderInfo = Color(0xFFD7BD72),
-    error = Color(0xFFFF5252)
+    text = Color.Black,
+    background = Color.White,
+    success = Color.Green,
+    error = Color.Red,
+    isLight = true
 )
 
 
 val baseDarkPalette = DebitColors(
-    yellowPrimary = Color(0xFFFFCF4C),
-    greenPrimary = Color(0xFF3DA442),
-    linkColor = Color(0xFF2196F3),
-    promoPrice = Color(0xFFFF5252),
-    certificate = Color(0xFF779441),
-    promo = Color(0xFFF5B42C),
-    delivery = Color(0xFF39667B),
-    tinting = Color(0xFF465DA1),
-    cut = Color(0xFF969755),
-    orderInfo = Color(0xFFD7BD72),
-    error = Color(0xFFFF5252)
+    text = Color.White,
+    background = Color.Black,
+    success = Color.Green,
+    error = Color.Red,
+    isLight = false
 )

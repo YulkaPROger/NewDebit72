@@ -12,8 +12,8 @@ data class DebitSpacing(
     val spacing16: Dp,
 )
 
-val LocalConsultantSpacing = staticCompositionLocalOf<DebitSpacing> {
-    error("No spacing provided")
+val LocalDebitSpacing = staticCompositionLocalOf<DebitSpacing> {
+    spacing
 }
 
 val spacing = DebitSpacing(

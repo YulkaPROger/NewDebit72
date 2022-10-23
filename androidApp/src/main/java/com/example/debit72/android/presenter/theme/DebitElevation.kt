@@ -16,8 +16,8 @@ data class DebitElevation(
     val elevation16: Dp,
 )
 
-val LocalConsultantElevation = staticCompositionLocalOf<DebitElevation> {
-    error("No colors provided")
+val LocalDebitElevation = staticCompositionLocalOf<DebitElevation> {
+    elevation
 }
 
 val elevation = DebitElevation(
