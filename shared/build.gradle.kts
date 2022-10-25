@@ -1,7 +1,9 @@
 plugins {
     kotlin("multiplatform")
-    kotlin("plugin.serialization") version "1.6.20"
+    kotlin("plugin.serialization") version "1.7.20"
     id("com.android.library")
+    id("com.squareup.sqldelight")
+
 }
 
 kotlin {
@@ -18,10 +20,11 @@ kotlin {
     }
 
     val dataStoreVersion = "1.1.0-dev01"
+    val sqlDelightVersion = "1.5.3"
+    val napierVersion = "2.5.0"
+    val ktorVersion = "2.1.2"
 
     sourceSets {
-        val ktorVersion = "2.1.2"
-        val napierVersion = "2.5.0"
 
         val commonMain by getting {
             dependencies {
@@ -41,6 +44,8 @@ kotlin {
                 implementation("androidx.datastore:datastore-core-okio:$dataStoreVersion")
                 // Higher-level APIs for storing values of basic types
                 implementation("androidx.datastore:datastore-preferences-core:$dataStoreVersion")
+
+                implementation("com.squareup.sqldelight:runtime:$sqlDelightVersion")
             }
         }
 
@@ -52,6 +57,8 @@ kotlin {
         val androidMain by getting {
             dependencies {
                 implementation("io.ktor:ktor-client-okhttp:$ktorVersion")
+                implementation("com.squareup.sqldelight:android-driver:$sqlDelightVersion")
+
             }
         }
         val androidTest by getting
@@ -65,6 +72,8 @@ kotlin {
             iosSimulatorArm64Main.dependsOn(this)
             dependencies {
                 implementation("io.ktor:ktor-client-darwin:$ktorVersion")
+                implementation("com.squareup.sqldelight:native-driver:$sqlDelightVersion")
+
             }
         }
         val iosX64Test by getting
@@ -87,4 +96,11 @@ android {
         targetSdk = 32
     }
     namespace = "com.example.debit72"
+}
+
+sqldelight {
+    database("AppDatabase") {
+        packageName = "com.example.debit72.kmm.shared.cache"
+        sourceFolders = listOf("sqldelight")
+    }
 }
