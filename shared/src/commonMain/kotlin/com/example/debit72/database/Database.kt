@@ -1,8 +1,6 @@
 package com.example.debit72.database
 
-import com.example.debit72.entity.RocketLaunch
-import com.example.debit72.entity.Rocket
-import com.example.debit72.entity.Links
+import com.example.debit72.entity.IP
 import com.example.debit72.kmm.shared.cache.AppDatabase
 
 internal class Database(databaseDriverFactory: DatabaseDriverFactory) {
@@ -11,78 +9,67 @@ internal class Database(databaseDriverFactory: DatabaseDriverFactory) {
 
     internal fun clearDatabase() {
         dbQuery.transaction {
-            dbQuery.removeAllRockets()
-            dbQuery.removeAllLaunches()
+            dbQuery.removeAllLIP()
         }
     }
-    internal fun getAllLaunches(): List<RocketLaunch> {
-        return dbQuery.selectAllLaunchesInfo(::mapLaunchSelecting).executeAsList()
+
+    internal fun getAllIp(): List<IP> {
+        return dbQuery.selectAllIp(::mapLaunchSelecting).executeAsList()
     }
 
     private fun mapLaunchSelecting(
-        flightNumber: Long,
-        missionName: String,
-        launchYear: Int,
-        rocketId: String,
-        details: String?,
-        launchSuccess: Boolean?,
-        launchDateUTC: String,
-        missionPatchUrl: String?,
-        articleUrl: String?,
-        rocket_id: String?,
-        name: String?,
-        type: String?
-    ): RocketLaunch {
-        return RocketLaunch(
-            flightNumber = flightNumber.toInt(),
-            missionName = missionName,
-            launchYear = launchYear,
-            details = details,
-            launchDateUTC = launchDateUTC,
-            launchSuccess = launchSuccess,
-            rocket = Rocket(
-                id = rocketId,
-                name = name!!,
-                type = type!!
-            ),
-            links = Links(
-                missionPatchUrl = missionPatchUrl,
-                articleUrl = articleUrl
-            )
+        idNumber: String,
+        caseNumber: String,
+        debtor: String,
+        claimant: String,
+        address: String,
+        rosp: String,
+        spi: String,
+        number: Int,
+        regNumberIP: String,
+        totalAmountDebt: String,
+        balanceOwed: String,
+    ): IP {
+        return IP(
+            idNumber = idNumber,
+            caseNumber = caseNumber,
+            debtor = debtor,
+            claimant = claimant,
+            address = address,
+            rosp = rosp,
+            spi = spi,
+            number = number,
+            regNumberIP = regNumberIP,
+            totalAmountDebt = totalAmountDebt,
+            balanceOwed = balanceOwed,
         )
     }
-    internal fun createLaunches(launches: List<RocketLaunch>) {
+
+    internal fun createLaunches(launches: List<IP>) {
         dbQuery.transaction {
             launches.forEach { launch ->
-                val rocket = dbQuery.selectRocketById(launch.rocket.id).executeAsOneOrNull()
+                val rocket = dbQuery.selectIpFromNumber(launch.number).executeAsOneOrNull()
                 if (rocket == null) {
-                    insertRocket(launch)
+                    insertLaunch(launch)
                 }
 
-                insertLaunch(launch)
             }
         }
     }
 
-    private fun insertRocket(launch: RocketLaunch) {
-        dbQuery.insertRocket(
-            id = launch.rocket.id,
-            name = launch.rocket.name,
-            type = launch.rocket.type
-        )
-    }
-
-    private fun insertLaunch(launch: RocketLaunch) {
-        dbQuery.insertLaunch(
-            flightNumber = launch.flightNumber.toLong(),
-            missionName = launch.missionName,
-            launchYear = launch.launchYear,
-            rocketId = launch.rocket.id,
-            details = launch.details,
-            launchSuccess = launch.launchSuccess ?: false,
-            launchDateUTC = launch.launchDateUTC,
-            missionPatchUrl = launch.links.missionPatchUrl,
-            articleUrl = launch.links.articleUrl
+    private fun insertLaunch(launch: IP) {
+        dbQuery.insertIP(
+            idNumber = launch.idNumber,
+            caseNumber = launch.caseNumber,
+            debtor = launch.debtor,
+            claimant = launch.claimant,
+            address = launch.address,
+            rosp = launch.rosp,
+            spi = launch.spi,
+            number = launch.number,
+            regNumberIP = launch.regNumberIP,
+            totalAmountDebt = launch.totalAmountDebt,
+            balanceOwed = launch.balanceOwed,
         )
     }
 }
