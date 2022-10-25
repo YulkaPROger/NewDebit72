@@ -40,16 +40,6 @@ fun HomeScreen(navController: NavHostController) {
             .fillMaxSize(),
         verticalArrangement = Arrangement.SpaceBetween
     ) {
-        list?.let {
-            for (i in it) {
-                Log.d("database", i.toString())
-
-                Text(
-                    text = i.regNumberIP,
-                    style = DebitTheme.typography.body14.copy(color = DebitTheme.colors.text)
-                )
-            }
-        }
         LazyColumn(
             modifier = Modifier.fillMaxSize(),
             verticalArrangement = Arrangement.SpaceBetween,
