@@ -17,6 +17,15 @@ internal class Database(databaseDriverFactory: DatabaseDriverFactory) {
         return dbQuery.selectAllIp(::mapLaunchSelecting).executeAsList()
     }
 
+    internal fun selectIpFromString(query: String): List<IP> {
+        return dbQuery.selectIpFromString(
+            address = query,
+            claimant = query,
+            idNumber = query,
+            mapper = ::mapLaunchSelecting
+        ).executeAsList()
+    }
+
     private fun mapLaunchSelecting(
         idNumber: String,
         caseNumber: String,

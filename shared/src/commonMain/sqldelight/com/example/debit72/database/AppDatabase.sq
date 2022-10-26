@@ -29,3 +29,7 @@ WHERE number = ?;
 selectIpFromAddress:
 SELECT * FROM Ip
 WHERE address = ?;
+
+selectIpFromString:
+SELECT * FROM Ip
+WHERE address = ? OR idNumber = ? OR claimant = ?;
