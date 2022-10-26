@@ -10,5 +10,6 @@ import androidx.compose.ui.graphics.vector.ImageVector
 sealed class NavigationItem(var route: String, var icon: ImageVector, @StringRes var title: Int) {
     object Main : NavigationItem("main", Icons.Rounded.Home, R.string.main)
     object Service : NavigationItem("service", Icons.Rounded.Mode, R.string.service)
-    object Profile : NavigationItem("other", Icons.Rounded.DesignServices, R.string.other)
+    object More : NavigationItem("other", Icons.Rounded.DesignServices, R.string.other)
+
 }
