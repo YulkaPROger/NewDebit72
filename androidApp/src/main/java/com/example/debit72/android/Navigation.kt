@@ -5,9 +5,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.debit72.android.presenter.home.HomeScreen
-import com.example.debit72.android.presenter.ProfileScreen
 import com.example.debit72.android.presenter.registry_ip.RegistryIP
-import com.example.debit72.android.presenter.home.more.MoreScreen
+import com.example.debit72.android.presenter.more.MoreScreen
 import com.example.debit72.android.presenter.service.ServiceScreen
 
 
@@ -20,11 +19,11 @@ fun Navigation(navController: NavHostController) {
         composable(NavigationItem.Service.route) {
             ServiceScreen(navController)
         }
-        composable("Registry IP") {
-            RegistryIP(navController)
-        }
         composable(NavigationItem.More.route) {
             MoreScreen(navController)
+        }
+        composable("Registry IP") {
+            RegistryIP(navController)
         }
 //        composable("createObject") { CreateObjectScreen(navController) }
 //        composable(
