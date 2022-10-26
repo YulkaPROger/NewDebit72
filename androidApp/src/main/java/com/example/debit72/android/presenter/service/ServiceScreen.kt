@@ -18,11 +18,12 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import com.example.debit72.android.R
 import com.example.debit72.android.presenter.theme.DebitTheme
 
 @Composable
-fun ServiceScreen() {
+fun ServiceScreen(navController: NavHostController) {
     val width = LocalConfiguration.current.screenWidthDp
     val widthLongButton = (width * 0.6).dp
     val widthShortButton = (width * 0.3).dp
