@@ -4,39 +4,43 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class RocketLaunch(
-    @SerialName("flight_number")
-    val flightNumber: Int,
-    @SerialName("mission_name")
-    val missionName: String,
-    @SerialName("launch_year")
-    val launchYear: Int,
-    @SerialName("launch_date_utc")
-    val launchDateUTC: String,
-    @SerialName("rocket")
-    val rocket: Rocket,
-    @SerialName("details")
-    val details: String?,
-    @SerialName("launch_success")
-    val launchSuccess: Boolean?,
-    @SerialName("links")
-    val links: Links
+data class ListIP(
+    val listIP: List<IP>
 )
 
 @Serializable
-data class Rocket(
-    @SerialName("rocket_id")
-    val id: String,
-    @SerialName("rocket_name")
-    val name: String,
-    @SerialName("rocket_type")
-    val type: String
+data class IP(
+    @SerialName("НомерИД")
+    val idNumber: String,
+
+    @SerialName("НомерДела")
+    val caseNumber: String,
+
+    @SerialName("Должник")
+    val debtor: String,
+
+    @SerialName("Взыскатель")
+    val claimant: String,
+
+    @SerialName("Адресс")
+    val address: String,
+
+    @SerialName("росп")
+    val rosp: String,
+
+    @SerialName("СПИ")
+    val spi: String,
+
+    @SerialName("Номер")
+    val number: Int,
+
+    @SerialName("РегНомерИП")
+    val regNumberIP: String,
+
+    @SerialName("ОбщаяСуммаДолга")
+    val totalAmountDebt: String,
+
+    @SerialName("ОстатокДолга")
+    val balanceOwed: String,
 )
 
-@Serializable
-data class Links(
-    @SerialName("mission_patch")
-    val missionPatchUrl: String?,
-    @SerialName("article_link")
-    val articleUrl: String?
-)

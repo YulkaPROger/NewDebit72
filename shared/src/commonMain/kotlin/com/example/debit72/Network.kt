@@ -2,6 +2,7 @@ package com.example.debit72
 
 import io.github.aakira.napier.Napier
 import io.ktor.client.HttpClient
+import io.ktor.client.plugins.*
 import io.ktor.client.plugins.auth.*
 import io.ktor.client.plugins.auth.providers.*
 import io.ktor.client.plugins.contentnegotiation.*
@@ -17,6 +18,7 @@ object Network {
 
     const val BASE_URL = "http://109.194.162.125/debit72/hs/debit72/"
     const val INFO = "PreviewInfoV2"
+    const val ALL_IP = "ipv2"
 
     const val KEY_API = "V784hfdsjUUreregTgv\$fgjhgkQhkNonStopfdgfJJonAV039MAS0714"
     const val FIO = "Колосов Виктор Константинович"
@@ -45,6 +47,12 @@ object Network {
                         ignoreUnknownKeys = true
                     })
                 }
+                install(HttpTimeout) {
+                    requestTimeoutMillis = 500000
+                    socketTimeoutMillis =  500000
+                    connectTimeoutMillis = 500000
+                }
+
             }.also {
                 initLogger()
             }

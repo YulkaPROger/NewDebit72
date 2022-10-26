@@ -1,40 +1,35 @@
-CREATE TABLE Launch (
-    flightNumber    INTEGER NOT NULL,
-    missionName     TEXT    NOT NULL,
-    launchYear      INTEGER AS Int NOT NULL DEFAULT 0,
-    rocketId        TEXT    NOT NULL,
-    details         TEXT,
-    launchSuccess   INTEGER AS Boolean DEFAULT NULL,
-    launchDateUTC   TEXT    NOT NULL,
-    missionPatchUrl TEXT,
-    articleUrl      TEXT
+CREATE TABLE Ip (
+    idNumber  TEXT NOT NULL,
+    caseNumber TEXT NOT NULL,
+    debtor TEXT NOT NULL,
+    claimant TEXT NOT NULL,
+    address TEXT NOT NULL,
+    rosp TEXT NOT NULL,
+    spi TEXT NOT NULL,
+    number INTEGER AS Int NOT NULL,
+    regNumberIP TEXT NOT NULL,
+    totalAmountDebt TEXT NOT NULL,
+    balanceOwed TEXT NOT NULL
 );
 
-CREATE TABLE Rocket (
-    id   TEXT NOT NULL PRIMARY KEY,
-    name TEXT NOT NULL,
-    type TEXT NOT NULL
-);
+insertIP:
+INSERT INTO Ip(idNumber, caseNumber, debtor, claimant, address, rosp, spi, number, regNumberIP, totalAmountDebt, balanceOwed)
+VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
 
-insertLaunch:
-INSERT INTO Launch(flightNumber, missionName, launchYear, rocketId, details, launchSuccess, launchDateUTC, missionPatchUrl, articleUrl)
-VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?);
+removeAllLIP:
+DELETE FROM Ip;
 
-insertRocket:
-INSERT INTO Rocket(id, name, type)
-VALUES(?, ?, ?);
+selectAllIp:
+SELECT * FROM Ip;
 
-removeAllLaunches:
-DELETE FROM Launch;
+selectIpFromNumber:
+SELECT * FROM Ip
+WHERE number = ?;
 
-removeAllRockets:
-DELETE FROM Rocket;
+selectIpFromAddress:
+SELECT * FROM Ip
+WHERE address = ?;
 
-selectRocketById:
-SELECT * FROM Rocket
-WHERE id = ?;
-
-selectAllLaunchesInfo:
-SELECT Launch.*, Rocket.*
-FROM Launch
-LEFT JOIN Rocket ON Rocket.id == Launch.rocketId;
+selectIpFromString:
+SELECT * FROM Ip
+WHERE address = ? OR idNumber = ? OR claimant = ?;
