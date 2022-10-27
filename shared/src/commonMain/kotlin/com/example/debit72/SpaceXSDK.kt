@@ -21,4 +21,20 @@ class SpaceXSDK(databaseDriverFactory: DatabaseDriverFactory) {
             }
         }
     }
+
+    @Throws(Exception::class)
+    suspend fun updateIP(forceReload: Boolean) {
+        if (forceReload) {
+            repo.getAllIp().also {
+                database.clearDatabase()
+                database.createLaunches(it)
+            }
+        }
+    }
+
+
+    @Throws(Exception::class)
+    fun selectIpFromString(query: String): List<IP> {
+        return database.selectIpFromString(query)
+    }
 }

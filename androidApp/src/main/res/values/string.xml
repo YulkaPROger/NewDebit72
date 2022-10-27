@@ -40,4 +40,10 @@
     <string name="api_key">API key</string>
     <string name="stars">***************</string>
 
+    <string name="search">Поиск</string>
+    <string name="id">ИД: %s</string>
+    <string name="ip">ИП: %s</string>
+    <string name="balance_owed_with_params">Долг: %s руб.</string>
+    <string name="total_amount_debt_with_params">Остаток: %s руб.</string>
+
 </resources>

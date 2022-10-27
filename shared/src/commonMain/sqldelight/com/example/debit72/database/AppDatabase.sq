@@ -26,10 +26,16 @@ selectIpFromNumber:
 SELECT * FROM Ip
 WHERE number = ?;
 
-selectIpFromAddress:
-SELECT * FROM Ip
-WHERE address = ?;
-
 selectIpFromString:
 SELECT * FROM Ip
-WHERE address = ? OR idNumber = ? OR claimant = ?;
+WHERE idNumber LIKE '%' || :idNumber || '%'
+OR caseNumber LIKE '%' || :caseNumber || '%'
+OR debtor LIKE '%' || :debtor || '%'
+OR claimant LIKE '%' || :claimant || '%'
+OR address LIKE '%' || :address || '%'
+OR rosp LIKE '%' || :rosp || '%'
+OR spi LIKE '%' || :spi || '%'
+OR regNumberIP LIKE '%' || :regNumberIP || '%'
+OR totalAmountDebt LIKE '%' || :totalAmountDebt || '%'
+OR balanceOwed LIKE '%' || :balanceOwed || '%'
+LIMIT 20;
