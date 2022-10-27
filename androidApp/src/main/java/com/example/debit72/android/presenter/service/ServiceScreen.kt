@@ -1,6 +1,7 @@
 package com.example.debit72.android.presenter.service
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -56,16 +57,21 @@ fun ServiceScreen(navController: NavHostController) {
             }
         }
         item {
-            ClaimantsButton(widthLongButton, widthShortButton, heightBanner)
-            AutoHouseAndIPButton(widthLongButton, widthShortButton, heightBanner)
-            SprAndSirWork(widthLongButton, widthShortButton, heightBanner)
-            AutoButton(widthLongButton, widthShortButton, heightBanner)
+            ClaimantsButton(widthLongButton, widthShortButton, heightBanner, navController)
+            AutoHouseAndIPButton(widthLongButton, widthShortButton, heightBanner, navController)
+            SprAndSirWork(widthLongButton, widthShortButton, heightBanner, navController)
+            AutoButton(widthLongButton, widthShortButton, heightBanner, navController)
         }
     }
 }
 
 @Composable
-fun SprAndSirWork(widthLongButton: Dp, widthShortButton: Dp, heightBanner: Dp) {
+fun SprAndSirWork(
+    widthLongButton: Dp,
+    widthShortButton: Dp,
+    heightBanner: Dp,
+    navController: NavHostController
+) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -121,7 +127,12 @@ fun SprAndSirWork(widthLongButton: Dp, widthShortButton: Dp, heightBanner: Dp) {
 }
 
 @Composable
-fun AutoButton(widthLongButton: Dp, widthShortButton: Dp, heightBanner: Dp) {
+fun AutoButton(
+    widthLongButton: Dp,
+    widthShortButton: Dp,
+    heightBanner: Dp,
+    navController: NavHostController
+) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -177,7 +188,12 @@ fun AutoButton(widthLongButton: Dp, widthShortButton: Dp, heightBanner: Dp) {
 }
 
 @Composable
-fun AutoHouseAndIPButton(widthLongButton: Dp, widthShortButton: Dp, heightBanner: Dp) {
+fun AutoHouseAndIPButton(
+    widthLongButton: Dp,
+    widthShortButton: Dp,
+    heightBanner: Dp,
+    navController: NavHostController
+) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -188,6 +204,9 @@ fun AutoHouseAndIPButton(widthLongButton: Dp, widthShortButton: Dp, heightBanner
             modifier = Modifier
                 .width(widthShortButton)
                 .clip(RoundedCornerShape(8.dp))
+                .clickable {
+                    navController.navigate("Registry IP")
+                }
         ) {
             Image(
                 painter = painterResource(id = R.drawable.ip),
@@ -254,7 +273,12 @@ fun AutoHouseAndIPButton(widthLongButton: Dp, widthShortButton: Dp, heightBanner
 }
 
 @Composable
-fun ClaimantsButton(widthLongButton: Dp, widthShortButton: Dp, heightBanner: Dp) {
+fun ClaimantsButton(
+    widthLongButton: Dp,
+    widthShortButton: Dp,
+    heightBanner: Dp,
+    navController: NavHostController
+) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
