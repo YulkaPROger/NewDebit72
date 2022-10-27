@@ -34,4 +34,16 @@ class InfoRepository {
         return response.body()
     }
 
+    suspend fun getIp(numberIP: String): List<IP> {
+        val response: HttpResponse = Network.getHttpClient().get(
+            Network.BASE_URL + Network.ALL_IP
+        ) {
+            method = HttpMethod.Get
+            url {
+                parameters.append("APIkey", Network.KEY_API)
+            }
+        }
+        return response.body()
+    }
+
 }

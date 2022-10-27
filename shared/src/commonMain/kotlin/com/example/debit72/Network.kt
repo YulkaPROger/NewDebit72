@@ -19,6 +19,7 @@ object Network {
     const val BASE_URL = "http://109.194.162.125/debit72/hs/debit72/"
     const val INFO = "PreviewInfoV2"
     const val ALL_IP = "ipv2"
+    const val LINK_IP = "linkIpv2"
 
     const val KEY_API = "V784hfdsjUUreregTgv\$fgjhgkQhkNonStopfdgfJJonAV039MAS0714"
     const val FIO = "Колосов Виктор Константинович"
