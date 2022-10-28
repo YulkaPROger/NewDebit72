@@ -15,7 +15,6 @@ import com.example.debit72.android.presenter.home.widgets.StoriesRow
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun HomeScreen(navController: NavHostController) {
-
     Column(
         modifier = Modifier
             .fillMaxSize(),

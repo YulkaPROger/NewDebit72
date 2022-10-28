@@ -28,14 +28,12 @@
 
 
     <string name="claimants_on_rosp">Взыскатели\nпо РОСП</string>
-
-
     <string name="settings">Настройки</string>
-    
+
     <string name="general_settings">Общие настройки</string>
     <string name="them_settings">Тема приложения</string>
     <string name="language">Язык русский / английский</string>
-    
+
     <string name="application_login">Вход в приложение</string>
     <string name="api_key">API key</string>
     <string name="stars">***************</string>
@@ -45,5 +43,20 @@
     <string name="ip">ИП: %s</string>
     <string name="balance_owed_with_params">Долг: %s руб.</string>
     <string name="total_amount_debt_with_params">Остаток: %s руб.</string>
+
+    <string name="numberExcel">Номер дела: %s</string>
+    <string name="fond">Фонд: \n%s</string>
+    <string name="balance_owed_with_param">Остаток долга: %s</string>
+    <string name="total_debt_with_param">Общая сумма долга: %s</string>
+    <string name="balance_owed_fssp_with_param">Остаток долга ФССП: %s</string>
+    <string name="cancelled">Аннулировано</string>
+
+    <string name="ls">Лицевой счет: %s</string>
+    <string name="bank">Банк: %1$s \nДата подачи: %2$s \nДата отзыва: %3$s\nСтатус: %4$s</string>
+    <string name="bank_status"></string>
+    <string name="period">Период с: %s\nПериод до: %s</string>
+    <string name="date_of_explication">Дата подачи: %s\nДата возбуждения: %s, Дата завершения ИП: %s</string>
+    <string name="penalties_for_ID">Взыскания по ИД:\nСумма ЖКУ: %s\nСумма пошлины:%s</string>
+    <string name="penalties_for_ID_part_2">Взыскания по ИД:\nСумма пени: %s\nСумма юр.услуг:%s</string>
 
 </resources>

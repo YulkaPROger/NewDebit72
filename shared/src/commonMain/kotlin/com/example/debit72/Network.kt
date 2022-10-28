@@ -1,15 +1,23 @@
 package com.example.debit72
 
 import io.github.aakira.napier.Napier
-import io.ktor.client.HttpClient
+import io.ktor.client.*
+import io.ktor.client.engine.cio.*
 import io.ktor.client.plugins.*
 import io.ktor.client.plugins.auth.*
 import io.ktor.client.plugins.auth.providers.*
 import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.client.plugins.logging.*
+import io.ktor.http.*
+import io.ktor.serialization.kotlinx.*
 import io.ktor.serialization.kotlinx.json.*
+import io.ktor.utils.io.*
+import kotlinx.serialization.ExperimentalSerializationApi
+import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonConfiguration
 import kotlin.native.concurrent.ThreadLocal
+
 
 @ThreadLocal
 object Network {
@@ -25,16 +33,10 @@ object Network {
     const val FIO = "Колосов Виктор Константинович"
     const val BIRTHDAY = "14.04.1955 00:00:00"
 
+    @OptIn(ExperimentalSerializationApi::class)
     fun getHttpClient(): HttpClient {
         if (httpClient == null) {
-            httpClient = HttpClient() {
-                install(Auth) {
-                    basic {
-                        credentials {
-                            BasicAuthCredentials("administrator", "Fiona2005") //впиши свое //
-                        }
-                    }
-                }
+            httpClient = HttpClient(CIO) {
                 install(Logging) {
                     level = LogLevel.HEADERS
                     logger = object : Logger {
@@ -46,11 +48,12 @@ object Network {
                 install(ContentNegotiation) {
                     json(Json {
                         ignoreUnknownKeys = true
+                        encodeDefaults = true
                     })
                 }
                 install(HttpTimeout) {
                     requestTimeoutMillis = 500000
-                    socketTimeoutMillis =  500000
+                    socketTimeoutMillis = 500000
                     connectTimeoutMillis = 500000
                 }
 

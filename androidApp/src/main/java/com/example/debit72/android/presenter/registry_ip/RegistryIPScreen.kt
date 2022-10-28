@@ -1,5 +1,6 @@
 package com.example.debit72.android.presenter.registry_ip
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -82,7 +83,7 @@ fun RegistryIP(navController: NavHostController) {
         ) {
             list?.forEach {
                 item {
-                    CardIP(ip = it)
+                    CardIP(ip = it, navController)
                 }
             }
         }
@@ -90,13 +91,15 @@ fun RegistryIP(navController: NavHostController) {
 }
 
 @Composable
-fun CardIP(ip: IP) {
+fun CardIP(ip: IP, navController: NavHostController) {
     val modifier = Modifier.fillMaxWidth()
     Surface(
         modifier = modifier
             .clip(
                 RoundedCornerShape(8.dp)
-            ),
+            ).clickable {
+                navController.navigate("fullIP/${ip.number}")
+            },
         color = colors.gray900
     ) {
         Column(modifier = modifier.padding(8.dp)) {

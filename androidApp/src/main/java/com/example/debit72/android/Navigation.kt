@@ -7,6 +7,7 @@ import androidx.navigation.compose.composable
 import com.example.debit72.android.presenter.home.HomeScreen
 import com.example.debit72.android.presenter.registry_ip.RegistryIP
 import com.example.debit72.android.presenter.more.MoreScreen
+import com.example.debit72.android.presenter.registry_ip.FullIPScreen
 import com.example.debit72.android.presenter.service.ServiceScreen
 
 
@@ -25,12 +26,12 @@ fun Navigation(navController: NavHostController) {
         composable("Registry IP") {
             RegistryIP(navController)
         }
+        composable(
+            "fullIP/{number}"
+        ) { backStackEntry ->
+            FullIPScreen(navController, backStackEntry.arguments?.getString("number"))
+        }
 //        composable("createObject") { CreateObjectScreen(navController) }
-//        composable(
-//            "detailObject/{idObject}"
-//        ) { backStackEntry ->
-//            DetailObjectScreen(navController, backStackEntry.arguments?.getString("idObject"))
-//        }
 //        composable("choiceService") {
 //            ChoiceService(navController)
 //        }
