@@ -1,19 +1,13 @@
 package com.example.debit72.android.presenter.registry_ip.widgets
 
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import com.example.debit72.android.R
 import model.FullIP
 
 @Composable
 fun StoriesRowFullIP(ip: FullIP?) {
-    val screenWidth = LocalConfiguration.current.screenWidthDp
-    val storisWidth = Modifier.size((screenWidth / 3.5).dp)
     LazyRow() {
         items(1) {
             NavigationButtonFullIP(

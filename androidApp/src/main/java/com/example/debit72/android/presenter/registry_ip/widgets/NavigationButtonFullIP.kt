@@ -30,7 +30,7 @@ fun NavigationButtonFullIP(
     val width = LocalConfiguration.current.screenWidthDp
     Box(
         modifier = Modifier
-            .size((width / 3).dp)
+            .size((width / 2.5).dp, (width / 2.8).dp)
             .padding(8.dp)
             .border(
                 width = 2.dp,
@@ -48,7 +48,7 @@ fun NavigationButtonFullIP(
             painter = painterResource(id = painterResource),
             contentDescription = "",
             modifier = Modifier
-                .size((width / 3).dp)
+                .size((width / 2.5).dp, (width / 2.8).dp)
                 .clip(
                     RoundedCornerShape(16.dp)
                 ),
@@ -57,7 +57,7 @@ fun NavigationButtonFullIP(
         Text(
             text = name,
             modifier = Modifier
-                .padding(bottom = 6.dp, end = 6.dp)
+                .padding(bottom = 8.dp, end = 8.dp)
                 .align(Alignment.BottomEnd)
                 .shimmering(),
             style = DebitTheme.typography.body12,

@@ -7,8 +7,7 @@ import androidx.compose.material.Icon
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.Close
-import androidx.compose.material.icons.rounded.HMobiledata
+import androidx.compose.material.icons.rounded.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -66,9 +65,269 @@ fun FullIPScreen(navController: NavHostController, number: String?) {
             item {
                 StoriesRowFullIP(ip = ip)
             }
+            item {
+                RegInformation(ip = ip)
+            }
+            item {
+                IdInformation(ip = ip)
+            }
+            item {
+                DebtorInformation(ip = ip)
+            }
         }
     }
 
+}
+
+@Composable
+fun DebtorInformation(ip: FullIP?) {
+    val aggregate1 = "рандом 1"
+    val aggregate2 = "лорем ипсум"
+    val aggregate3 = "чушь"
+    val aggregate4 = "какое-то длинное предложение"
+    val aggregate5 = "заполнитель всея руси"
+    Surface(
+        color = colors.gray900,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 8.dp)
+            .clip(RoundedCornerShape(8.dp)),
+    ) {
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Column(
+                verticalArrangement = Arrangement.Center,
+                modifier = Modifier
+                    .weight(1f),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Icon(
+                    imageVector = Icons.Rounded.Person, contentDescription = "",
+                    tint = colors.onSurface,
+                )
+                Icon(
+                    imageVector = if (ip?.died == true) Icons.Rounded.SettingsAccessibility else Icons.Rounded.Check,
+                    contentDescription = "",
+                    tint = if (ip?.died == true) colors.error else colors.onSurface,
+                )
+            }
+            Column(
+                modifier = Modifier
+                    .weight(7f)
+                    .padding(vertical = 8.dp)
+            ) {
+                Text(
+                    text = stringResource(
+                        id = R.string.debtor,
+                        ip?.debtor ?: aggregate1,
+                        ip?.dateID ?: aggregate2
+                    ),
+                    style = typography.body14.copy(
+                        color = colors.text
+                    ),
+                    modifier = Modifier.shimmering()
+                )
+                Text(
+                    text = stringResource(
+                        id = R.string.dr,
+                        ip?.debtorBirthday ?: aggregate3
+                    ),
+                    style = typography.body14.copy(
+                        color = colors.text
+                    ),
+                    modifier = Modifier.shimmering()
+                )
+                Text(
+                    text = stringResource(
+                        id = R.string.mr,
+                        ip?.placeOfBirth ?: aggregate3
+                    ),
+                    style = typography.body14.copy(
+                        color = colors.text
+                    ),
+                    modifier = Modifier.shimmering()
+                )
+                Text(
+                    text = stringResource(
+                        id = R.string.debtor_address,
+                        ip?.debtorAddress ?: aggregate3
+                    ),
+                    style = typography.body14.copy(
+                        color = colors.text
+                    ),
+                    modifier = Modifier.shimmering()
+                )
+                Text(
+                    text = stringResource(
+                        id = R.string.debtor_fact_address,
+                        ip?.debtorAddressFact ?: aggregate3
+                    ),
+                    style = typography.body14.copy(
+                        color = colors.text
+                    ),
+                    modifier = Modifier.shimmering()
+                )
+            }
+            Column(
+                verticalArrangement = Arrangement.Center,
+                modifier = Modifier
+                    .weight(1f),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text(
+                    text = stringResource(id = R.string.pensioner),
+                    style = typography.body14.copy(
+                        color = colors.text
+                    ),
+                )
+                Icon(
+                    imageVector = if (ip?.pensioner == true) Icons.Rounded.CheckCircle else Icons.Rounded.Close,
+                    contentDescription = "",
+                    tint = if (ip?.pensioner == true) colors.onSurface else colors.error,
+                )
+            }
+        }
+    }
+}
+
+@Composable
+fun IdInformation(ip: FullIP?) {
+    val aggregate1 = "рандом 1"
+    val aggregate2 = "лорем ипсум"
+    val aggregate3 = "чушь"
+    val aggregate4 = "какое-то длинное предложение"
+    val aggregate5 = "заполнитель всея руси"
+    Surface(
+        color = colors.gray900,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 8.dp)
+            .clip(RoundedCornerShape(8.dp)),
+    ) {
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Column(
+                verticalArrangement = Arrangement.Center,
+                modifier = Modifier
+                    .weight(1f),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Icon(
+                    imageVector = Icons.Rounded.Info, contentDescription = "",
+                    tint = colors.onSurface,
+                )
+            }
+            Column(
+                modifier = Modifier
+                    .weight(7f)
+                    .padding(vertical = 8.dp)
+            ) {
+                Text(
+                    text = stringResource(
+                        id = R.string.id_number_and_date,
+                        ip?.numberID ?: aggregate1,
+                        ip?.dateID ?: aggregate2
+                    ),
+                    style = typography.body14.copy(
+                        color = colors.text
+                    ),
+                    modifier = Modifier.shimmering()
+                )
+                Text(
+                    text = stringResource(
+                        id = R.string.type_id,
+                        ip?.typeID ?: aggregate3
+                    ),
+                    style = typography.body14.copy(
+                        color = colors.text
+                    ),
+                    modifier = Modifier.shimmering()
+                )
+                Text(
+                    text = ip?.court ?: aggregate4,
+                    style = typography.body14.copy(
+                        color = colors.text
+                    ),
+                    modifier = Modifier.shimmering()
+                )
+                Text(
+                    text = ip?.caseNumber ?: aggregate5,
+                    style = typography.body14.copy(
+                        color = colors.text
+                    ),
+                    modifier = Modifier.shimmering()
+                )
+            }
+        }
+    }
+}
+
+@Composable
+fun RegInformation(ip: FullIP?) {
+    val aggregate1 = "рандом 1"
+    val aggregate2 = "лорем ипсум"
+    val aggregate3 = "чушь"
+    val aggregate4 = "какое-то длинное предложение"
+    val aggregate5 = "заполнитель всея руси"
+    Surface(
+        color = colors.gray900,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 8.dp)
+            .clip(RoundedCornerShape(8.dp)),
+    ) {
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Column(
+                verticalArrangement = Arrangement.Center,
+                modifier = Modifier
+                    .weight(1f),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Icon(
+                    imageVector = Icons.Rounded.Info, contentDescription = "",
+                    tint = colors.onSurface,
+                )
+            }
+            Column(
+                modifier = Modifier
+                    .weight(7f)
+                    .padding(vertical = 8.dp)
+            ) {
+                Text(
+                    text = stringResource(
+                        id = R.string.reg_number_ip,
+                        ip?.registryNumberIP ?: aggregate1
+                    ),
+                    style = typography.body14.copy(
+                        color = colors.text
+                    ),
+                    modifier = Modifier.shimmering()
+                )
+                Text(
+                    text = stringResource(
+                        id = R.string.production_status,
+                        ip?.productionStatus ?: aggregate2
+                    ),
+                    style = typography.body14.copy(
+                        color = colors.text
+                    ),
+                    modifier = Modifier.shimmering()
+                )
+                Text(
+                    text = ip?.fssp ?: aggregate3,
+                    style = typography.body14.copy(
+                        color = colors.text
+                    ),
+                    modifier = Modifier.shimmering()
+                )
+                Text(
+                    text = stringResource(id = R.string.spi, ip?.spi ?: aggregate4),
+                    style = typography.body14.copy(
+                        color = colors.text
+                    ),
+                    modifier = Modifier.shimmering()
+                )
+            }
+        }
+    }
 }
 
 @Composable

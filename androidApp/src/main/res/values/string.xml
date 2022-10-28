@@ -52,11 +52,24 @@
     <string name="cancelled">Аннулировано</string>
 
     <string name="ls">Лицевой счет: %s</string>
-    <string name="bank">Банк: %1$s \nДата подачи: %2$s \nДата отзыва: %3$s\nСтатус: %4$s</string>
+    <string name="bank">Банк:\n%s\nДата подачи:\n%s\nДата отзыва:\n%s\nСтатус:\n%s</string>
     <string name="bank_status"></string>
-    <string name="period">Период с: %s\nПериод до: %s</string>
-    <string name="date_of_explication">Дата подачи: %s\nДата возбуждения: %s, Дата завершения ИП: %s</string>
-    <string name="penalties_for_ID">Взыскания по ИД:\nСумма ЖКУ: %s\nСумма пошлины:%s</string>
-    <string name="penalties_for_ID_part_2">Взыскания по ИД:\nСумма пени: %s\nСумма юр.услуг:%s</string>
+    <string name="period">Период с:\n%s\nПериод до:\n%s</string>
+    <string name="date_of_explication">Дата подачи:\n%s\nДата возбуждения:\n%s\nДата завершения ИП:\n%s</string>
+    <string name="penalties_for_ID">Взыскания по ИД:\nСумма ЖКУ:\n%s\nСумма пошлины:\n%s</string>
+    <string name="penalties_for_ID_part_2">Взыскания по ИД:\nСумма пени:\n%s\nСумма юр.услуг:\n%s</string>
 
+    <string name="reg_number_ip">Рег.номер ИП: %s</string>
+    <string name="production_status">Статус производства: %s</string>
+    <string name="spi">СПИ: %s</string>
+
+    <string name="id_number_and_date">ИД: %s от: %s</string>
+    <string name="type_id">Тип ИД: %s</string>
+
+    <string name="debtor">Должник: %s</string>
+    <string name="dr">Д.р.: %s</string>
+    <string name="mr">М.р.: %s</string>
+    <string name="debtor_address">Адресс должника: %s</string>
+    <string name="debtor_fact_address">Факт.адресс должника: %s</string>
+    <string name="pensioner">Пенс:</string>
 </resources>
