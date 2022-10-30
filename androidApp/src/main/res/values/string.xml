@@ -72,4 +72,7 @@
     <string name="debtor_address">Адресс должника: %s</string>
     <string name="debtor_fact_address">Факт.адресс должника: %s</string>
     <string name="pensioner">Пенс:</string>
+    <string name="model">Модель: %s</string>
+    <string name="gosnomer">Гос.номер: %s</string>
+
 </resources>

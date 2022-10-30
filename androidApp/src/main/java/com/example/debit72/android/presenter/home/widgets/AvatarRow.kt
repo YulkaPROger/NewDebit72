@@ -33,7 +33,7 @@ fun AvatarRow() {
                     .size(32.dp)
                     .border(
                         width = 16.dp,
-                        color = DebitTheme.colors.gray700,
+                        color = DebitTheme.colors.cardColor,
                         shape = RoundedCornerShape(16.dp)
                     ),
                 color = Color.Transparent

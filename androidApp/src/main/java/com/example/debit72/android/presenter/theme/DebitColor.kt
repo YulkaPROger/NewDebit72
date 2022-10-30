@@ -7,6 +7,7 @@ import androidx.compose.ui.graphics.Color
 class DebitColors(
     text: Color,
     background: Color,
+    cardColor: Color,
     success: Color,
     error: Color,
     isLight: Boolean,
@@ -53,6 +54,9 @@ class DebitColors(
     var isLight by mutableStateOf(isLight)
         private set
 
+    var cardColor by mutableStateOf(cardColor)
+        private set
+
 
     fun copy(
         primary: Color = this.primary,
@@ -61,6 +65,7 @@ class DebitColors(
         success: Color = this.success,
         error: Color = this.error,
         isLight: Boolean = this.isLight,
+        cardColor: Color = this.cardColor
     ) = DebitColors(
         primary = primary,
         text = text,
@@ -68,6 +73,7 @@ class DebitColors(
         success = success,
         error = error,
         isLight = isLight,
+        cardColor = cardColor
     )
 
     fun updateColorsFrom(other: DebitColors) {
@@ -89,14 +95,16 @@ val baseLightPalette = DebitColors(
     background = Color.White,
     success = Color.Green,
     error = Color.Red,
-    isLight = true
+    isLight = true,
+    cardColor = Color(0xFF9E9E9E)
 )
 
 
 val baseDarkPalette = DebitColors(
-    text = Color.White,
-    background = Color.Black,
+    text = Color(0xFFE0E0E0),
+    background = Color(0xFF212121),
     success = Color.Green,
     error = Color.Red,
-    isLight = false
+    isLight = false,
+    cardColor = Color(0xFF424242)
 )

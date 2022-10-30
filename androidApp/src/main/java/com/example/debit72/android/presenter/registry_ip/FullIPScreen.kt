@@ -1,17 +1,18 @@
 package com.example.debit72.android.presenter.registry_ip
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Icon
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
@@ -53,7 +54,7 @@ fun FullIPScreen(navController: NavHostController, number: String?) {
             item {
                 error?.let {
                     Text(
-                        text = it, style = typography.body14.copy(
+                        text = it, style = typography.body16.copy(
                             color = colors.error
                         )
                     )
@@ -74,9 +75,63 @@ fun FullIPScreen(navController: NavHostController, number: String?) {
             item {
                 DebtorInformation(ip = ip)
             }
+            item {
+                AutoCard(ip = ip)
+            }
         }
     }
 
+}
+
+@OptIn(ExperimentalMaterialApi::class)
+@Composable
+fun AutoCard(ip: FullIP?) {
+    var state by remember {
+        mutableStateOf(CardFace.Front)
+    }
+    LazyRow(modifier = Modifier.fillMaxWidth()) {
+        ip?.auto?.forEach {
+            item {
+                FlipCard(
+                    cardFace = state,
+                    onClick = {
+                        state = it.next
+                    },
+                    axis = RotationAxis.AxisY,
+                    back = {
+                        Text(text = "Front", Modifier
+                            .fillMaxSize()
+                            .background(Color.Red))
+                    },
+                    front = {
+                        Column(modifier = Modifier) {
+                            Text(
+                                text = it.auto,
+                                style = typography.body16.copy(
+                                    color = colors.text
+                                ),
+                                modifier = Modifier.shimmering()
+                            )
+                            Text(
+                                text = stringResource(id = R.string.model, it.modelTS),
+                                style = typography.body16.copy(
+                                    color = colors.text
+                                ),
+                                modifier = Modifier.shimmering()
+                            )
+                            Text(
+                                text = stringResource(id = R.string.gosnomer, it.gosNumber),
+                                style = typography.body16.copy(
+                                    color = colors.text
+                                ),
+                                modifier = Modifier.shimmering()
+                            )
+                        }
+                    }
+                )
+            }
+        }
+    }
 }
 
 @Composable
@@ -87,7 +142,7 @@ fun DebtorInformation(ip: FullIP?) {
     val aggregate4 = "какое-то длинное предложение"
     val aggregate5 = "заполнитель всея руси"
     Surface(
-        color = colors.gray900,
+        color = colors.cardColor,
         modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = 8.dp)
@@ -121,7 +176,7 @@ fun DebtorInformation(ip: FullIP?) {
                         ip?.debtor ?: aggregate1,
                         ip?.dateID ?: aggregate2
                     ),
-                    style = typography.body14.copy(
+                    style = typography.body16.copy(
                         color = colors.text
                     ),
                     modifier = Modifier.shimmering()
@@ -131,7 +186,7 @@ fun DebtorInformation(ip: FullIP?) {
                         id = R.string.dr,
                         ip?.debtorBirthday ?: aggregate3
                     ),
-                    style = typography.body14.copy(
+                    style = typography.body16.copy(
                         color = colors.text
                     ),
                     modifier = Modifier.shimmering()
@@ -141,7 +196,7 @@ fun DebtorInformation(ip: FullIP?) {
                         id = R.string.mr,
                         ip?.placeOfBirth ?: aggregate3
                     ),
-                    style = typography.body14.copy(
+                    style = typography.body16.copy(
                         color = colors.text
                     ),
                     modifier = Modifier.shimmering()
@@ -151,7 +206,7 @@ fun DebtorInformation(ip: FullIP?) {
                         id = R.string.debtor_address,
                         ip?.debtorAddress ?: aggregate3
                     ),
-                    style = typography.body14.copy(
+                    style = typography.body16.copy(
                         color = colors.text
                     ),
                     modifier = Modifier.shimmering()
@@ -161,7 +216,7 @@ fun DebtorInformation(ip: FullIP?) {
                         id = R.string.debtor_fact_address,
                         ip?.debtorAddressFact ?: aggregate3
                     ),
-                    style = typography.body14.copy(
+                    style = typography.body16.copy(
                         color = colors.text
                     ),
                     modifier = Modifier.shimmering()
@@ -175,7 +230,7 @@ fun DebtorInformation(ip: FullIP?) {
             ) {
                 Text(
                     text = stringResource(id = R.string.pensioner),
-                    style = typography.body14.copy(
+                    style = typography.body16.copy(
                         color = colors.text
                     ),
                 )
@@ -197,7 +252,7 @@ fun IdInformation(ip: FullIP?) {
     val aggregate4 = "какое-то длинное предложение"
     val aggregate5 = "заполнитель всея руси"
     Surface(
-        color = colors.gray900,
+        color = colors.cardColor,
         modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = 8.dp)
@@ -226,7 +281,7 @@ fun IdInformation(ip: FullIP?) {
                         ip?.numberID ?: aggregate1,
                         ip?.dateID ?: aggregate2
                     ),
-                    style = typography.body14.copy(
+                    style = typography.body16.copy(
                         color = colors.text
                     ),
                     modifier = Modifier.shimmering()
@@ -236,21 +291,21 @@ fun IdInformation(ip: FullIP?) {
                         id = R.string.type_id,
                         ip?.typeID ?: aggregate3
                     ),
-                    style = typography.body14.copy(
+                    style = typography.body16.copy(
                         color = colors.text
                     ),
                     modifier = Modifier.shimmering()
                 )
                 Text(
                     text = ip?.court ?: aggregate4,
-                    style = typography.body14.copy(
+                    style = typography.body16.copy(
                         color = colors.text
                     ),
                     modifier = Modifier.shimmering()
                 )
                 Text(
                     text = ip?.caseNumber ?: aggregate5,
-                    style = typography.body14.copy(
+                    style = typography.body16.copy(
                         color = colors.text
                     ),
                     modifier = Modifier.shimmering()
@@ -268,7 +323,7 @@ fun RegInformation(ip: FullIP?) {
     val aggregate4 = "какое-то длинное предложение"
     val aggregate5 = "заполнитель всея руси"
     Surface(
-        color = colors.gray900,
+        color = colors.cardColor,
         modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = 8.dp)
@@ -296,7 +351,7 @@ fun RegInformation(ip: FullIP?) {
                         id = R.string.reg_number_ip,
                         ip?.registryNumberIP ?: aggregate1
                     ),
-                    style = typography.body14.copy(
+                    style = typography.body16.copy(
                         color = colors.text
                     ),
                     modifier = Modifier.shimmering()
@@ -306,21 +361,21 @@ fun RegInformation(ip: FullIP?) {
                         id = R.string.production_status,
                         ip?.productionStatus ?: aggregate2
                     ),
-                    style = typography.body14.copy(
+                    style = typography.body16.copy(
                         color = colors.text
                     ),
                     modifier = Modifier.shimmering()
                 )
                 Text(
                     text = ip?.fssp ?: aggregate3,
-                    style = typography.body14.copy(
+                    style = typography.body16.copy(
                         color = colors.text
                     ),
                     modifier = Modifier.shimmering()
                 )
                 Text(
                     text = stringResource(id = R.string.spi, ip?.spi ?: aggregate4),
-                    style = typography.body14.copy(
+                    style = typography.body16.copy(
                         color = colors.text
                     ),
                     modifier = Modifier.shimmering()
@@ -352,7 +407,7 @@ fun HeaderIP(ip: FullIP?) {
             )
             Text(
                 text = stringResource(id = R.string.numberExcel, ip?.numberExcel ?: aggregate1),
-                style = typography.body14.copy(
+                style = typography.body16.copy(
                     color = colors.text
                 ),
                 modifier = Modifier.shimmering()
@@ -369,7 +424,7 @@ fun HeaderIP(ip: FullIP?) {
                 text = stringResource(
                     id = R.string.cancelled,
                 ),
-                style = typography.body14.copy(
+                style = typography.body16.copy(
                     color = colors.text
                 ),
             )
@@ -380,7 +435,7 @@ fun HeaderIP(ip: FullIP?) {
         horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         Surface(
-            color = colors.gray900,
+            color = colors.cardColor,
             modifier = Modifier
                 .weight(2f)
                 .clip(RoundedCornerShape(8.dp)),
@@ -391,7 +446,7 @@ fun HeaderIP(ip: FullIP?) {
                         id = R.string.fond,
                         ip?.address ?: aggregate2
                     ),
-                    style = typography.body14.copy(
+                    style = typography.body16.copy(
                         color = colors.text
                     ),
                     modifier = Modifier.shimmering()
@@ -400,7 +455,7 @@ fun HeaderIP(ip: FullIP?) {
             }
         }
         Surface(
-            color = colors.gray900,
+            color = colors.cardColor,
             modifier = Modifier
                 .weight(3f)
                 .clip(RoundedCornerShape(8.dp))
@@ -411,7 +466,7 @@ fun HeaderIP(ip: FullIP?) {
                         id = R.string.balance_owed_with_param,
                         ip?.balanceOwed ?: aggregate3
                     ),
-                    style = typography.body14.copy(
+                    style = typography.body16.copy(
                         color = colors.text
                     ),
                     modifier = Modifier.shimmering()
@@ -421,7 +476,7 @@ fun HeaderIP(ip: FullIP?) {
                         id = R.string.total_debt_with_param,
                         ip?.totalAmountDebt ?: aggregate4
                     ),
-                    style = typography.body14.copy(
+                    style = typography.body16.copy(
                         color = colors.text
                     ),
                     modifier = Modifier.shimmering()
@@ -431,7 +486,7 @@ fun HeaderIP(ip: FullIP?) {
                         id = R.string.balance_owed_fssp_with_param,
                         ip?.balanceFSSP ?: aggregate5
                     ),
-                    style = typography.body14.copy(
+                    style = typography.body16.copy(
                         color = colors.text
                     ),
                     modifier = Modifier.shimmering()
@@ -441,3 +496,4 @@ fun HeaderIP(ip: FullIP?) {
         }
     }
 }
+

@@ -47,7 +47,7 @@ fun ColumnData() {
                     .size((width / 3).dp)
                     .weight(1F)
                     .clip(RoundedCornerShape(8.dp))
-                    .background(color = DebitTheme.colors.gray900)
+                    .background(color = DebitTheme.colors.cardColor)
             ) {
                 Column() {
                     Text(
@@ -83,7 +83,7 @@ fun ColumnData() {
                     .size((width / 3).dp)
                     .weight(1F)
                     .clip(RoundedCornerShape(8.dp))
-                    .background(color = DebitTheme.colors.gray900)
+                    .background(color = DebitTheme.colors.cardColor)
             ) {
                 Column(
                     modifier = Modifier.fillMaxSize(),
@@ -91,7 +91,7 @@ fun ColumnData() {
                 ) {
                     Text(
                         text = stringResource(id = R.string.balance_to_total),
-                        style = DebitTheme.typography.body14.copy(
+                        style = DebitTheme.typography.body16.copy(
                             color = DebitTheme.colors.text
                         ),
                         modifier = Modifier.padding(vertical = 4.dp, horizontal = 16.dp)
@@ -151,7 +151,7 @@ fun RowWithOnceData(width: Int, name: Int, value: String?) {
                 .padding(horizontal = 16.dp, vertical = 4.dp)
                 .height((width / 4).dp)
                 .clip(RoundedCornerShape(8.dp))
-                .background(color = DebitTheme.colors.gray900),
+                .background(color = DebitTheme.colors.cardColor),
             verticalAlignment = Alignment.CenterVertically
 
         ) {

@@ -39,7 +39,7 @@ fun ApplicationLoginSettings() {
             .fillMaxWidth()
             .padding(16.dp)
             .clip(RoundedCornerShape(8.dp))
-            .background(color = DebitTheme.colors.gray900)
+            .background(color = DebitTheme.colors.cardColor)
     ) {
         Column(
             modifier = Modifier
@@ -79,7 +79,7 @@ fun GeneralSettings() {
             .fillMaxWidth()
             .padding(16.dp)
             .clip(RoundedCornerShape(8.dp))
-            .background(color = DebitTheme.colors.gray900)
+            .background(color = DebitTheme.colors.cardColor)
     ) {
         Column(
             modifier = Modifier
@@ -105,7 +105,7 @@ fun GeneralSettings() {
                     checked = true, onCheckedChange = {}, colors = SwitchDefaults.colors(
                         checkedThumbColor = DebitTheme.colors.primary,
                         checkedTrackColor = DebitTheme.colors.primaryVariant,
-                        uncheckedThumbColor = DebitTheme.colors.gray700,
+                        uncheckedThumbColor = DebitTheme.colors.cardColor,
                         uncheckedTrackColor = DebitTheme.colors.gray200
                     )
                 )
@@ -124,7 +124,7 @@ fun GeneralSettings() {
                     checked = false, onCheckedChange = {}, colors = SwitchDefaults.colors(
                         checkedThumbColor = DebitTheme.colors.primary,
                         checkedTrackColor = DebitTheme.colors.primaryVariant,
-                        uncheckedThumbColor = DebitTheme.colors.gray700,
+                        uncheckedThumbColor = DebitTheme.colors.cardColor,
                         uncheckedTrackColor = DebitTheme.colors.gray200
                     )
                 )

@@ -17,7 +17,7 @@ fun InfoWidget() {
             .padding(16.dp)
             .fillMaxWidth()
             .height(150.dp)
-            .background(DebitTheme.colors.gray900)
+            .background(DebitTheme.colors.cardColor)
             .border(
                 width = 2.dp,
                 color = DebitTheme.colors.surface,
