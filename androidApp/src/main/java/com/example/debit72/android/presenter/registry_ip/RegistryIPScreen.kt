@@ -47,7 +47,6 @@ fun RegistryIP(navController: NavHostController) {
     }
     when (state) {
         is RegistryIPStore.State.Data -> {
-            query = state.query ?: ""
             list = state.ip
         }
         is RegistryIPStore.State.LoadingError -> {
@@ -55,11 +54,19 @@ fun RegistryIP(navController: NavHostController) {
         }
         else -> {}
     }
+    LaunchedEffect(state){
+        when (state) {
+            is RegistryIPStore.State.Data -> {
+                query = state.query ?: ""
+            }
+            else -> {}
+        }
+    }
 
     LaunchedEffect(query) {
         if (query.length > 3) {
             store.dispatch(RegistryIPStore.Action.Search(query))
-        }
+        } else store.dispatch(RegistryIPStore.Action.ClearIP)
     }
 
     Column(modifier = Modifier.fillMaxSize()) {
