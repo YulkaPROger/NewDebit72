@@ -918,10 +918,15 @@ fun QR(vCardText: String) {
         Icon(
             imageVector = Icons.Rounded.Share,
             contentDescription = "Share",
-            modifier = Modifier.clickable {
-                context.let { it1 -> FileUtils.with(it1, TypeFile.PICTURE) }
-                    .share(bitmap, context as Activity)
-            })
+            modifier = Modifier
+                .padding(horizontal = 8.dp)
+                .clickable {
+                    context
+                        .let { it1 -> FileUtils.with(it1, TypeFile.PICTURE) }
+                        .share(bitmap, context as Activity)
+                },
+            tint = colors.onSecondary
+        )
     }
 
 }
