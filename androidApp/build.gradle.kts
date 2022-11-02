@@ -64,4 +64,6 @@ dependencies {
     implementation("com.google.accompanist:accompanist-pager-indicators:$accompanist_version")
     implementation ("com.google.accompanist:accompanist-placeholder-material:$accompanist_version")
 
+    //QR
+    implementation ("com.google.zxing:core:3.5.0")
 }

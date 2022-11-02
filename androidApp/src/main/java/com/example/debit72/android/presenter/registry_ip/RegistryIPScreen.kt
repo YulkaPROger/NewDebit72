@@ -1,5 +1,6 @@
 package com.example.debit72.android.presenter.registry_ip
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -7,10 +8,7 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Clear
 import androidx.compose.material.icons.outlined.Update
-import androidx.compose.material.icons.rounded.ArrowBackIos
-import androidx.compose.material.icons.rounded.Cottage
-import androidx.compose.material.icons.rounded.Policy
-import androidx.compose.material.icons.rounded.SelfImprovement
+import androidx.compose.material.icons.rounded.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -18,13 +16,13 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.example.debit72.SpaceXSDK
 import com.example.debit72.android.R
 import com.example.debit72.android.presenter.theme.DebitTheme.colors
 import com.example.debit72.android.presenter.theme.DebitTheme.typography
 import com.example.debit72.android.widgets.DebitTextFieldDense
-import com.example.debit72.database.DatabaseDriverFactory
 import com.example.debit72.entity.IP
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -33,36 +31,39 @@ import kotlinx.coroutines.withContext
 
 @Composable
 fun RegistryIP(navController: NavHostController) {
+    val store: RegistryIPStore = viewModel(factory = RegistryIPStoreFactory(LocalContext.current))
+    val state = store.observeState().collectAsState().value
     val modifier = Modifier.fillMaxWidth()
     var query by remember {
         mutableStateOf("")
     }
-    val sdk = SpaceXSDK(DatabaseDriverFactory(LocalContext.current))
+
     var list: List<IP>? by remember { mutableStateOf(null) }
     var error: String? by remember {
         mutableStateOf(null)
     }
-    val scope = rememberCoroutineScope()
+    when (state) {
+        is RegistryIPStore.State.Data -> {
+            list = state.ip
+        }
+        is RegistryIPStore.State.LoadingError -> {
+            error = state.error
+        }
+        else -> {}
+    }
+    LaunchedEffect(key1 = Unit){
+        when (state) {
+            is RegistryIPStore.State.Data -> {
+                query = state.query ?: ""
+            }
+            else -> {}
+        }
+    }
 
     LaunchedEffect(query) {
-        withContext(Dispatchers.IO) {
-            if (query.length > 3) {
-                kotlin.runCatching {
-                    sdk.selectIpFromString(query)
-                }.onSuccess {
-                    if (it.isEmpty()) {
-                        error = "Ничего не найдено"
-                        list = null
-                    } else
-                        list = it
-                }.onFailure {
-                    error = it.message
-                }
-            } else {
-                error = null
-                list = null
-            }
-        }
+        if (query.length > 3) {
+            store.dispatch(RegistryIPStore.Action.Search(query))
+        } else store.dispatch(RegistryIPStore.Action.ClearIP)
     }
 
     Column(modifier = Modifier.fillMaxSize()) {
@@ -72,7 +73,7 @@ fun RegistryIP(navController: NavHostController) {
             error = error,
             onChangeText = { query = it }
         ) {
-            reloadBase(scope, sdk, true, { error = it }, { error = "Загрузка завершена" })
+            store.dispatch(RegistryIPStore.Action.UpdateIP)
         }
         LazyColumn(
             verticalArrangement = Arrangement.spacedBy(8.dp),
@@ -82,7 +83,7 @@ fun RegistryIP(navController: NavHostController) {
         ) {
             list?.forEach {
                 item {
-                    CardIP(ip = it)
+                    CardIP(ip = it, navController)
                 }
             }
         }
@@ -90,14 +91,17 @@ fun RegistryIP(navController: NavHostController) {
 }
 
 @Composable
-fun CardIP(ip: IP) {
+fun CardIP(ip: IP, navController: NavHostController) {
     val modifier = Modifier.fillMaxWidth()
     Surface(
         modifier = modifier
             .clip(
                 RoundedCornerShape(8.dp)
-            ),
-        color = colors.gray900
+            )
+            .clickable {
+                navController.navigate("fullIP/${ip.number}")
+            },
+        color = colors.cardColor
     ) {
         Column(modifier = modifier.padding(8.dp)) {
             Row(
@@ -112,7 +116,7 @@ fun CardIP(ip: IP) {
                 )
                 Text(
                     text = ip.debtor,
-                    style = typography.body14.copy(color = colors.text)
+                    style = typography.body16.copy(color = colors.text)
                 )
             }
             Row(
@@ -121,54 +125,54 @@ fun CardIP(ip: IP) {
             ) {
                 Text(
                     text = ip.address,
-                    style = typography.body14.copy(color = colors.text)
+                    style = typography.body16.copy(color = colors.text)
                 )
                 Icon(
                     imageVector = Icons.Rounded.Cottage,
                     contentDescription = "person",
-                    tint = colors.secondaryVariant
+                    tint = colors.onSecondary
                 )
             }
-            Divider(color = colors.secondaryVariant, modifier = Modifier.padding(vertical = 4.dp))
+            Divider(color = colors.onSecondary, modifier = Modifier.padding(vertical = 4.dp))
             Text(
                 text = ip.claimant,
-                style = typography.body14.copy(color = colors.text)
+                style = typography.body16.copy(color = colors.text)
             )
             Text(
                 text = stringResource(id = R.string.id, ip.idNumber),
-                style = typography.body14.copy(color = colors.text)
+                style = typography.body16.copy(color = colors.text)
             )
             Text(
                 text = stringResource(id = R.string.ip, ip.regNumberIP),
-                style = typography.body14.copy(color = colors.text)
+                style = typography.body16.copy(color = colors.text)
             )
             Text(
                 text = ip.rosp,
-                style = typography.body14.copy(color = colors.text)
+                style = typography.body16.copy(color = colors.text)
             )
             if (ip.spi.isNotBlank())
                 Row(modifier = modifier, verticalAlignment = Alignment.CenterVertically) {
                     Icon(
-                        imageVector = Icons.Rounded.Policy,
+                        imageVector = Icons.Rounded.LocalPolice,
                         contentDescription = "spi",
-                        tint = colors.secondaryVariant
+                        tint = colors.onSecondary
                     )
                     Text(
                         text = ip.spi,
-                        style = typography.body14.copy(color = colors.text)
+                        style = typography.body16.copy(color = colors.text)
                     )
                 }
-            Divider(color = colors.secondaryVariant, modifier = Modifier.padding(vertical = 4.dp))
+            Divider(color = colors.onSecondary, modifier = Modifier.padding(vertical = 4.dp))
             Text(
-                text = stringResource(
-                    id = R.string.total_amount_debt_with_params,
-                    ip.totalAmountDebt
-                ),
-                style = typography.body14.copy(color = colors.text)
+                text = stringResource(id = R.string.total_amount_debt_with_params, ip.totalAmountDebt ),
+                style = typography.body16.copy(color = colors.text)
             )
             Text(
-                text = stringResource(id = R.string.balance_owed_with_params, ip.balanceOwed),
-                style = typography.body14.copy(color = colors.text)
+                text = stringResource(
+                    id = R.string.balance_owed_with_params,
+                    ip.balanceOwed
+                ),
+                style = typography.body16.copy(color = colors.text)
             )
         }
     }

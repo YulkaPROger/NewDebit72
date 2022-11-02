@@ -48,10 +48,10 @@ fun DebitTextFieldDense(
 ) {
     val interactionSource = remember { MutableInteractionSource() }
     val colors = TextFieldDefaults.outlinedTextFieldColors(
-        focusedBorderColor = DebitTheme.colors.secondaryVariant,
-        focusedLabelColor = DebitTheme.colors.secondaryVariant,
-        unfocusedBorderColor = DebitTheme.colors.secondaryVariant,
-        placeholderColor = DebitTheme.colors.secondaryVariant,
+        focusedBorderColor = DebitTheme.colors.onSecondary,
+        focusedLabelColor = DebitTheme.colors.onSecondary,
+        unfocusedBorderColor = DebitTheme.colors.onSecondary,
+        placeholderColor = DebitTheme.colors.onSecondary,
         disabledPlaceholderColor = DebitTheme.colors.onSurface,
         disabledTextColor = DebitTheme.colors.onSurface,
         errorBorderColor = DebitTheme.colors.error
@@ -106,7 +106,7 @@ fun DebitTextFieldDense(
                     Text(
                         text = labelText,
                         fontSize = 12.sp,
-                        color = DebitTheme.colors.secondaryVariant,
+                        color = DebitTheme.colors.onSecondary,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis
                     )
@@ -151,10 +151,10 @@ fun DebitTextFieldDense(
 ) {
     val interactionSource = remember { MutableInteractionSource() }
     val colors = TextFieldDefaults.outlinedTextFieldColors(
-        focusedBorderColor = DebitTheme.colors.secondaryVariant,
-        focusedLabelColor = DebitTheme.colors.secondaryVariant,
-        unfocusedBorderColor = DebitTheme.colors.secondaryVariant,
-        placeholderColor = DebitTheme.colors.secondaryVariant,
+        focusedBorderColor = DebitTheme.colors.onSecondary,
+        focusedLabelColor = DebitTheme.colors.onSecondary,
+        unfocusedBorderColor = DebitTheme.colors.onSecondary,
+        placeholderColor = DebitTheme.colors.onSecondary,
         disabledPlaceholderColor = DebitTheme.colors.onSurface,
         disabledTextColor = DebitTheme.colors.onSurface,
         errorBorderColor = DebitTheme.colors.error
@@ -209,7 +209,7 @@ fun DebitTextFieldDense(
                     Text(
                         text = labelText,
                         fontSize = 12.sp,
-                        color = DebitTheme.colors.secondaryVariant,
+                        color = DebitTheme.colors.onSecondary,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis
                     )

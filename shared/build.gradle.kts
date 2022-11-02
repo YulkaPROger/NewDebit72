@@ -25,7 +25,7 @@ kotlin {
     val ktorVersion = "2.1.2"
 
     sourceSets {
-
+        android()
         val commonMain by getting {
             dependencies {
                 // Logging
@@ -35,6 +35,7 @@ kotlin {
                 implementation("io.ktor:ktor-client-core:$ktorVersion")
                 implementation("io.ktor:ktor-client-auth:$ktorVersion")
                 implementation("io.ktor:ktor-client-logging:$ktorVersion")
+                implementation("io.ktor:ktor-client-cio:$ktorVersion")
                 implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
                 implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
 
@@ -46,6 +47,7 @@ kotlin {
                 implementation("androidx.datastore:datastore-preferences-core:$dataStoreVersion")
 
                 implementation("com.squareup.sqldelight:runtime:$sqlDelightVersion")
+
             }
         }
 
@@ -58,7 +60,6 @@ kotlin {
             dependencies {
                 implementation("io.ktor:ktor-client-okhttp:$ktorVersion")
                 implementation("com.squareup.sqldelight:android-driver:$sqlDelightVersion")
-
             }
         }
         val androidTest by getting
