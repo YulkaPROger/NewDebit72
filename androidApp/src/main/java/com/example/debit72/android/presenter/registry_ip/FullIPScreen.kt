@@ -1,5 +1,8 @@
 package com.example.debit72.android.presenter.registry_ip
 
+import android.graphics.Bitmap
+import android.graphics.Color
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -12,10 +15,10 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavHostController
 import com.example.debit72.android.R
 import com.example.debit72.android.presenter.Shimmering
 import com.example.debit72.android.presenter.registry_ip.widgets.StoriesRowFullIP
@@ -23,13 +26,18 @@ import com.example.debit72.android.presenter.shimmering
 import com.example.debit72.android.presenter.theme.DebitTheme.colors
 import com.example.debit72.android.presenter.theme.DebitTheme.typography
 import com.example.debit72.repository.InfoRepository
+import com.google.zxing.BarcodeFormat
+import com.google.zxing.EncodeHintType
+import com.google.zxing.qrcode.QRCodeWriter
+import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import model.FullIP
+import kotlin.math.roundToInt
 
 
 @Composable
-fun FullIPScreen(navController: NavHostController, number: String?) {
+fun FullIPScreen(number: String?) {
     var ip: FullIP? by remember {
         mutableStateOf(null)
     }
@@ -50,7 +58,11 @@ fun FullIPScreen(navController: NavHostController, number: String?) {
         else error = "Не удалось получить номер ИП"
     }
     Shimmering(isVisible = ip == null) {
-        LazyColumn(modifier = Modifier.padding(16.dp)) {
+        LazyColumn(
+            modifier = Modifier.padding(vertical = 16.dp),
+            contentPadding = PaddingValues(bottom = 50.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
             item {
                 error?.let {
                     Text(
@@ -78,18 +90,371 @@ fun FullIPScreen(navController: NavHostController, number: String?) {
             item {
                 AutoCard(ip = ip)
             }
+            item {
+                CardCard(ip = ip)
+            }
+            item {
+                PropertyCard(ip = ip)
+            }
+            item {
+                EmployerCard(ip = ip)
+            }
+            item {
+                PropertyYurCard(ip = ip)
+            }
+            item {
+                ip?.qr?.let { QR(vCardText = it) }
+            }
         }
     }
 
 }
 
+@Composable
+fun PropertyYurCard(ip: FullIP?) {
+    val width = LocalConfiguration.current.screenWidthDp
+    LazyRow(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp),
+        horizontalArrangement = Arrangement.spacedBy(8.dp)
+    ) {
+        ip?.propertyYur?.forEach {
+            item {
+                Row(
+                    modifier = Modifier
+                        .width((width * 0.75).dp)
+                        .clip(RoundedCornerShape(8.dp))
+                        .background(color = colors.cardColor),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Icon(
+                        imageVector = Icons.Rounded.CreditCard,
+                        contentDescription = "",
+                        tint = colors.onSecondary,
+                        modifier = Modifier.weight(1f)
+                    )
+                    Column(
+                        modifier = Modifier.weight(8f)
+                    ) {
+                        Text(
+                            text = stringResource(id = R.string.naming, it.propertyYur),
+                            style = typography.body16.copy(
+                                color = colors.text
+                            ),
+                            modifier = Modifier.shimmering()
+                        )
+                        Text(
+                            text = stringResource(id = R.string.address, it.address),
+                            style = typography.body14.copy(
+                                color = colors.text
+                            ),
+                            modifier = Modifier.shimmering()
+                        )
+                        Text(
+                            text = stringResource(id = R.string.inn, it.inn),
+                            style = typography.body14.copy(
+                                color = colors.text
+                            ),
+                            modifier = Modifier.shimmering()
+                        )
+                        Text(
+                            text = stringResource(id = R.string.ogrn, it.ogrn),
+                            style = typography.body14.copy(
+                                color = colors.text
+                            ),
+                            modifier = Modifier.shimmering()
+                        )
+                        Text(
+                            text = stringResource(id = R.string.size_cost, it.sizeCost),
+                            style = typography.body14.copy(
+                                color = colors.text
+                            ),
+                            modifier = Modifier.shimmering()
+                        )
+                        Text(
+                            text = stringResource(id = R.string.price_cost, it.priceCost),
+                            style = typography.body14.copy(
+                                color = colors.text
+                            ),
+                            modifier = Modifier.shimmering()
+                        )
+                    }
+                }
+            }
+        }
+    }
+}
+
+@OptIn(ExperimentalMaterialApi::class)
+@Composable
+fun EmployerCard(ip: FullIP?) {
+    LazyRow(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp),
+        horizontalArrangement = Arrangement.spacedBy(8.dp)
+    ) {
+        ip?.employer?.forEach {
+            item {
+                var state by remember {
+                    mutableStateOf(CardFace.Front)
+                }
+                FlipCard(
+                    cardFace = state,
+                    onClick = {
+                        state = it.next
+                    },
+                    axis = RotationAxis.AxisY,
+                    back = {
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                        ) {
+                            Column(
+                                modifier = Modifier.weight(8f)
+                            ) {
+                                Text(
+                                    text = stringResource(
+                                        id = R.string.employer_actual_date,
+                                        it.actualDate
+                                    ),
+                                    style = typography.body16.copy(
+                                        color = colors.text
+                                    ),
+                                    modifier = Modifier.shimmering()
+                                )
+                                Text(
+                                    text = stringResource(
+                                        id = R.string.employer_appeal_recovery,
+                                        it.appealRecovery
+                                    ),
+                                    style = typography.body16.copy(
+                                        color = colors.text
+                                    ),
+                                    modifier = Modifier.shimmering()
+                                )
+
+                                Text(
+                                    text = stringResource(
+                                        id = R.string.employer_actual_date,
+                                        it.actualDate
+                                    ),
+                                    style = typography.body16.copy(
+                                        color = colors.text
+                                    ),
+                                    modifier = Modifier.shimmering()
+                                )
+                                Text(
+                                    text = stringResource(
+                                        id = R.string.employer_shpi,
+                                        it.shpi
+                                    ),
+                                    style = typography.body16.copy(
+                                        color = colors.text
+                                    ),
+                                    modifier = Modifier.shimmering()
+                                )
+                            }
+                        }
+                    },
+                    front = {
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                        ) {
+                            Icon(
+                                imageVector = Icons.Rounded.Work, contentDescription = "",
+                                tint = if (it.appealRecovery == "ДА") colors.error else colors.onSecondary,
+                                modifier = Modifier.weight(1f)
+                            )
+                            Column(
+                                modifier = Modifier.weight(8f)
+                            ) {
+                                Text(
+                                    text = stringResource(
+                                        id = R.string.naming,
+                                        it.employer
+                                    ),
+                                    style = typography.body16.copy(
+                                        color = colors.text
+                                    ),
+                                    modifier = Modifier.shimmering()
+                                )
+                                Text(
+                                    text = stringResource(
+                                        id = R.string.address,
+                                        it.employerAddress
+                                    ),
+                                    style = typography.body16.copy(
+                                        color = colors.text
+                                    ),
+                                    modifier = Modifier.shimmering()
+                                )
+                            }
+                        }
+                    }
+                )
+            }
+        }
+    }
+}
+
+@OptIn(ExperimentalMaterialApi::class)
+@Composable
+fun PropertyCard(ip: FullIP?) {
+    LazyRow(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp),
+        horizontalArrangement = Arrangement.spacedBy(8.dp)
+    ) {
+        ip?.property?.forEach {
+            item {
+                var state by remember {
+                    mutableStateOf(CardFace.Front)
+                }
+                FlipCard(
+                    cardFace = state,
+                    onClick = {
+                        state = it.next
+                    },
+                    axis = RotationAxis.AxisY,
+                    back = {
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                        ) {
+                            Column(
+                                modifier = Modifier.weight(8f)
+                            ) {
+                                Text(
+                                    text = stringResource(
+                                        id = R.string.property_arrested,
+                                        if (it.arrested) "ДА" else "НЕТ"
+                                    ),
+                                    style = typography.body16.copy(
+                                        color = colors.text
+                                    ),
+                                    modifier = Modifier.shimmering()
+                                )
+                                Text(
+                                    text = stringResource(
+                                        id = R.string.property_date_arrested,
+                                        it.dateArrested
+                                    ),
+                                    style = typography.body16.copy(
+                                        color = colors.text
+                                    ),
+                                    modifier = Modifier.shimmering()
+                                )
+                                Text(
+                                    text = stringResource(
+                                        id = R.string.property_price,
+                                        it.price
+                                    ),
+                                    style = typography.body16.copy(
+                                        color = colors.text
+                                    ),
+                                    modifier = Modifier.shimmering()
+                                )
+                            }
+                        }
+                    },
+                    front = {
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                        ) {
+                            Icon(
+                                imageVector = Icons.Rounded.House, contentDescription = "",
+                                tint = if (it.arrested) colors.error else colors.onSecondary,
+                                modifier = Modifier.weight(1f)
+                            )
+                            Column(
+                                modifier = Modifier.weight(8f)
+                            ) {
+                                Text(
+                                    text = it.objectProperty,
+                                    style = typography.body16.copy(
+                                        color = colors.text
+                                    ),
+                                    modifier = Modifier.shimmering()
+                                )
+                            }
+                        }
+                    }
+                )
+            }
+        }
+    }
+}
+
+@Composable
+fun CardCard(ip: FullIP?) {
+    val width = LocalConfiguration.current.screenWidthDp
+    LazyRow(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp),
+        horizontalArrangement = Arrangement.spacedBy(8.dp)
+    ) {
+        ip?.rs?.forEach {
+            item {
+                Row(
+                    modifier = Modifier
+                        .width((width * 0.75).dp)
+                        .clip(RoundedCornerShape(8.dp))
+                        .background(color = colors.cardColor),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Icon(
+                        imageVector = Icons.Rounded.CreditCard,
+                        contentDescription = "",
+                        tint = colors.onSecondary,
+                        modifier = Modifier.weight(1f)
+                    )
+                    Column(
+                        modifier = Modifier.weight(8f)
+                    ) {
+                        Text(
+                            text = it.number,
+                            style = typography.body16.copy(
+                                color = colors.text
+                            ),
+                            modifier = Modifier.shimmering()
+                        )
+                        Text(
+                            text = stringResource(id = R.string.type_rs, it.type),
+                            style = typography.body14.copy(
+                                color = colors.text
+                            ),
+                            modifier = Modifier.shimmering()
+                        )
+                        Text(
+                            text = stringResource(id = R.string.bank_with_params, it.bank),
+                            style = typography.body14.copy(
+                                color = colors.text
+                            ),
+                            modifier = Modifier.shimmering()
+                        )
+                    }
+                }
+            }
+        }
+    }
+}
+
+
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun AutoCard(ip: FullIP?) {
+
     var state by remember {
         mutableStateOf(CardFace.Front)
     }
-    LazyRow(modifier = Modifier.fillMaxWidth()) {
+    LazyRow(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp),
+        horizontalArrangement = Arrangement.spacedBy(8.dp)
+    ) {
         ip?.auto?.forEach {
             item {
                 FlipCard(
@@ -99,33 +464,76 @@ fun AutoCard(ip: FullIP?) {
                     },
                     axis = RotationAxis.AxisY,
                     back = {
-                        Text(text = "Front", Modifier
-                            .fillMaxSize()
-                            .background(Color.Red))
+                        Row {
+                            Column {
+                                Text(
+                                    text = stringResource(
+                                        id = R.string.auto_date_arrested,
+                                        it.dateOfArrestedTS
+                                    ),
+                                    style = typography.body14.copy(
+                                        color = colors.text
+                                    ),
+                                    modifier = Modifier.shimmering()
+                                )
+                                Text(
+                                    text = stringResource(id = R.string.price_TS, it.priceTS),
+                                    style = typography.body14.copy(
+                                        color = colors.text
+                                    ),
+                                    modifier = Modifier.shimmering()
+                                )
+                                Text(
+                                    text = stringResource(id = R.string.storage, it.storage),
+                                    style = typography.body14.copy(
+                                        color = colors.text
+                                    ),
+                                    modifier = Modifier.shimmering()
+                                )
+                                Text(
+                                    text = "",
+                                    style = typography.body14.copy(
+                                        color = colors.text
+                                    ),
+                                    modifier = Modifier.shimmering()
+                                )
+                            }
+                        }
                     },
                     front = {
-                        Column(modifier = Modifier) {
-                            Text(
-                                text = it.auto,
-                                style = typography.body16.copy(
-                                    color = colors.text
-                                ),
-                                modifier = Modifier.shimmering()
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                        ) {
+                            Icon(
+                                imageVector = Icons.Rounded.DirectionsCar, contentDescription = "",
+                                tint = colors.onSecondary,
+                                modifier = Modifier.weight(1f)
                             )
-                            Text(
-                                text = stringResource(id = R.string.model, it.modelTS),
-                                style = typography.body16.copy(
-                                    color = colors.text
-                                ),
-                                modifier = Modifier.shimmering()
-                            )
-                            Text(
-                                text = stringResource(id = R.string.gosnomer, it.gosNumber),
-                                style = typography.body16.copy(
-                                    color = colors.text
-                                ),
-                                modifier = Modifier.shimmering()
-                            )
+                            Column(
+                                modifier = Modifier.weight(8f)
+                            ) {
+                                Text(
+                                    text = it.auto,
+                                    style = typography.body16.copy(
+                                        color = colors.text
+                                    ),
+                                    modifier = Modifier.shimmering()
+                                )
+                                Text(
+                                    text = stringResource(id = R.string.model, it.modelTS),
+                                    style = typography.body14.copy(
+                                        color = colors.text
+                                    ),
+                                    modifier = Modifier.shimmering()
+                                )
+                                Text(
+                                    text = stringResource(id = R.string.gosnomer, it.gosNumber),
+                                    style = typography.body14.copy(
+                                        color = colors.text
+                                    ),
+                                    modifier = Modifier.shimmering()
+                                )
+                            }
                         }
                     }
                 )
@@ -139,14 +547,11 @@ fun DebtorInformation(ip: FullIP?) {
     val aggregate1 = "рандом 1"
     val aggregate2 = "лорем ипсум"
     val aggregate3 = "чушь"
-    val aggregate4 = "какое-то длинное предложение"
-    val aggregate5 = "заполнитель всея руси"
     Surface(
-        color = colors.cardColor,
+        color = colors.background,
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 8.dp)
-            .clip(RoundedCornerShape(8.dp)),
+            .padding(horizontal = 16.dp),
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Column(
@@ -157,12 +562,12 @@ fun DebtorInformation(ip: FullIP?) {
             ) {
                 Icon(
                     imageVector = Icons.Rounded.Person, contentDescription = "",
-                    tint = colors.onSurface,
+                    tint = colors.onSecondary,
                 )
                 Icon(
                     imageVector = if (ip?.died == true) Icons.Rounded.SettingsAccessibility else Icons.Rounded.Check,
                     contentDescription = "",
-                    tint = if (ip?.died == true) colors.error else colors.onSurface,
+                    tint = if (ip?.died == true) colors.error else colors.onSecondary,
                 )
             }
             Column(
@@ -237,7 +642,7 @@ fun DebtorInformation(ip: FullIP?) {
                 Icon(
                     imageVector = if (ip?.pensioner == true) Icons.Rounded.CheckCircle else Icons.Rounded.Close,
                     contentDescription = "",
-                    tint = if (ip?.pensioner == true) colors.onSurface else colors.error,
+                    tint = if (ip?.pensioner == true) colors.onSecondary else colors.error,
                 )
             }
         }
@@ -252,11 +657,10 @@ fun IdInformation(ip: FullIP?) {
     val aggregate4 = "какое-то длинное предложение"
     val aggregate5 = "заполнитель всея руси"
     Surface(
-        color = colors.cardColor,
+        color = colors.background,
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 8.dp)
-            .clip(RoundedCornerShape(8.dp)),
+            .padding(horizontal = 16.dp),
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Column(
@@ -267,7 +671,7 @@ fun IdInformation(ip: FullIP?) {
             ) {
                 Icon(
                     imageVector = Icons.Rounded.Info, contentDescription = "",
-                    tint = colors.onSurface,
+                    tint = colors.onSecondary,
                 )
             }
             Column(
@@ -321,13 +725,11 @@ fun RegInformation(ip: FullIP?) {
     val aggregate2 = "лорем ипсум"
     val aggregate3 = "чушь"
     val aggregate4 = "какое-то длинное предложение"
-    val aggregate5 = "заполнитель всея руси"
     Surface(
-        color = colors.cardColor,
+        color = colors.background,
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 8.dp)
-            .clip(RoundedCornerShape(8.dp)),
+            .padding(horizontal = 16.dp),
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Column(
@@ -338,7 +740,7 @@ fun RegInformation(ip: FullIP?) {
             ) {
                 Icon(
                     imageVector = Icons.Rounded.Info, contentDescription = "",
-                    tint = colors.onSurface,
+                    tint = colors.onSecondary,
                 )
             }
             Column(
@@ -394,7 +796,8 @@ fun HeaderIP(ip: FullIP?) {
     val aggregate5 = "заполнитель всея руси"
     Row(
         modifier = Modifier
-            .fillMaxWidth(),
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp),
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         Row(
@@ -403,7 +806,7 @@ fun HeaderIP(ip: FullIP?) {
             Icon(
                 imageVector = Icons.Rounded.HMobiledata,
                 contentDescription = "",
-                tint = colors.onSurface
+                tint = colors.onSecondary
             )
             Text(
                 text = stringResource(id = R.string.numberExcel, ip?.numberExcel ?: aggregate1),
@@ -431,29 +834,9 @@ fun HeaderIP(ip: FullIP?) {
         }
     }
     Row(
-        modifier = Modifier.padding(vertical = 8.dp),
+        modifier = Modifier.padding(vertical = 8.dp, horizontal = 16.dp),
         horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        Surface(
-            color = colors.cardColor,
-            modifier = Modifier
-                .weight(2f)
-                .clip(RoundedCornerShape(8.dp)),
-        ) {
-            Column(modifier = Modifier.padding(8.dp)) {
-                Text(
-                    text = stringResource(
-                        id = R.string.fond,
-                        ip?.address ?: aggregate2
-                    ),
-                    style = typography.body16.copy(
-                        color = colors.text
-                    ),
-                    modifier = Modifier.shimmering()
-                )
-
-            }
-        }
         Surface(
             color = colors.cardColor,
             modifier = Modifier
@@ -461,16 +844,6 @@ fun HeaderIP(ip: FullIP?) {
                 .clip(RoundedCornerShape(8.dp))
         ) {
             Column(modifier = Modifier.padding(8.dp)) {
-                Text(
-                    text = stringResource(
-                        id = R.string.balance_owed_with_param,
-                        ip?.balanceOwed ?: aggregate3
-                    ),
-                    style = typography.body16.copy(
-                        color = colors.text
-                    ),
-                    modifier = Modifier.shimmering()
-                )
                 Text(
                     text = stringResource(
                         id = R.string.total_debt_with_param,
@@ -481,6 +854,26 @@ fun HeaderIP(ip: FullIP?) {
                     ),
                     modifier = Modifier.shimmering()
                 )
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    if (ip?.balanceOwed?.contains("-") == true) {
+                        Icon(
+                            imageVector = Icons.Rounded.Warning,
+                            contentDescription = "",
+                            tint = colors.error
+                        )
+                        Spacer(modifier = Modifier.width(4.dp))
+                    }
+                    Text(
+                        text = stringResource(
+                            id = R.string.balance_owed_with_param,
+                            ip?.balanceOwed ?: aggregate3
+                        ),
+                        style = typography.body16.copy(
+                            color = colors.text
+                        ),
+                        modifier = Modifier.shimmering()
+                    )
+                }
                 Text(
                     text = stringResource(
                         id = R.string.balance_owed_fssp_with_param,
@@ -492,8 +885,32 @@ fun HeaderIP(ip: FullIP?) {
                     modifier = Modifier.shimmering()
                 )
             }
-
         }
     }
+}
+
+@Composable
+fun QR(vCardText: String) {
+    val width = LocalConfiguration.current.screenWidthDp
+    val size = (width * 1.7).roundToInt()
+
+    val hints = HashMap<EncodeHintType, Any?>().also {
+        it[EncodeHintType.ERROR_CORRECTION] = ErrorCorrectionLevel.Q
+        it[EncodeHintType.CHARACTER_SET] = "UTF-8"
+        it[EncodeHintType.MARGIN] = 0
+    }
+
+    val bits = QRCodeWriter().encode(vCardText, BarcodeFormat.QR_CODE, size, size, hints)
+    val bitmap = Bitmap.createBitmap(size, size, Bitmap.Config.RGB_565).also {
+        for (x in 0 until size) {
+            for (y in 0 until size) {
+                it.setPixel(x, y, if (bits[x, y]) Color.BLACK else Color.GRAY)
+            }
+        }
+    }
+    Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
+        Image(bitmap = bitmap.asImageBitmap(), contentDescription = "QR")
+    }
+
 }
 

@@ -11,21 +11,25 @@ fun StoriesRowFullIP(ip: FullIP?) {
     LazyRow() {
         items(1) {
             NavigationButtonFullIP(
-                painterResource = R.drawable.background_abstraction,
-                name = stringResource(R.string.ls, ip?.ls ?: "hjvkjkb"),
-            )
-            NavigationButtonFullIP(
-                painterResource = R.drawable.background_abstraction,
                 name = stringResource(
-                    R.string.bank,
-                    ip?.bank ?: "hjvkb",
-                    ip?.dateRevokedBank ?: "hjvkb",
-                    ip?.dateSubmissionBank ?: "hjvkb",
-                    ip?.bankStatus ?: "fghjkl;"
+                    id = R.string.fond,
+                    ip?.address ?: "aggregate2"
                 )
             )
             NavigationButtonFullIP(
-                painterResource = R.drawable.background_abstraction,
+                name = stringResource(R.string.ls, ip?.ls ?: "hjvkjkb"),
+            )
+            NavigationButtonFullIP(
+                name = stringResource(
+                    R.string.bank,
+                    ip?.bank ?: "hjvkb",
+                    ip?.dateSubmissionBank ?: "hjvkb",
+                    ip?.dateRevokedBank ?: "hjvkb",
+                    ip?.bankStatus ?: "fghjkl;"
+                ),
+                widthCard = 2.0
+            )
+            NavigationButtonFullIP(
                 name = stringResource(
                     R.string.period,
                     ip?.periodFrom ?: "hjvkb",
@@ -33,61 +37,24 @@ fun StoriesRowFullIP(ip: FullIP?) {
                 )
             )
             NavigationButtonFullIP(
-                painterResource = R.drawable.background_abstraction,
                 name = stringResource(
                     R.string.date_of_explication,
                     ip?.dateOfApplication ?: "hjvkb",
                     ip?.dateExcitation ?: "hjvkb",
                     ip?.dateCancelledIP ?: "dfghjgh"
-                )
+                ),
+                widthCard = 2.0
             )
             NavigationButtonFullIP(
-                painterResource = R.drawable.background_abstraction,
                 name = stringResource(
                     R.string.penalties_for_ID,
                     ip?.ZHKU ?: "hjvkb",
                     ip?.duty ?: "hjvkb",
-                )
-            )
-            NavigationButtonFullIP(
-                painterResource = R.drawable.background_abstraction,
-                name = stringResource(
-                    R.string.penalties_for_ID_part_2,
                     ip?.penalties ?: "hjvkb",
                     ip?.yurServices ?: "hjvkb",
-                )
+                ),
+                widthCard = 2.0
             )
         }
     }
 }
-//            NavigationButtonFullIP(
-//                painterResource = R.drawable.background_abstraction,
-//                name = ip?.ls ?: "hjvkjkb",
-//            )
-//            NavigationButtonFullIP(
-//                painterResource = R.drawable.background_abstraction,
-//                name = ip?.ls ?: "hjvkjkb",
-//            )
-//            NavigationButtonFullIP(
-//                painterResource = R.drawable.background_abstraction,
-//                name = ip?.ls ?: "hjvkjkb",
-//            )
-//            NavigationButtonFullIP(
-//                painterResource = R.drawable.background_abstraction,
-//                name = ip?.ls ?: "hjvkjkb",
-//            )
-//            NavigationButtonFullIP(
-//                painterResource = R.drawable.background_abstraction,
-//                name = ip?.ls ?: "hjvkjkb",
-//            )
-//            NavigationButtonFullIP(
-//                painterResource = R.drawable.background_abstraction,
-//                name = ip?.ls ?: "hjvkjkb",
-//            )
-//            NavigationButtonFullIP(
-//                painterResource = R.drawable.background_abstraction,
-//                name = ip?.ls ?: "hjvkjkb",
-//            )
-//                }
-//        }
-//    }

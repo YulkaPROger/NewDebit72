@@ -8,10 +8,7 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Clear
 import androidx.compose.material.icons.outlined.Update
-import androidx.compose.material.icons.rounded.ArrowBackIos
-import androidx.compose.material.icons.rounded.Cottage
-import androidx.compose.material.icons.rounded.Policy
-import androidx.compose.material.icons.rounded.SelfImprovement
+import androidx.compose.material.icons.rounded.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -54,7 +51,7 @@ fun RegistryIP(navController: NavHostController) {
         }
         else -> {}
     }
-    LaunchedEffect(state){
+    LaunchedEffect(key1 = Unit){
         when (state) {
             is RegistryIPStore.State.Data -> {
                 query = state.query ?: ""
@@ -156,7 +153,7 @@ fun CardIP(ip: IP, navController: NavHostController) {
             if (ip.spi.isNotBlank())
                 Row(modifier = modifier, verticalAlignment = Alignment.CenterVertically) {
                     Icon(
-                        imageVector = Icons.Rounded.Policy,
+                        imageVector = Icons.Rounded.LocalPolice,
                         contentDescription = "spi",
                         tint = colors.onSecondary
                     )
@@ -167,14 +164,14 @@ fun CardIP(ip: IP, navController: NavHostController) {
                 }
             Divider(color = colors.onSecondary, modifier = Modifier.padding(vertical = 4.dp))
             Text(
-                text = stringResource(
-                    id = R.string.total_amount_debt_with_params,
-                    ip.totalAmountDebt
-                ),
+                text = stringResource(id = R.string.total_amount_debt_with_params, ip.totalAmountDebt ),
                 style = typography.body16.copy(color = colors.text)
             )
             Text(
-                text = stringResource(id = R.string.balance_owed_with_params, ip.balanceOwed),
+                text = stringResource(
+                    id = R.string.balance_owed_with_params,
+                    ip.balanceOwed
+                ),
                 style = typography.body16.copy(color = colors.text)
             )
         }

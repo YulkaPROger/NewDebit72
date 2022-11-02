@@ -41,8 +41,8 @@
     <string name="search">Поиск</string>
     <string name="id">ИД: %s</string>
     <string name="ip">ИП: %s</string>
-    <string name="balance_owed_with_params">Долг: %s руб.</string>
-    <string name="total_amount_debt_with_params">Остаток: %s руб.</string>
+    <string name="total_amount_debt_with_params">Долг: %s руб.</string>
+    <string name="balance_owed_with_params">Остаток: %s руб.</string>
 
     <string name="numberExcel">Номер дела: %s</string>
     <string name="fond">Фонд: \n%s</string>
@@ -51,13 +51,12 @@
     <string name="balance_owed_fssp_with_param">Остаток долга ФССП: %s</string>
     <string name="cancelled">Аннулировано</string>
 
-    <string name="ls">Лицевой счет: %s</string>
-    <string name="bank">Банк:\n%s\nДата подачи:\n%s\nДата отзыва:\n%s\nСтатус:\n%s</string>
+    <string name="ls">Лицевой счет:\n%s</string>
+    <string name="bank">Банк: %s\nДата подачи: %s\nДата отзыва: %s\nСтатус: %s</string>
     <string name="bank_status"></string>
     <string name="period">Период с:\n%s\nПериод до:\n%s</string>
     <string name="date_of_explication">Дата подачи:\n%s\nДата возбуждения:\n%s\nДата завершения ИП:\n%s</string>
-    <string name="penalties_for_ID">Взыскания по ИД:\nСумма ЖКУ:\n%s\nСумма пошлины:\n%s</string>
-    <string name="penalties_for_ID_part_2">Взыскания по ИД:\nСумма пени:\n%s\nСумма юр.услуг:\n%s</string>
+    <string name="penalties_for_ID">Взыскания по ИД:\nСумма ЖКУ: %s\nСумма пошлины: %s\nСумма пени: %s\nСумма юр.услуг: %s</string>
 
     <string name="reg_number_ip">Рег.номер ИП: %s</string>
     <string name="production_status">Статус производства: %s</string>
@@ -69,10 +68,28 @@
     <string name="debtor">Должник: %s</string>
     <string name="dr">Д.р.: %s</string>
     <string name="mr">М.р.: %s</string>
-    <string name="debtor_address">Адресс должника: %s</string>
-    <string name="debtor_fact_address">Факт.адресс должника: %s</string>
+    <string name="debtor_address">Адрес должника: %s</string>
+    <string name="debtor_fact_address">Факт.адрес должника: %s</string>
     <string name="pensioner">Пенс:</string>
     <string name="model">Модель: %s</string>
     <string name="gosnomer">Гос.номер: %s</string>
+    <string name="auto_date_arrested">Дата ареста ТС: %s</string>
+    <string name="price_TS">Сумма по оценке: %s</string>
+    <string name="storage">Место хранения: %s</string>
+    <string name="type_rs">Тип счета: %s</string>
+    <string name="bank_with_params">Банк: %s</string>
+    <string name="property_arrested">Арествано: %s</string>
+    <string name="property_date_arrested">Дата описи ареста: %s</string>
+    <string name="property_price">Сумма по оценке: %s ₽</string>
+    <string name="naming">Наименование: %s</string>
+    <string name="address">Адрес: %s</string>
+    <string name="employer_actual_date">Дата актуальности: %s</string>
+    <string name="employer_appeal_recovery">Обращение взыскания: %s</string>
+    <string name="employer_date_appeal_recovery">Дата обращения взыскания: %s</string>
+    <string name="employer_shpi">ШПИ: %s</string>
+    <string name="inn">ИНН: %s</string>
+    <string name="ogrn">ОГРН: %s</string>
+    <string name="price_cost">Стоимость доли: %s</string>
+    <string name="size_cost">Размер доли: %s</string>
 
 </resources>

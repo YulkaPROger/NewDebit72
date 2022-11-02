@@ -102,7 +102,7 @@ val baseLightPalette = DebitColors(
 
 val baseDarkPalette = DebitColors(
     text = Color(0xFFE0E0E0),
-    background = Color(0xFF212121),
+    background = Color(0xFF353535),
     success = Color.Green,
     error = Color.Red,
     isLight = false,

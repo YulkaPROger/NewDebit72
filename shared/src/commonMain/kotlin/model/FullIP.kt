@@ -45,12 +45,12 @@ data class FullIP(
     @SerialName("СтатусБанк") val bankStatus: String,
     @SerialName("ПризнакЛС") val signLS: Boolean,
     @SerialName("СписокСолидарщиков") val listOfSolidarity: String,
-//    @SerialName("qr") val qr: String,
+    @SerialName("qr") val qr: String,
     @SerialName("Авто") val auto: List<Auto> = emptyList(),
     @SerialName("Имущество") val property: List<Property> = emptyList(),
     @SerialName("ИмуществоЕГРЮЛ") val propertyYur: List<PropertyYur> = emptyList(),
     @SerialName("Работодатели") val employer: List<Employer> = emptyList(),
-    @SerialName("RS") val rs: List<RS> = emptyList(),
+    @SerialName("РасчетныеСчета") val rs: List<RS> = emptyList(),
 )
 
 @Serializable

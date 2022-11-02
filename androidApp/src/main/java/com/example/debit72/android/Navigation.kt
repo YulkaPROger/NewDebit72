@@ -29,7 +29,7 @@ fun Navigation(navController: NavHostController) {
         composable(
             "fullIP/{number}"
         ) { backStackEntry ->
-            FullIPScreen(navController, backStackEntry.arguments?.getString("number"))
+            FullIPScreen(backStackEntry.arguments?.getString("number"))
         }
 //        composable("createObject") { CreateObjectScreen(navController) }
 //        composable("choiceService") {

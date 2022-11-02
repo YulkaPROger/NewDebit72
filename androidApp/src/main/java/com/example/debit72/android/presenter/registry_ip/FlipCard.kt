@@ -5,11 +5,15 @@ import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.Card
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.unit.dp
 import com.example.debit72.android.presenter.theme.DebitTheme.colors
 
 enum class CardFace(val angle: Float) {
@@ -40,6 +44,7 @@ fun FlipCard(
     back: @Composable () -> Unit = {},
     front: @Composable () -> Unit = {},
 ) {
+    val width = LocalConfiguration.current.screenWidthDp
     val rotation = animateFloatAsState(
         targetValue = cardFace.angle,
         animationSpec = tween(
@@ -50,7 +55,7 @@ fun FlipCard(
     Card(
         onClick = { onClick(cardFace) },
         modifier = modifier
-            .background(color = colors.cardColor)
+            .width((width * 0.75).dp)
             .graphicsLayer {
                 if (axis == RotationAxis.AxisX) {
                     rotationX = rotation.value
@@ -59,15 +64,18 @@ fun FlipCard(
                 }
                 cameraDistance = 12f * density
             },
+        backgroundColor = colors.cardColor
     ) {
         if (rotation.value <= 90f) {
             Box(
+                modifier = Modifier.padding(8.dp)
             ) {
                 front()
             }
         } else {
             Box(
                 Modifier
+                    .padding(8.dp)
                     .graphicsLayer {
                         if (axis == RotationAxis.AxisX) {
                             rotationX = 180f
