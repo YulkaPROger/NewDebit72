@@ -92,4 +92,6 @@
     <string name="price_cost">Стоимость доли: %s</string>
     <string name="size_cost">Размер доли: %s</string>
 
+    <string name="unknown_error">Произошла непредвиденная ошибка</string>
+
 </resources>
