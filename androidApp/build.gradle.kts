@@ -4,13 +4,13 @@ plugins {
 }
 
 android {
-    compileSdk = 32
+    compileSdk = 33
     defaultConfig {
         applicationId = "com.example.debit72.android"
         minSdk = 28
-        targetSdk = 32
-        versionCode = 1
-        versionName = "1.0"
+        targetSdk = 33
+        versionCode = 2
+        versionName = "1.1"
     }
     buildTypes {
         getByName("release") {
@@ -60,10 +60,13 @@ dependencies {
 
     //Accompanist
     val accompanist_version = "0.23.1"
-    implementation ("com.google.accompanist:accompanist-pager:$accompanist_version")
+    implementation("com.google.accompanist:accompanist-pager:$accompanist_version")
     implementation("com.google.accompanist:accompanist-pager-indicators:$accompanist_version")
-    implementation ("com.google.accompanist:accompanist-placeholder-material:$accompanist_version")
+    implementation("com.google.accompanist:accompanist-placeholder-material:$accompanist_version")
 
     //QR
-    implementation ("com.google.zxing:core:3.5.0")
+    implementation("com.google.zxing:core:3.5.0")
+
+    //DataStore
+    implementation ("androidx.datastore:datastore-preferences:1.0.0")
 }

@@ -3,6 +3,7 @@ package com.example.debit72.android.presenter.registry_ip
 import android.app.Activity
 import android.graphics.Bitmap
 import android.graphics.Color
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
