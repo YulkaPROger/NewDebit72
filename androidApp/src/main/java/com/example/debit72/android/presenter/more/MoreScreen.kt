@@ -8,14 +8,19 @@ import androidx.compose.material.Switch
 import androidx.compose.material.SwitchDefaults
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.debit72.android.R
+import com.example.debit72.android.data_store.UserSettings
 import com.example.debit72.android.presenter.theme.DebitTheme
+import kotlinx.coroutines.launch
 
 @Composable
 fun MoreScreen(navController: NavHostController) {
@@ -74,6 +79,10 @@ fun ApplicationLoginSettings() {
 
 @Composable
 fun GeneralSettings() {
+    val context = LocalContext.current
+    val scope = rememberCoroutineScope()
+    val dataStore = UserSettings(context)
+    val darkTheme = dataStore.isDarkTheme.collectAsState(initial = true)
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -83,8 +92,7 @@ fun GeneralSettings() {
     ) {
         Column(
             modifier = Modifier
-                .padding(8.dp)
-            ,
+                .padding(8.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             Text(
@@ -102,7 +110,11 @@ fun GeneralSettings() {
                     style = DebitTheme.typography.bodyLarge16.copy(color = DebitTheme.colors.text)
                 )
                 Switch(
-                    checked = true, onCheckedChange = {}, colors = SwitchDefaults.colors(
+                    checked = darkTheme.value, onCheckedChange = {
+                        scope.launch {
+                            dataStore.setDarkTheme(it)
+                        }
+                    }, colors = SwitchDefaults.colors(
                         checkedThumbColor = DebitTheme.colors.primary,
                         checkedTrackColor = DebitTheme.colors.primaryVariant,
                         uncheckedThumbColor = DebitTheme.colors.cardColor,
