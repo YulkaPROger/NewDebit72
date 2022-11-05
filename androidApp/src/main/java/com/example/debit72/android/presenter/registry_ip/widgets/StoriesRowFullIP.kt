@@ -67,8 +67,10 @@ fun StoriesRowFullIP(ip: FullIP?) {
                     R.string.bank
                 ),
                 text1 = ip?.bank ?: "vfgbhj",
-                text2 = stringResource(id = R.string.bank_status, ip?.dateSubmissionBank ?: "vbn",
-                    ip?.dateRevokedBank ?: "CFVGHJ", ip?.bankStatus ?: "vbnm"),
+                text2 = stringResource(
+                    id = R.string.bank_status, ip?.dateSubmissionBank ?: "vbn",
+                    ip?.dateRevokedBank ?: "CFVGHJ", ip?.bankStatus ?: "vbnm"
+                ),
                 alignment = TextAlign.Center
             )
         }
