@@ -22,6 +22,9 @@ DELETE FROM Ip;
 selectAllIp:
 SELECT * FROM Ip;
 
+selectCount:
+SELECT count(*) FROM Ip;
+
 selectIpFromNumber:
 SELECT * FROM Ip
 WHERE number = ?;

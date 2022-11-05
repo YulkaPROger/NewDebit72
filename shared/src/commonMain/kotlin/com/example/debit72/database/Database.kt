@@ -17,6 +17,10 @@ internal class Database(databaseDriverFactory: DatabaseDriverFactory) {
         return dbQuery.selectAllIp(::mapLaunchSelecting).executeAsList()
     }
 
+    internal fun selectCount() : Long {
+        return dbQuery.selectCount().executeAsOne()
+    }
+
     internal fun selectIpFromString(query: String): List<IP> {
         return dbQuery.selectIpFromString(
             idNumber = query,

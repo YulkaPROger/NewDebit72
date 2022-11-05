@@ -38,6 +38,12 @@
     <string name="api_key">API key</string>
     <string name="stars">***************</string>
 
+    <string name="update_settings">Обновление данных</string>
+    <string name="last_update_date">Дата обновления:</string>
+    <string name="last_update_count">Количество:</string>
+    <string name="update">Обновить</string>
+
+
     <string name="search">Поиск</string>
     <string name="id">ИД: %s</string>
     <string name="ip">ИП: %s</string>
@@ -45,18 +51,19 @@
     <string name="balance_owed_with_params">Остаток: %s руб.</string>
 
     <string name="numberExcel">Номер дела: %s</string>
-    <string name="fond">Фонд: \n%s</string>
+    <string name="fond">Фонд:</string>
     <string name="balance_owed_with_param">Остаток долга: %s</string>
     <string name="total_debt_with_param">Общая сумма долга: %s</string>
     <string name="balance_owed_fssp_with_param">Остаток долга ФССП: %s</string>
     <string name="cancelled">Аннулировано</string>
 
-    <string name="ls">Лицевой счет:\n%s</string>
-    <string name="bank">Банк: %s\nДата подачи: %s\nДата отзыва: %s\nСтатус: %s</string>
-    <string name="bank_status"></string>
-    <string name="period">Период с:\n%s\nПериод до:\n%s</string>
-    <string name="date_of_explication">Дата подачи:\n%s\nДата возбуждения:\n%s\nДата завершения ИП:\n%s</string>
-    <string name="penalties_for_ID">Взыскания по ИД:\nСумма ЖКУ: %s\nСумма пошлины: %s\nСумма пени: %s\nСумма юр.услуг: %s</string>
+    <string name="ls">Лицевой счет:</string>
+    <string name="bank">Банк:</string>
+    <string name="bank_status">Дата подачи: %s\nДата отзыва: %s\nСтатус: %s</string>
+    <string name="period">Период взыскания:</string>
+    <string name="date_of_explication">Дата подачи: %s\nДата возбуждения: %s\nДата завершения ИП: %s</string>
+    <string name="penalties_for_ID">Взыскания по ИД:</string>
+    <string name="rosp">РОСП:</string>
 
     <string name="reg_number_ip">Рег.номер ИП: %s</string>
     <string name="production_status">Статус производства: %s</string>

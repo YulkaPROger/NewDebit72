@@ -1,4 +1,4 @@
-package com.example.debit72.android.presenter
+package com.example.debit72.android.utils
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable

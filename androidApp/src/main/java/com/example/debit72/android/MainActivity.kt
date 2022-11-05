@@ -1,6 +1,5 @@
 package com.example.debit72.android
 
-import android.content.Context
 import android.os.Build
 import android.os.Bundle
 import android.view.WindowInsets
@@ -9,19 +8,18 @@ import androidx.activity.compose.setContent
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.material.Scaffold
-import androidx.compose.runtime.Composable
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.preferencesDataStore
+import androidx.compose.runtime.*
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.compose.rememberNavController
+import com.example.debit72.android.data_store.UserSettings
+import com.example.debit72.android.presenter.navigation.BottomNavigationBar
+import com.example.debit72.android.presenter.navigation.Navigation
 import com.example.debit72.android.presenter.theme.DebitTheme
-import java.util.prefs.Preferences
-
-private val Context.dataStore by preferencesDataStore("user_preferences")
-
-class UserPreferencesManager(context: Context) {
-    private val dataStore = context.dataStore
-
-}
+import com.example.debit72.android.utils.SnackbarDebitAppState
+import com.example.debit72.android.utils.rememberSnackbarDebitAppState
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.last
+import kotlinx.coroutines.runBlocking
 
 class MainActivity : AppCompatActivity() {
 
@@ -29,8 +27,16 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            //val vm = mainViewModel(LocalContext.current)
-            DebitTheme() {
+            val dataStore = UserSettings(LocalContext.current)
+            val darkTheme =
+                dataStore.getBoolean(UserSettings.DARK_THEME)
+            val themeState: MutableState<Boolean> = runBlocking {
+                mutableStateOf(darkTheme.first())
+            }
+
+            DebitTheme(
+                darkTheme = themeState.value
+            ) {
                 MainScreen()
             }
         }
@@ -44,22 +50,23 @@ class MainActivity : AppCompatActivity() {
             systemBarsBehavior = WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
         }
     }
-//    @Composable
-//    fun mainViewModel(context: Context) = viewModel {
-//        DebitViewModel(UserSettingsRepository(getDataStore(context)))
-//    }
 }
 
 @Composable
 fun MainScreen() {
     val navController = rememberNavController()
-
+    val appState: SnackbarDebitAppState =
+        rememberSnackbarDebitAppState(navController = navController)
     Scaffold(
         bottomBar = { BottomNavigationBar(navController) },
-        backgroundColor = DebitTheme.colors.background
+        backgroundColor = DebitTheme.colors.background,
+        scaffoldState = appState.scaffoldState
     ) {
         it.calculateBottomPadding()
-        Navigation(navController)
+        Navigation(navController,
+            showSnackbar = { message, duration ->
+                appState.showSnackbar(message = message, duration = duration)
+            })
     }
 }
 

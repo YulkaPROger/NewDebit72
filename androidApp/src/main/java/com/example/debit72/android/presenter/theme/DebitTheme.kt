@@ -1,22 +1,19 @@
 package com.example.debit72.android.presenter.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
+import androidx.compose.ui.platform.LocalContext
+import com.example.debit72.android.data_store.UserSettings
 
 
 @Composable
 fun DebitTheme(
-    spaces: DebitSpacing = DebitTheme.spacing,
-    typography: DebitTypography = DebitTheme.typography,
-    colors: DebitColors = DebitTheme.colors,
-    elevation: DebitElevation = DebitTheme.elevation,
-    shape: DebitShape = DebitTheme.shape,
     darkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit,
 ) {
-    val rememberedColors = remember { colors.copy() }.apply { updateColorsFrom(colors) }
+    val currentColor = remember { if (darkTheme) baseDarkPalette else baseLightPalette }
+    val rememberedColors = remember { currentColor.copy() }.apply { updateColorsFrom(currentColor) }
+
     CompositionLocalProvider(
         LocalDebitColors provides rememberedColors,
         LocalDebitTypography provides typography,

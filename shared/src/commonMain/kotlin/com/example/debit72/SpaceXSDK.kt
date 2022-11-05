@@ -32,6 +32,11 @@ class SpaceXSDK(databaseDriverFactory: DatabaseDriverFactory) {
         }
     }
 
+    @Throws(Exception::class)
+    suspend fun selectCount() : Long {
+        return database.selectCount()
+    }
+
 
     @Throws(Exception::class)
     fun selectIpFromString(query: String): List<IP> {

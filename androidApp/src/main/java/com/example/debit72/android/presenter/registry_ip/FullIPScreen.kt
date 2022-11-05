@@ -3,7 +3,6 @@ package com.example.debit72.android.presenter.registry_ip
 import android.app.Activity
 import android.graphics.Bitmap
 import android.graphics.Color
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -23,12 +22,12 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.example.debit72.android.FileUtils
+import com.example.debit72.android.utils.FileUtils
 import com.example.debit72.android.R
-import com.example.debit72.android.TypeFile
-import com.example.debit72.android.presenter.Shimmering
+import com.example.debit72.android.utils.TypeFile
+import com.example.debit72.android.utils.Shimmering
 import com.example.debit72.android.presenter.registry_ip.widgets.StoriesRowFullIP
-import com.example.debit72.android.presenter.shimmering
+import com.example.debit72.android.utils.shimmering
 import com.example.debit72.android.presenter.theme.DebitTheme.colors
 import com.example.debit72.android.presenter.theme.DebitTheme.typography
 import com.example.debit72.repository.InfoRepository
