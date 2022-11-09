@@ -17,9 +17,7 @@ import com.example.debit72.android.presenter.navigation.Navigation
 import com.example.debit72.android.presenter.theme.DebitTheme
 import com.example.debit72.android.utils.SnackbarDebitAppState
 import com.example.debit72.android.utils.rememberSnackbarDebitAppState
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.last
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.flow.collectLatest
 
 class MainActivity : AppCompatActivity() {
 
@@ -28,14 +26,16 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             val dataStore = UserSettings(LocalContext.current)
-            val darkTheme =
-                dataStore.getBoolean(UserSettings.DARK_THEME)
-            val themeState: MutableState<Boolean> = runBlocking {
-                mutableStateOf(darkTheme.first())
+            var themeState: Boolean by remember {
+                mutableStateOf(true)
             }
-
+            LaunchedEffect(dataStore.getBoolean(UserSettings.DARK_THEME)) {
+                dataStore.getBoolean(UserSettings.DARK_THEME).collectLatest {
+                    themeState = it
+                }
+            }
             DebitTheme(
-                darkTheme = themeState.value
+                darkTheme = themeState
             ) {
                 MainScreen()
             }

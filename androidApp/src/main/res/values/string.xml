@@ -8,6 +8,7 @@
     <string name="auto">"Автомобили"</string>
     <string name="sir_work">"Судебно\nисковая\nработа"</string>
     <string name="spr_work">"Судебно приказная\nработа"</string>
+    <string name="spr_work_without_n">"Судебно приказная работа"</string>
     <string name="claimants">"Взыскатели"</string>
     <string name="search_auto_real_time">"Поиск авто real-time"</string>
     <string name="arrested_cars">"Арестованные автомобили"</string>
@@ -95,10 +96,27 @@
     <string name="employer_date_appeal_recovery">Дата обращения взыскания: %s</string>
     <string name="employer_shpi">ШПИ: %s</string>
     <string name="inn">ИНН: %s</string>
+    <string name="kpp">КПП: %s</string>
     <string name="ogrn">ОГРН: %s</string>
+    <string name="bic">БИК: %s</string>
+    <string name="rs">РС: %s</string>
+    <string name="ks">КС: %s</string>
     <string name="price_cost">Стоимость доли: %s</string>
     <string name="size_cost">Размер доли: %s</string>
 
     <string name="unknown_error">Произошла непредвиденная ошибка</string>
+
+    <string name="debtors">Должники:\n%s</string>
+    <string name="date">Дата: %s</string>
+    <string name="court">Суд: %s</string>
+    <string name="current_court">Суд, рассм. заявление: %S</string>
+
+    <string name="claimant_full_name">Полное наименование:\n%s</string>
+    <string name="claimant_owner">Директор: %s</string>
+    <string name="claimant_phone">Телефон: %s</string>
+    <string name="claimant_email">E-mail: %s</string>
+
+
+
 
 </resources>

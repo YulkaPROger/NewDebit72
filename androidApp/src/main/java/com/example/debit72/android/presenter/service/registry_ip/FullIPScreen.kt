@@ -1,4 +1,4 @@
-package com.example.debit72.android.presenter.registry_ip
+package com.example.debit72.android.presenter.service.registry_ip
 
 import android.app.Activity
 import android.graphics.Bitmap
@@ -26,7 +26,7 @@ import com.example.debit72.android.utils.FileUtils
 import com.example.debit72.android.R
 import com.example.debit72.android.utils.TypeFile
 import com.example.debit72.android.utils.Shimmering
-import com.example.debit72.android.presenter.registry_ip.widgets.StoriesRowFullIP
+import com.example.debit72.android.presenter.service.registry_ip.widgets.StoriesRowFullIP
 import com.example.debit72.android.utils.shimmering
 import com.example.debit72.android.presenter.theme.DebitTheme.colors
 import com.example.debit72.android.presenter.theme.DebitTheme.typography

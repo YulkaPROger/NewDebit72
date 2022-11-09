@@ -54,6 +54,14 @@ class FileUtils(val typeFile: TypeFile) {
         return true
     }
 
+    fun share(text: String, name: String, activity: Activity): Boolean {
+        val shareIntent = Intent(Intent.ACTION_SEND)
+        shareIntent.type="text/plain"
+        shareIntent.putExtra(Intent.EXTRA_TEXT, text)
+        activity.startActivity(Intent.createChooser(shareIntent, name))
+        return true
+    }
+
 
     companion object {
         fun with(context: Context, type: TypeFile = TypeFile.DOCUMENT): FileUtils {

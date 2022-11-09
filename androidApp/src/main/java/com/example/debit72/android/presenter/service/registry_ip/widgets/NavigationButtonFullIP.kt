@@ -1,4 +1,4 @@
-package com.example.debit72.android.presenter.registry_ip.widgets
+package com.example.debit72.android.presenter.service.registry_ip.widgets
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.debit72.android.presenter.theme.DebitTheme
@@ -30,7 +31,7 @@ fun NavigationButtonFullIP(
             .size((width / 1.6).dp, (width / 2.2).dp)
             .padding(8.dp)
             .border(
-                width = 2.dp,
+                width = 1.dp,
                 color = DebitTheme.colors.onSecondary,
                 shape = RoundedCornerShape(16.dp)
             ),
@@ -41,8 +42,9 @@ fun NavigationButtonFullIP(
                 .fillMaxWidth()
                 .padding(8.dp)
                 .shimmering(),
-            style = DebitTheme.typography.titleMedium20.copy(
-                color = colors.onSecondary
+            style = DebitTheme.typography.bodyNormal18.copy(
+                color = colors.onSecondary,
+                fontWeight = FontWeight.Bold
             ),
             textAlign = TextAlign.Center
         )
@@ -64,7 +66,7 @@ fun NavigationButtonFullIP(
                         .padding(8.dp)
                         .shimmering(),
                     style = style,
-                    textAlign = TextAlign.Left
+                    textAlign = alignment
                 )
         }
     }

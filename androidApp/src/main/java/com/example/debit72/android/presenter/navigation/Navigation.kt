@@ -7,10 +7,12 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.debit72.android.presenter.home.HomeScreen
 import com.example.debit72.android.presenter.more.MoreScreen
-import com.example.debit72.android.presenter.navigation.NavigationItem
-import com.example.debit72.android.presenter.registry_ip.FullIPScreen
-import com.example.debit72.android.presenter.registry_ip.RegistryIP
 import com.example.debit72.android.presenter.service.ServiceScreen
+import com.example.debit72.android.presenter.service.claimants.ClaimantsScreen
+import com.example.debit72.android.presenter.service.registry_ip.FullIPScreen
+import com.example.debit72.android.presenter.service.registry_ip.RegistryIP
+import com.example.debit72.android.presenter.service.spr.FullSprScreen
+import com.example.debit72.android.presenter.service.spr.SprScreen
 
 
 @Composable
@@ -26,7 +28,7 @@ fun Navigation(
             ServiceScreen(navController)
         }
         composable(NavigationItem.More.route) {
-            MoreScreen(navController, showSnackbar = showSnackbar,)
+            MoreScreen(navController, showSnackbar = showSnackbar)
         }
         composable("Registry IP") {
             RegistryIP(navController)
@@ -36,12 +38,20 @@ fun Navigation(
         ) { backStackEntry ->
             FullIPScreen(backStackEntry.arguments?.getString("number"))
         }
+        composable("SPR screen") {
+            SprScreen(navController)
+        }
+        composable(
+            "fullSpr/{number}"
+        ) { backStackEntry ->
+            FullSprScreen(backStackEntry.arguments?.getString("number"))
+        }
+        composable("claimants") {
+            ClaimantsScreen(navController)
+        }
 //        composable("createObject") { CreateObjectScreen(navController) }
 //        composable("choiceService") {
 //            ChoiceService(navController)
-//        }
-//        composable("searchMaterialScreen"){
-//            SearchMaterialScreen(navController)
 //        }
     }
 }

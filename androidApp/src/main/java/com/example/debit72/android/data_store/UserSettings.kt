@@ -15,9 +15,11 @@ class UserSettings(private val context: Context) {
     companion object {
         private val Context.dataStore: DataStore<Preferences> by preferencesDataStore("UserSettings")
         val API_KEY = stringPreferencesKey("api_key")
+        val DARK_THEME = booleanPreferencesKey("dark_theme")
         val DATE_UPDATE_IP = stringPreferencesKey("date_update_ip")
         val COUNT_IP = stringPreferencesKey("count_ip")
-        val DARK_THEME = booleanPreferencesKey("dark_theme")
+        val DATE_UPDATE_SPR = stringPreferencesKey("date_update_spr")
+        val COUNT_SPR = stringPreferencesKey("count_spr")
     }
 
     fun getString(name: Preferences.Key<String>): Flow<String> = context.dataStore.data

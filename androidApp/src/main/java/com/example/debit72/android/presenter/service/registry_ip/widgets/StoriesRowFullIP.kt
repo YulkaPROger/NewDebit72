@@ -1,4 +1,4 @@
-package com.example.debit72.android.presenter.registry_ip.widgets
+package com.example.debit72.android.presenter.service.registry_ip.widgets
 
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.runtime.Composable
@@ -44,7 +44,7 @@ fun StoriesRowFullIP(ip: FullIP?) {
                     R.string.period
                 ),
                 text1 =
-                if (ip?.periodFrom == null) "fgcvj" else "c:  ${ip.periodFrom}\nдо:  ${ip.periodTo}",
+                if (ip?.periodFrom == null) "fgcvj" else "c:  ${ip.periodFrom}\nпо:  ${ip.periodTo}",
                 alignment = TextAlign.Center,
                 style = DebitTheme.typography.titleMedium20.copy(
                     color = DebitTheme.colors.text,

@@ -1,4 +1,4 @@
-package com.example.debit72.android.presenter.registry_ip
+package com.example.debit72.android.presenter.service.registry_ip
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -15,6 +15,8 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -24,12 +26,13 @@ import com.example.debit72.SpaceXSDK
 import com.example.debit72.android.R
 import com.example.debit72.android.presenter.theme.DebitTheme.colors
 import com.example.debit72.android.presenter.theme.DebitTheme.typography
+import com.example.debit72.android.widgets.ArrowBackWithSearch
 import com.example.debit72.android.widgets.DebitTextFieldDense
-import com.example.debit72.entity.IP
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import model.IP
 
 @Composable
 fun RegistryIP(navController: NavHostController) {
@@ -47,9 +50,11 @@ fun RegistryIP(navController: NavHostController) {
     when (state) {
         is RegistryIPStore.State.Data -> {
             list = state.ip
+            error = ""
         }
         is RegistryIPStore.State.LoadingError -> {
             error = state.error
+            list = emptyList()
         }
         else -> {}
     }
@@ -73,7 +78,8 @@ fun RegistryIP(navController: NavHostController) {
             navController = navController,
             query = query,
             error = error,
-            onChangeText = { query = it }
+            onChangeText = { query = it },
+            count = list?.size
         )
         LazyColumn(
             verticalArrangement = Arrangement.spacedBy(8.dp),
@@ -177,72 +183,6 @@ fun CardIP(ip: IP, navController: NavHostController) {
                 ),
                 style = typography.body16.copy(color = colors.text)
             )
-        }
-    }
-}
-
-@Composable
-fun ArrowBackWithSearch(
-    navController: NavHostController,
-    query: String,
-    error: String?,
-    onChangeText: (String) -> Unit,
-) {
-    val modifier = Modifier.fillMaxWidth()
-
-    Row(modifier = modifier.padding(end = 8.dp), verticalAlignment = Alignment.CenterVertically) {
-        IconButton(onClick = { navController.popBackStack() }) {
-            Icon(
-                imageVector = Icons.Rounded.ArrowBackIos, contentDescription = "arrow back ios",
-                tint = colors.text
-            )
-
-        }
-        DebitTextFieldDense(
-            text = query,
-            labelText = stringResource(id = R.string.search),
-            maxLines = 1,
-            modifier = modifier.height(62.dp),
-            enabled = true,
-            trailingIcon = {
-                Row() {
-                    IconButton(onClick = {
-                        onChangeText.invoke("")
-                    }) {
-                        Icon(
-                            Icons.Outlined.Clear,
-                            contentDescription = "",
-                            tint = colors.primary
-                        )
-                    }
-                }
-            },
-            isClickable = false,
-            onChange = {
-                onChangeText.invoke(it)
-            },
-            isError = !error.isNullOrBlank(),
-            errorMessage = error ?: ""
-        )
-    }
-}
-
-private fun reloadBase(
-    scope: CoroutineScope,
-    sdk: SpaceXSDK,
-    forceReload: Boolean = false,
-    onError: (String?) -> Unit,
-    onSuccess: () -> Unit
-) {
-    scope.launch {
-        withContext(Dispatchers.IO) {
-            kotlin.runCatching {
-                sdk.updateIP(forceReload)
-            }.onFailure {
-                onError.invoke(it.message)
-            }.onSuccess {
-                onSuccess.invoke()
-            }
         }
     }
 }

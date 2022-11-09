@@ -1,4 +1,4 @@
-package com.example.debit72.android.presenter.registry_ip
+package com.example.debit72.android.presenter.service.registry_ip
 
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.animateFloatAsState
