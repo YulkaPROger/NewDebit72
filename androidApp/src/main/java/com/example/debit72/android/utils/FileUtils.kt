@@ -48,8 +48,9 @@ class FileUtils(val typeFile: TypeFile) {
         val fileUri = FileProvider
             .getUriForFile(activity, DebitApplication.FILE_PROVIDER, notNullFile)
         val shareIntent = Intent(Intent.ACTION_SEND)
-        shareIntent.type = "image/*"
+        shareIntent.type = "image/png"
         shareIntent.putExtra(Intent.EXTRA_STREAM, fileUri)
+        shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         activity.startActivity(Intent.createChooser(shareIntent, "QR"))
         return true
     }

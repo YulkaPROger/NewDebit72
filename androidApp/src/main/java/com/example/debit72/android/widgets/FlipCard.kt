@@ -1,9 +1,8 @@
-package com.example.debit72.android.presenter.service.registry_ip
+package com.example.debit72.android.widgets
 
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -41,6 +40,7 @@ fun FlipCard(
     onClick: (CardFace) -> Unit,
     modifier: Modifier = Modifier,
     axis: RotationAxis = RotationAxis.AxisY,
+    widthCard: Double = 0.75,
     back: @Composable () -> Unit = {},
     front: @Composable () -> Unit = {},
 ) {
@@ -55,7 +55,7 @@ fun FlipCard(
     Card(
         onClick = { onClick(cardFace) },
         modifier = modifier
-            .width((width * 0.75).dp)
+            .width((width * widthCard).dp)
             .graphicsLayer {
                 if (axis == RotationAxis.AxisX) {
                     rotationX = rotation.value
