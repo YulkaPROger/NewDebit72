@@ -1,4 +1,4 @@
-package com.example.debit72.android.presenter.registry_ip
+package com.example.debit72.android.presenter.service.registry_ip
 
 import android.content.Context
 import android.util.Log
@@ -8,11 +8,11 @@ import com.example.debit72.SpaceXSDK
 import com.example.debit72.android.presenter.store.ReduxStore
 import com.example.debit72.android.presenter.store.ReduxStoreViewModel
 import com.example.debit72.database.DatabaseDriverFactory
-import com.example.debit72.entity.IP
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import model.IP
 
-class RegistryIPStoreFactory(private val context: Context) : ViewModelProvider.Factory{
+class RegistryIPStoreFactory(private val context: Context) : ViewModelProvider.Factory {
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return RegistryIPStore(context) as T
@@ -29,15 +29,14 @@ class RegistryIPStore(context: Context) :
             val ip: List<IP>,
             val query: String?
         ) : State
-        object LoadingCancelled: State
     }
 
     sealed interface Action : ReduxStore.Action {
         data class Search(
             val query: String
         ) : Action
-        object ClearIP: Action
-        object UpdateIP : Action
+
+        object ClearIP : Action
         data class Loaded(val result: State) : Action
     }
 
@@ -55,26 +54,8 @@ class RegistryIPStore(context: Context) :
             is Action.Loaded -> {
                 action.result
             }
-            Action.UpdateIP -> updateIP()
             Action.ClearIP -> State.Data(ip = emptyList(), null)
         }
-    }
-
-    private fun updateIP() : State {
-        launch(Dispatchers.IO) {
-            runCatching {
-                sdk.updateIP(true)
-                dispatch(
-                    Action.Loaded(
-                        State.LoadingCancelled
-                    )
-                )
-            }.onFailure {
-                dispatch(Action.Loaded(State.LoadingError(it.message)))
-                Log.e("RegistryIPStore", "loading", it)
-            }
-        }
-        return State.Loading
     }
 
     private fun loading(action: Action.Search): State {
@@ -83,12 +64,15 @@ class RegistryIPStore(context: Context) :
                 val ip =
                     sdk.selectIpFromString(action.query)
                 dispatch(
-                    Action.Loaded(
-                        State.Data(
-                            ip,
-                            action.query
+                    if (ip.isEmpty())
+                        Action.Loaded(State.LoadingError("Ничего не нашлось"))
+                    else
+                        Action.Loaded(
+                            State.Data(
+                                ip,
+                                action.query
+                            )
                         )
-                    )
                 )
             }.onFailure {
                 dispatch(Action.Loaded(State.LoadingError(it.message)))

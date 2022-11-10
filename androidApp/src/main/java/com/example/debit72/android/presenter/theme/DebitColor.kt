@@ -85,8 +85,7 @@ class DebitColors(
     }
 }
 
-
-val LocalDebitColors = staticCompositionLocalOf<DebitColors> {
+val LocalDebitColors = staticCompositionLocalOf {
     baseDarkPalette
 }
 
@@ -96,7 +95,7 @@ val baseLightPalette = DebitColors(
     success = Color.Green,
     error = Color.Red,
     isLight = true,
-    cardColor = Color(0xFF9E9E9E)
+    cardColor = Color(0xFF80CBC4)
 )
 
 

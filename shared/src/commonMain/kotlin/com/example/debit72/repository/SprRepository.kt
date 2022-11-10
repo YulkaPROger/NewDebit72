@@ -1,19 +1,18 @@
 package com.example.debit72.repository
 
 import com.example.debit72.Network
-import model.FullIP
-import model.IP
 import io.ktor.client.call.*
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
 import io.ktor.http.*
-import model.GeneralInformation
+import model.FullSpr
+import model.Spr
 
-class InfoRepository {
+class SprRepository {
 
-    suspend fun getInfo(): GeneralInformation {
+    suspend fun getAllSpr(): List<Spr> {
         val response: HttpResponse = Network.getHttpClient().get(
-            Network.BASE_URL + Network.INFO
+            Network.BASE_URL + Network.SPR
         ) {
             method = HttpMethod.Get
             url {
@@ -23,25 +22,14 @@ class InfoRepository {
         return response.body()
     }
 
-    suspend fun getAllIp(): List<IP> {
+    suspend fun getSprForLink(number: String): FullSpr {
         val response: HttpResponse = Network.getHttpClient().get(
-            Network.BASE_URL + Network.ALL_IP
+            Network.BASE_URL + Network.LINK_SPR
         ) {
             method = HttpMethod.Get
             url {
                 parameters.append("APIkey", Network.KEY_API)
-            }
-        }
-        return response.body()
-    }
-
-    suspend fun getIp(numberIP: String): FullIP {
-        val response: HttpResponse = Network.getHttpClient().get(
-            Network.BASE_URL + Network.LINK_IP
-        ) {
-            method = HttpMethod.Get
-            url {
-                parameters.append("link", numberIP)
+                parameters.append("link", number)
             }
         }
         return response.body()

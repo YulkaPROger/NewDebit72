@@ -1,4 +1,4 @@
-package com.example.debit72.entity
+package model
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -24,6 +24,9 @@ data class IP(
 
     @SerialName("Адресс")
     val address: String,
+
+    @SerialName("АдрессДляПоиска")
+    val addressForSearch: String,
 
     @SerialName("росп")
     val rosp: String,

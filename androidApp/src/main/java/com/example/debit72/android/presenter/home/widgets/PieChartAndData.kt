@@ -15,8 +15,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.debit72.android.R
-import com.example.debit72.android.presenter.Shimmering
-import com.example.debit72.android.presenter.shimmering
+import com.example.debit72.android.utils.Shimmering
+import com.example.debit72.android.utils.shimmering
 import com.example.debit72.android.presenter.theme.DebitTheme
 import com.example.debit72.repository.InfoRepository
 import kotlinx.coroutines.launch

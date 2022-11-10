@@ -104,6 +104,10 @@ fun SprAndSirWork(
             modifier = Modifier
                 .width(widthLongButton)
                 .clip(RoundedCornerShape(8.dp))
+                .clickable {
+                    navController.navigate("SPR screen")
+                }
+
         ) {
             Image(
                 painter = painterResource(id = R.drawable.spr),
@@ -311,6 +315,9 @@ fun ClaimantsButton(
             modifier = Modifier
                 .width(widthShortButton)
                 .clip(RoundedCornerShape(8.dp))
+                .clickable {
+                    navController.navigate("claimants")
+                }
         ) {
             Image(
                 painter = painterResource(id = R.drawable.claimants),

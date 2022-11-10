@@ -28,6 +28,9 @@ object Network {
     const val INFO = "PreviewInfoV2"
     const val ALL_IP = "ipv2"
     const val LINK_IP = "linkIpv2"
+    const val SPR = "spr"
+    const val LINK_SPR = "spr_link_v2"
+    const val CLAIMANTS = "claimants"
 
     const val KEY_API = "V784hfdsjUUreregTgv\$fgjhgkQhkNonStopfdgfJJonAV039MAS0714"
     const val FIO = "Колосов Виктор Константинович"

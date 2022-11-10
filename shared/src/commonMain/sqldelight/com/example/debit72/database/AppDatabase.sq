@@ -1,9 +1,10 @@
-CREATE TABLE Ip (
+CREATE TABLE IpDataBase (
     idNumber  TEXT NOT NULL,
     caseNumber TEXT NOT NULL,
     debtor TEXT NOT NULL,
     claimant TEXT NOT NULL,
     address TEXT NOT NULL,
+    addressForSearch TEXT NOT NULL,
     rosp TEXT NOT NULL,
     spi TEXT NOT NULL,
     number INTEGER AS Int NOT NULL,
@@ -13,29 +14,62 @@ CREATE TABLE Ip (
 );
 
 insertIP:
-INSERT INTO Ip(idNumber, caseNumber, debtor, claimant, address, rosp, spi, number, regNumberIP, totalAmountDebt, balanceOwed)
-VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+INSERT INTO IpDataBase(idNumber, caseNumber, debtor, claimant, address, addressForSearch, rosp, spi, number, regNumberIP, totalAmountDebt, balanceOwed)
+VALUES(?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?, ?);
 
 removeAllLIP:
-DELETE FROM Ip;
+DELETE FROM IpDataBase;
 
-selectAllIp:
-SELECT * FROM Ip;
+selectCount:
+SELECT count(*) FROM IpDataBase;
 
 selectIpFromNumber:
-SELECT * FROM Ip
+SELECT * FROM IpDataBase
 WHERE number = ?;
 
 selectIpFromString:
-SELECT * FROM Ip
+SELECT * FROM IpDataBase
 WHERE idNumber LIKE '%' || :idNumber || '%'
 OR caseNumber LIKE '%' || :caseNumber || '%'
 OR debtor LIKE '%' || :debtor || '%'
 OR claimant LIKE '%' || :claimant || '%'
-OR address LIKE '%' || :address || '%'
+OR addressForSearch LIKE '%' || :addressForSearch || '%'
 OR rosp LIKE '%' || :rosp || '%'
 OR spi LIKE '%' || :spi || '%'
 OR regNumberIP LIKE '%' || :regNumberIP || '%'
 OR totalAmountDebt LIKE '%' || :totalAmountDebt || '%'
 OR balanceOwed LIKE '%' || :balanceOwed || '%'
-LIMIT 20;
+LIMIT 100;
+
+
+CREATE TABLE SprDataBase (
+    naKogo  TEXT NOT NULL,
+    claimant TEXT NOT NULL,
+    submissionDate TEXT NOT NULL,
+    court TEXT NOT NULL,
+    currentCourt TEXT NOT NULL,
+    address TEXT NOT NULL,
+    addressForSearch TEXT NOT NULL,
+    number TEXT NOT NULL
+);
+
+insertSpr:
+INSERT INTO SprDataBase(naKogo, claimant, submissionDate, court, currentCourt, address, addressForSearch, number)
+VALUES(?, ?, ?, ?, ?, ?, ?, ?);
+
+removeAllSpr:
+DELETE FROM SprDataBase;
+
+selectCountSpr:
+SELECT count(*) FROM SprDataBase;
+
+selectSprFromString:
+SELECT * FROM SprDataBase
+WHERE naKogo LIKE '%' || :naKogo || '%'
+OR claimant LIKE '%' || :claimant || '%'
+OR submissionDate LIKE '%' || :submissionDate || '%'
+OR court LIKE '%' || :court || '%'
+OR currentCourt LIKE '%' || :currentCourt || '%'
+OR addressForSearch LIKE '%' || :addressForSearch || '%'
+OR number LIKE '%' || :number || '%';
+

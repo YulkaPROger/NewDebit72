@@ -1,15 +1,14 @@
-package com.example.debit72.android
+package com.example.debit72.android.utils
 
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
-import android.graphics.drawable.BitmapDrawable
 import android.os.Environment
 import androidx.core.content.FileProvider
+import com.example.debit72.android.DebitApplication
 import java.io.File
 import java.io.FileOutputStream
-import java.util.*
 
 enum class TypeFile {
     PICTURE,
@@ -52,6 +51,14 @@ class FileUtils(val typeFile: TypeFile) {
         shareIntent.type = "image/*"
         shareIntent.putExtra(Intent.EXTRA_STREAM, fileUri)
         activity.startActivity(Intent.createChooser(shareIntent, "QR"))
+        return true
+    }
+
+    fun share(text: String, name: String, activity: Activity): Boolean {
+        val shareIntent = Intent(Intent.ACTION_SEND)
+        shareIntent.type="text/plain"
+        shareIntent.putExtra(Intent.EXTRA_TEXT, text)
+        activity.startActivity(Intent.createChooser(shareIntent, name))
         return true
     }
 
