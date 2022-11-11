@@ -30,6 +30,9 @@ import com.example.debit72.android.presenter.service.registry_ip.widgets.Stories
 import com.example.debit72.android.utils.shimmering
 import com.example.debit72.android.presenter.theme.DebitTheme.colors
 import com.example.debit72.android.presenter.theme.DebitTheme.typography
+import com.example.debit72.android.widgets.CardFace
+import com.example.debit72.android.widgets.FlipCard
+import com.example.debit72.android.widgets.RotationAxis
 import com.example.debit72.repository.InfoRepository
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.EncodeHintType

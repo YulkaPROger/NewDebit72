@@ -62,6 +62,8 @@
     <string name="bank">Банк:</string>
     <string name="bank_status">Дата подачи: %s\nДата отзыва: %s\nСтатус: %s</string>
     <string name="period">Период взыскания:</string>
+    <string name="periodTo">Период по: %s</string>
+    <string name="periodFrom">Период с: %s</string>
     <string name="date_of_explication">Дата подачи: %s\nДата возбуждения: %s\nДата завершения ИП: %s</string>
     <string name="penalties_for_ID">Взыскания по ИД:</string>
     <string name="rosp">РОСП:</string>
@@ -116,7 +118,14 @@
     <string name="claimant_phone">Телефон: %s</string>
     <string name="claimant_email">E-mail: %s</string>
 
-
-
-
+    <string name="spr_sum_of_debt">Сумма долга: %s</string>
+    <string name="spr_sum_of_debt_share_debtor">Сумма долга дольщика: %s</string>
+    <string name="spr_sum_of_zhku">Сумма ЖКУ и пени: %s</string>
+    <string name="spr_sum_of_penalties">Сумма пени: %s</string>
+    <string name="spr_sum_of_penalties_share_debtor">Сумма пени дольщика: %s</string>
+    <string name="spr_sum_of_duty">Сумма пошлины: %s</string>
+    <string name="spr_sum_of_duty_share_debtor">Сумма пошлины дольщика: %s</string>
+    <string name="number_id">Номер ИД: %s</string>
+    <string name="number_case">Номер дела: %s</string>
+    <string name="date_id">Дата ИД: %s</string>
 </resources>
