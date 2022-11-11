@@ -106,7 +106,7 @@ fun ClaimantsCard(claimant: Claimant) {
             .fillMaxWidth()
             .padding(8.dp)
             .clip(RoundedCornerShape(8.dp))
-            .background(color = DebitTheme.colors.cardColor)
+            .background(color = colors.cardColor)
             .clickable {
                 expanded = !expanded
             },

@@ -125,6 +125,7 @@
     <string name="spr_sum_of_penalties_share_debtor">Сумма пени дольщика: %s</string>
     <string name="spr_sum_of_duty">Сумма пошлины: %s</string>
     <string name="spr_sum_of_duty_share_debtor">Сумма пошлины дольщика: %s</string>
-
-
+    <string name="number_id">Номер ИД: %s</string>
+    <string name="number_case">Номер дела: %s</string>
+    <string name="date_id">Дата ИД: %s</string>
 </resources>

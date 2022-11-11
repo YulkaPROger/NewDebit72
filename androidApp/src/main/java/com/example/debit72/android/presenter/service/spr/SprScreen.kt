@@ -199,81 +199,94 @@ fun BackSpr(number: String) {
         mutableStateOf(null)
     }
     LaunchedEffect(1) {
-        if (number != null)
-            withContext(Dispatchers.IO) {
-                kotlin.runCatching {
-                    SprRepository().getSprForLink(number)
-                }.onSuccess {
-                    spr = it
-                }.onFailure {
-                    error = it.message
-                }
+        withContext(Dispatchers.IO) {
+            kotlin.runCatching {
+                SprRepository().getSprForLink(number)
+            }.onSuccess {
+                spr = it
+            }.onFailure {
+                error = it.message
             }
-        else error = "Не удалось получить номер ИП"
+        }
     }
     Shimmering(isVisible = spr == null) {
-        spr?.let { fullSpr ->
-            Surface(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .clip(
-                        RoundedCornerShape(8.dp)
-                    ),
-                color = colors.cardColor
-            ) {
-                Column() {
-                    Row() {
-                        Text(
-                            text = stringResource(id = R.string.periodFrom, fullSpr.periodS),
-                            style = typography.body16.copy(
-                                color = colors.text
-                            ),
-                            modifier = Modifier.shimmering()
-                        )
-                        Spacer(modifier = Modifier.size(8.dp))
-                        Text(
-                            text = stringResource(id = R.string.periodTo, fullSpr.periodPo),
-                            style = typography.body16.copy(
-                                color = colors.text
-                            ),
-                            modifier = Modifier.shimmering()
-                        )
-                    }
+        Surface(
+            modifier = Modifier
+                .fillMaxWidth()
+                .clip(
+                    RoundedCornerShape(8.dp)
+                ),
+            color = colors.cardColor
+        ) {
+            Column() {
+                Row() {
                     Text(
-                        text = stringResource(id = R.string.spr_sum_of_debt, fullSpr.debt),
+                        text = stringResource(id = R.string.periodFrom, spr?.periodS ?: "dfghjk"),
                         style = typography.body16.copy(
                             color = colors.text
                         ),
                         modifier = Modifier.shimmering()
                     )
+                    Spacer(modifier = Modifier.size(8.dp))
                     Text(
-                        text = stringResource(id = R.string.spr_sum_of_zhku, fullSpr.sumOfZHKU),
-                        style = typography.body16.copy(
-                            color = colors.text
-                        ),
-                        modifier = Modifier.shimmering()
-                    )
-                    Text(
-                        text = stringResource(
-                            id = R.string.spr_sum_of_penalties,
-                            fullSpr.penalties
-                        ),
-                        style = typography.body16.copy(
-                            color = colors.text
-                        ),
-                        modifier = Modifier.shimmering()
-                    )
-                    Text(
-                        text = stringResource(
-                            id = R.string.spr_sum_of_duty,
-                            fullSpr.duty
-                        ),
+                        text = stringResource(id = R.string.periodTo, spr?.periodPo ?: "fghjkkjhgffdfy"),
                         style = typography.body16.copy(
                             color = colors.text
                         ),
                         modifier = Modifier.shimmering()
                     )
                 }
+                Row() {
+                    Text(
+                        text = stringResource(id = R.string.number_id, spr?.numberId ?: "gh kjnk"),
+                        style = typography.body16.copy(
+                            color = colors.text
+                        ),
+                        modifier = Modifier.shimmering()
+                    )
+                    Spacer(modifier = Modifier.size(8.dp))
+                    Text(
+                        text = stringResource(id = R.string.date_id, spr?.date ?: "ghjk"),
+                        style = typography.body16.copy(
+                            color = colors.text
+                        ),
+                        modifier = Modifier.shimmering()
+                    )
+                }
+                Text(
+                    text = stringResource(id = R.string.number_case, spr?.numberCase ?: "hkdkdkd"),
+                    style = typography.body16.copy(
+                        color = colors.text
+                    ),
+                    modifier = Modifier.shimmering()
+                )
+                Text(
+                    text = stringResource(id = R.string.spr_sum_of_debt, spr?.debt ?: "ghj"),
+                    style = typography.body16.copy(
+                        color = colors.text
+                    ),
+                    modifier = Modifier.shimmering()
+                )
+                Text(
+                    text = stringResource(
+                        id = R.string.spr_sum_of_penalties,
+                        spr?.penalties ?: "hjk"
+                    ),
+                    style = typography.body16.copy(
+                        color = colors.text
+                    ),
+                    modifier = Modifier.shimmering()
+                )
+                Text(
+                    text = stringResource(
+                        id = R.string.spr_sum_of_duty,
+                        spr?.duty ?: "hjk"
+                    ),
+                    style = typography.body16.copy(
+                        color = colors.text
+                    ),
+                    modifier = Modifier.shimmering()
+                )
             }
         }
     }

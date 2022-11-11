@@ -293,6 +293,9 @@ fun ClaimantsButton(
             modifier = Modifier
                 .width(widthLongButton)
                 .clip(RoundedCornerShape(8.dp))
+                .clickable {
+                    navController.navigate("claimants_on_the_rosp")
+                }
         ) {
             Image(
                 painter = painterResource(id = R.drawable.claimants_on_rosp),
