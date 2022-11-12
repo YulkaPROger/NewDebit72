@@ -25,7 +25,7 @@ SELECT count(*) FROM IpDataBase;
 
 selectIpFromNumber:
 SELECT * FROM IpDataBase
-WHERE number = ?;
+WHERE number = :number;
 
 selectIpFromString:
 SELECT * FROM IpDataBase
@@ -72,4 +72,45 @@ OR court LIKE '%' || :court || '%'
 OR currentCourt LIKE '%' || :currentCourt || '%'
 OR addressForSearch LIKE '%' || :addressForSearch || '%'
 OR number LIKE '%' || :number || '%';
+
+CREATE TABLE AutoDataBase (
+    owner  TEXT NOT NULL,
+    tsDebtor TEXT NOT NULL,
+    modelTs TEXT NOT NULL,
+    gosNumber TEXT NOT NULL,
+    arrested INTEGER AS Boolean NOT NULL,
+    dateArrested TEXT NOT NULL,
+    repository TEXT NOT NULL,
+    sumTS TEXT NOT NULL,
+    stateRealizedTS TEXT NOT NULL,
+    comment TEXT NOT NULL,
+    arrestedIp TEXT NOT NULL,
+    realized INTEGER AS Boolean NOT NULL,
+    address TEXT NOT NULL,
+    ipClaimant TEXT NOT NULL
+);
+
+insertAutoInDB:
+INSERT INTO AutoDataBase(owner, tsDebtor, modelTs, gosNumber, arrested, dateArrested, repository, sumTS, stateRealizedTS, comment,arrestedIp, realized, address, ipClaimant)
+VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?);
+
+removeAllAutoInDB:
+DELETE FROM AutoDataBase;
+
+selectCountAutoInDb:
+SELECT count(*) FROM AutoDataBase;
+
+selectAutoFromString:
+SELECT * FROM AutoDataBase
+WHERE owner LIKE '%' || :owner || '%'
+OR tsDebtor LIKE '%' || :tsDebtor || '%'
+OR modelTs LIKE '%' || :modelTs || '%'
+OR gosNumber LIKE '%' || :gosNumber || '%'
+OR dateArrested LIKE '%' || :dateArrested || '%'
+OR repository LIKE '%' || :repository || '%'
+OR sumTS LIKE '%' || :sumTS || '%'
+OR stateRealizedTS LIKE '%' || :stateRealizedTS || '%'
+OR comment LIKE '%' || :comment || '%'
+OR arrestedIp LIKE '%' || :arrestedIp || '%'
+OR address LIKE '%' || :address || '%';
 

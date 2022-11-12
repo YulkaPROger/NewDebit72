@@ -82,6 +82,8 @@ fun UpdateSettings(state: MoreStore.State?, store: MoreStore) {
             UpdateIp(state, store, dataStore)
             Spacer(modifier = Modifier.size(16.dp))
             UpdateSpr(state, store, dataStore)
+            Spacer(modifier = Modifier.size(16.dp))
+            UpdateAuto(state, store, dataStore)
         }
     }
 }
@@ -225,6 +227,85 @@ fun UpdateSpr(state: MoreStore.State?, store: MoreStore, dataStore: UserSettings
     when (state) {
         is MoreStore.State.Loading -> {
             if (state.loadingSpr)
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 4.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    LinearProgressIndicator(
+                        backgroundColor = colors.background,
+                        color = colors.primaryVariant,
+                        modifier = Modifier
+                            .fillMaxWidth(),
+                    )
+                }
+        }
+        else -> {}
+    }
+}
+
+@Composable
+fun UpdateAuto(state: MoreStore.State?, store: MoreStore, dataStore: UserSettings) {
+    val countAuto = dataStore.getString(UserSettings.COUNT_AUTO).collectAsState(initial = "")
+    val dateUpdate = dataStore.getString(UserSettings.DATE_UPDATE_AUTO).collectAsState(initial = "")
+    Text(
+        text = stringResource(id = R.string.auto),
+        style = typography.titleMedium20.copy(color = colors.text)
+    )
+    Row(
+        modifier = Modifier
+            .fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(
+            text = stringResource(id = R.string.last_update_date),
+            style = typography.bodyLarge16.copy(color = colors.text)
+        )
+        Text(
+            text = dateUpdate.value,
+            style = typography.bodyLarge16.copy(color = colors.text),
+            textAlign = TextAlign.End
+        )
+    }
+    Row(
+        modifier = Modifier
+            .fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(
+            text = stringResource(id = R.string.last_update_count),
+            style = typography.bodyLarge16.copy(color = colors.text)
+        )
+        Text(
+            text = countAuto.value,
+            style = typography.bodyLarge16.copy(color = colors.text)
+        )
+    }
+    Row(
+        modifier = Modifier
+            .fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(
+            text = stringResource(id = R.string.update),
+            style = typography.bodyLarge16.copy(color = colors.text)
+        )
+        Icon(
+            Icons.Rounded.Update, contentDescription = "update",
+            tint = colors.primaryVariant,
+            modifier = Modifier.clickable {
+                store.dispatch(MoreStore.Action.UpdateAuto)
+            }
+        )
+    }
+    when (state) {
+        is MoreStore.State.Loading -> {
+            if (state.loadingAuto)
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()

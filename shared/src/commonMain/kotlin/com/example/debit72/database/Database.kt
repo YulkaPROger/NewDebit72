@@ -1,7 +1,8 @@
 package com.example.debit72.database
 
-import model.IP
 import com.example.debit72.kmm.shared.cache.AppDatabase
+import model.AutoInBD
+import model.IP
 import model.Spr
 
 internal class Database(databaseDriverFactory: DatabaseDriverFactory) {
@@ -14,8 +15,15 @@ internal class Database(databaseDriverFactory: DatabaseDriverFactory) {
         }
     }
 
-    internal fun selectCount() : Long {
+    internal fun selectCount(): Long {
         return dbQuery.selectCount().executeAsOne()
+    }
+
+    internal fun selectIpFromNumber(number: Int): IP {
+        return dbQuery.selectIpFromNumber(
+            number,
+            mapper = ::mapLaunchSelecting
+        ).executeAsOne()
     }
 
     internal fun selectIpFromString(query: String): List<IP> {
@@ -76,6 +84,7 @@ internal class Database(databaseDriverFactory: DatabaseDriverFactory) {
         }
     }
 
+
     private fun insertIp(ip: IP) {
         dbQuery.insertIP(
             idNumber = ip.idNumber,
@@ -93,6 +102,10 @@ internal class Database(databaseDriverFactory: DatabaseDriverFactory) {
         )
     }
 
+    /**
+     * БЛОК Приказной работы
+     * */
+
     internal fun clearSpr() {
         dbQuery.transaction {
             dbQuery.removeAllSpr()
@@ -103,7 +116,7 @@ internal class Database(databaseDriverFactory: DatabaseDriverFactory) {
         dbQuery.transaction {
             listSpr.forEach { spr ->
                 dbQuery.insertSpr(
-                   naKogo =  spr.naKogo,
+                    naKogo = spr.naKogo,
                     claimant = spr.claimant,
                     submissionDate = spr.submissionDate,
                     court = spr.court,
@@ -116,7 +129,7 @@ internal class Database(databaseDriverFactory: DatabaseDriverFactory) {
         }
     }
 
-    internal fun selectSprFromString(query: String) : List<Spr> {
+    internal fun selectSprFromString(query: String): List<Spr> {
         return dbQuery.selectSprFromString(
             naKogo = query,
             claimant = query,
@@ -151,7 +164,100 @@ internal class Database(databaseDriverFactory: DatabaseDriverFactory) {
         )
     }
 
-    internal fun selectCountSpr() : Long {
+    internal fun selectCountSpr(): Long {
         return dbQuery.selectCountSpr().executeAsOne()
     }
+
+    /**
+     * БЛОК автомобили
+     * */
+
+    private fun insertAuto(auto: AutoInBD) {
+        dbQuery.insertAutoInDB(
+            owner = auto.owner,
+            tsDebtor = auto.tsDebtor,
+            address = auto.address,
+            arrested = auto.arrested,
+            arrestedIp = auto.arrestedIp,
+            comment = auto.comment,
+            dateArrested = auto.dateArrested,
+            gosNumber = auto.gosNumber,
+            ipClaimant = auto.ipClaimant,
+            modelTs = auto.modelTs,
+            realized = auto.realized,
+            repository = auto.repository,
+            stateRealizedTS = auto.stateRealizedTS,
+            sumTS = auto.sumTS
+        )
+    }
+
+    internal fun clearAuto() {
+        dbQuery.transaction {
+            dbQuery.removeAllAutoInDB()
+        }
+    }
+
+    internal fun createAuto(listAuto: List<AutoInBD>) {
+        dbQuery.transaction {
+            listAuto.forEach { auto ->
+                insertAuto(auto)
+            }
+        }
+    }
+
+    internal fun selectAutoFromString(query: String): List<AutoInBD> {
+        return dbQuery.selectAutoFromString(
+            owner = query,
+            tsDebtor = query,
+            address = query,
+            arrestedIp = query,
+            comment = query,
+            dateArrested = query,
+            gosNumber = query,
+            modelTs = query,
+            repository = query,
+            stateRealizedTS = query,
+            sumTS = query,
+            mapper = ::mapAutoDataBaseToAutoBD
+        ).executeAsList()
+    }
+
+    private fun mapAutoDataBaseToAutoBD(
+        owner: String,
+        tsDebtor: String,
+        modelTs: String,
+        gosNumber: String,
+        arrested: Boolean,
+        dateArrested: String,
+        repository: String,
+        sumTS: String,
+        stateRealizedTS: String,
+        comment: String,
+        arrestedIp: String,
+        realized: Boolean,
+        address: String,
+        ipClaimant: String,
+    ): AutoInBD {
+        return AutoInBD(
+            owner = owner,
+            tsDebtor = tsDebtor,
+            address = address,
+            arrested = arrested,
+            arrestedIp = arrestedIp,
+            comment = comment,
+            dateArrested = dateArrested,
+            gosNumber = gosNumber,
+            ipClaimant = ipClaimant,
+            modelTs = modelTs,
+            realized = realized,
+            repository = repository,
+            stateRealizedTS = stateRealizedTS,
+            sumTS = sumTS
+        )
+    }
+
+    internal fun selectCountAuto(): Long {
+        return dbQuery.selectCountAutoInDb().executeAsOne()
+    }
+
 }

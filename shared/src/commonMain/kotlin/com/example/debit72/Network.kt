@@ -32,6 +32,7 @@ object Network {
     const val LINK_SPR = "spr_link_v2"
     const val CLAIMANTS = "claimants"
     const val CLAIMANTS_ON_ROSP = "claimants_on_the_rosp_v2"
+    const val AUTO = "auto_v2"
 
     const val KEY_API = "V784hfdsjUUreregTgv\$fgjhgkQhkNonStopfdgfJJonAV039MAS0714"
     const val FIO = "Колосов Виктор Константинович"

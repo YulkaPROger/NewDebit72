@@ -170,6 +170,9 @@ fun AutoButton(
             modifier = Modifier
                 .width(widthShortButton)
                 .clip(RoundedCornerShape(8.dp))
+                .clickable {
+                    navController.navigate("auto")
+                }
         ) {
             Image(
                 painter = painterResource(id = R.drawable.auto_button),

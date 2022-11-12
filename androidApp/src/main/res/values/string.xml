@@ -128,4 +128,8 @@
     <string name="number_id">Номер ИД: %s</string>
     <string name="number_case">Номер дела: %s</string>
     <string name="date_id">Дата ИД: %s</string>
+
+    <string name="model_ts">Модель: %s</string>
+    <string name="gos_number">Гос.номер: %s</string>
+    <string name="comment">Комментарий: %s</string>
 </resources>

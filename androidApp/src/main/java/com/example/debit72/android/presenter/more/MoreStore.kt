@@ -31,6 +31,7 @@ class MoreStore(context: Context) :
         data class Loading(
             val loadingIP: Boolean = false,
             val loadingSpr: Boolean = false,
+            val loadingAuto: Boolean = false,
         ) : State
 
         data class LoadingError(val error: Throwable) : State
@@ -42,6 +43,7 @@ class MoreStore(context: Context) :
         data class Loaded(val result: State) : Action
         object UpdateIP : Action
         object UpdateSpr : Action
+        object UpdateAuto : Action
     }
 
     sealed interface Effect : ReduxStore.Effect {
@@ -59,6 +61,7 @@ class MoreStore(context: Context) :
             }
             Action.UpdateIP -> updateIP()
             Action.UpdateSpr -> updateSpr()
+            Action.UpdateAuto -> updateAuto()
         }
     }
 
@@ -116,6 +119,34 @@ class MoreStore(context: Context) :
             }
         }
         return State.Loading(loadingSpr = true)
+    }
+
+    private fun updateAuto(): State {
+        launch(Dispatchers.IO) {
+            runCatching {
+                sdk.updateAuto()
+                dispatch(
+                    Action.Loaded(
+                        State.Data
+                    )
+                )
+            }.onFailure {
+                dispatch(Action.Loaded(State.LoadingError(it)))
+                Log.e("MoreStore", "loading", it)
+            }.onSuccess {
+                val count = sdk.selectCountAuto()
+                dataStore.setString(count.toString(), UserSettings.COUNT_AUTO)
+                val time = getCurrentDateTime().toNormalDate("dd.MM.yyyy")
+                dataStore.setString(time, UserSettings.DATE_UPDATE_AUTO)
+                Log.d("date and count", time + count)
+                dispatch(
+                    Action.Loaded(
+                        State.Data
+                    )
+                )
+            }
+        }
+        return State.Loading(loadingAuto = true)
     }
 
     private fun loading(action: Action.Start): State {

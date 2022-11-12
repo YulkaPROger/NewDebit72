@@ -8,6 +8,7 @@ import androidx.navigation.compose.composable
 import com.example.debit72.android.presenter.home.HomeScreen
 import com.example.debit72.android.presenter.more.MoreScreen
 import com.example.debit72.android.presenter.service.ServiceScreen
+import com.example.debit72.android.presenter.service.auto.AutoScreen
 import com.example.debit72.android.presenter.service.claimants.ClaimantsScreen
 import com.example.debit72.android.presenter.service.claimants_rosp.ClaimantsOnTheRospScreen
 import com.example.debit72.android.presenter.service.registry_ip.FullIPScreen
@@ -46,6 +47,9 @@ fun Navigation(
         }
         composable("claimants_on_the_rosp") {
             ClaimantsOnTheRospScreen(navController)
+        }
+        composable("auto") {
+            AutoScreen(navController)
         }
 //        composable("createObject") { CreateObjectScreen(navController) }
 //        composable("choiceService") {
