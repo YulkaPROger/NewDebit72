@@ -29,16 +29,16 @@ WHERE number = :number;
 
 selectIpFromString:
 SELECT * FROM IpDataBase
-WHERE idNumber LIKE '%' || :idNumber || '%'
-OR caseNumber LIKE '%' || :caseNumber || '%'
-OR debtor LIKE '%' || :debtor || '%'
-OR claimant LIKE '%' || :claimant || '%'
-OR addressForSearch LIKE '%' || :addressForSearch || '%'
-OR rosp LIKE '%' || :rosp || '%'
-OR spi LIKE '%' || :spi || '%'
-OR regNumberIP LIKE '%' || :regNumberIP || '%'
-OR totalAmountDebt LIKE '%' || :totalAmountDebt || '%'
-OR balanceOwed LIKE '%' || :balanceOwed || '%'
+WHERE idNumber LIKE '%' || :query || '%'
+OR caseNumber LIKE '%' || :query || '%'
+OR debtor LIKE '%' || :query || '%'
+OR claimant LIKE '%' || :query || '%'
+OR addressForSearch LIKE '%' || :query || '%'
+OR rosp LIKE '%' || :query || '%'
+OR spi LIKE '%' || :query || '%'
+OR regNumberIP LIKE '%' || :query || '%'
+OR totalAmountDebt LIKE '%' || :query || '%'
+OR balanceOwed LIKE '%' || :query || '%'
 LIMIT 100;
 
 
@@ -65,34 +65,26 @@ SELECT count(*) FROM SprDataBase;
 
 selectSprFromString:
 SELECT * FROM SprDataBase
-WHERE naKogo LIKE '%' || :naKogo || '%'
-OR claimant LIKE '%' || :claimant || '%'
-OR submissionDate LIKE '%' || :submissionDate || '%'
-OR court LIKE '%' || :court || '%'
-OR currentCourt LIKE '%' || :currentCourt || '%'
-OR addressForSearch LIKE '%' || :addressForSearch || '%'
-OR number LIKE '%' || :number || '%';
+WHERE naKogo LIKE '%' || :query || '%'
+OR claimant LIKE '%' || :query || '%'
+OR submissionDate LIKE '%' || :query || '%'
+OR court LIKE '%' || :query || '%'
+OR currentCourt LIKE '%' || :query || '%'
+OR addressForSearch LIKE '%' || :query || '%'
+OR number LIKE '%' || :query || '%';
 
 CREATE TABLE AutoDataBase (
     owner  TEXT NOT NULL,
-    tsDebtor TEXT NOT NULL,
     modelTs TEXT NOT NULL,
     gosNumber TEXT NOT NULL,
     arrested INTEGER AS Boolean NOT NULL,
-    dateArrested TEXT NOT NULL,
-    repository TEXT NOT NULL,
-    sumTS TEXT NOT NULL,
-    stateRealizedTS TEXT NOT NULL,
-    comment TEXT NOT NULL,
-    arrestedIp TEXT NOT NULL,
-    realized INTEGER AS Boolean NOT NULL,
-    address TEXT NOT NULL,
+    searchLine TEXT NOT NULL,
     ipClaimant TEXT NOT NULL
 );
 
 insertAutoInDB:
-INSERT INTO AutoDataBase(owner, tsDebtor, modelTs, gosNumber, arrested, dateArrested, repository, sumTS, stateRealizedTS, comment,arrestedIp, realized, address, ipClaimant)
-VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?);
+INSERT INTO AutoDataBase(owner, modelTs, gosNumber, arrested, searchLine, ipClaimant)
+VALUES (?,?,?,?,?,?);
 
 removeAllAutoInDB:
 DELETE FROM AutoDataBase;
@@ -102,15 +94,9 @@ SELECT count(*) FROM AutoDataBase;
 
 selectAutoFromString:
 SELECT * FROM AutoDataBase
-WHERE owner LIKE '%' || :owner || '%'
-OR tsDebtor LIKE '%' || :tsDebtor || '%'
-OR modelTs LIKE '%' || :modelTs || '%'
-OR gosNumber LIKE '%' || :gosNumber || '%'
-OR dateArrested LIKE '%' || :dateArrested || '%'
-OR repository LIKE '%' || :repository || '%'
-OR sumTS LIKE '%' || :sumTS || '%'
-OR stateRealizedTS LIKE '%' || :stateRealizedTS || '%'
-OR comment LIKE '%' || :comment || '%'
-OR arrestedIp LIKE '%' || :arrestedIp || '%'
-OR address LIKE '%' || :address || '%';
+WHERE searchLine LIKE '%' || :query || '%'
+OR owner LIKE '%' || :query || '%'
+OR modelTs LIKE '%' || :query || '%'
+OR gosNumber LIKE '%' || :query || '%'
+LIMIT 100;
 

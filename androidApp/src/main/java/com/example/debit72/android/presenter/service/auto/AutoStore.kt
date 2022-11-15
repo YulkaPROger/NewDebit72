@@ -75,7 +75,8 @@ class AutoStore(context: Context) :
                                         totalAmountDebt = ip.totalAmountDebt,
                                         claimant = ip.claimant,
                                         address = ip.address,
-                                        balanceOwed = ip.balanceOwed
+                                        balanceOwed = ip.balanceOwed,
+                                        number = numberWithoutSpace.toInt()
                                     )
                                 } else null
                             }
@@ -84,7 +85,6 @@ class AutoStore(context: Context) :
                         modelTs = autoInBd.modelTs,
                         ipClaimant = autoInBd.ipClaimant,
                         gosNumber = autoInBd.gosNumber,
-                        comment = autoInBd.comment,
                         listIp = listIp
                     )
                 }
@@ -110,7 +110,6 @@ class AutoStore(context: Context) :
 
 data class PresenterAuto(
     val owner: String,
-    val comment: String,
     val gosNumber: String,
     val modelTs: String,
     val ipClaimant: String,
@@ -123,4 +122,5 @@ data class PresenterIP(
     val address: String,
     val totalAmountDebt: String,
     val balanceOwed: String,
+    val number: Int
 )

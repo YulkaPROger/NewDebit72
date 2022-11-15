@@ -28,16 +28,7 @@ internal class Database(databaseDriverFactory: DatabaseDriverFactory) {
 
     internal fun selectIpFromString(query: String): List<IP> {
         return dbQuery.selectIpFromString(
-            idNumber = query,
-            claimant = query,
-            addressForSearch = query,
-            balanceOwed = query,
-            caseNumber = query,
-            debtor = query,
-            regNumberIP = query,
-            rosp = query,
-            spi = query,
-            totalAmountDebt = query,
+            query = query,
             mapper = ::mapLaunchSelecting
         ).executeAsList()
     }
@@ -131,13 +122,7 @@ internal class Database(databaseDriverFactory: DatabaseDriverFactory) {
 
     internal fun selectSprFromString(query: String): List<Spr> {
         return dbQuery.selectSprFromString(
-            naKogo = query,
-            claimant = query,
-            submissionDate = query,
-            court = query,
-            currentCourt = query,
-            addressForSearch = query,
-            number = query,
+            query = query,
             mapper = ::mapSprSelecting
         ).executeAsList()
     }
@@ -175,19 +160,11 @@ internal class Database(databaseDriverFactory: DatabaseDriverFactory) {
     private fun insertAuto(auto: AutoInBD) {
         dbQuery.insertAutoInDB(
             owner = auto.owner,
-            tsDebtor = auto.tsDebtor,
-            address = auto.address,
             arrested = auto.arrested,
-            arrestedIp = auto.arrestedIp,
-            comment = auto.comment,
-            dateArrested = auto.dateArrested,
             gosNumber = auto.gosNumber,
             ipClaimant = auto.ipClaimant,
             modelTs = auto.modelTs,
-            realized = auto.realized,
-            repository = auto.repository,
-            stateRealizedTS = auto.stateRealizedTS,
-            sumTS = auto.sumTS
+            searchLine = auto.searchLine
         )
     }
 
@@ -207,52 +184,26 @@ internal class Database(databaseDriverFactory: DatabaseDriverFactory) {
 
     internal fun selectAutoFromString(query: String): List<AutoInBD> {
         return dbQuery.selectAutoFromString(
-            owner = query,
-            tsDebtor = query,
-            address = query,
-            arrestedIp = query,
-            comment = query,
-            dateArrested = query,
-            gosNumber = query,
-            modelTs = query,
-            repository = query,
-            stateRealizedTS = query,
-            sumTS = query,
+            query = query,
             mapper = ::mapAutoDataBaseToAutoBD
         ).executeAsList()
     }
 
     private fun mapAutoDataBaseToAutoBD(
         owner: String,
-        tsDebtor: String,
         modelTs: String,
         gosNumber: String,
         arrested: Boolean,
-        dateArrested: String,
-        repository: String,
-        sumTS: String,
-        stateRealizedTS: String,
-        comment: String,
-        arrestedIp: String,
-        realized: Boolean,
-        address: String,
+        searchLine: String,
         ipClaimant: String,
     ): AutoInBD {
         return AutoInBD(
             owner = owner,
-            tsDebtor = tsDebtor,
-            address = address,
             arrested = arrested,
-            arrestedIp = arrestedIp,
-            comment = comment,
-            dateArrested = dateArrested,
             gosNumber = gosNumber,
             ipClaimant = ipClaimant,
             modelTs = modelTs,
-            realized = realized,
-            repository = repository,
-            stateRealizedTS = stateRealizedTS,
-            sumTS = sumTS
+            searchLine = searchLine,
         )
     }
 

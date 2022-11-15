@@ -6,7 +6,7 @@ plugins {
 android {
     compileSdk = 33
     defaultConfig {
-        applicationId = "com.example.debit72.android"
+        applicationId = "CH.Debit.RUS"
         minSdk = 28
         targetSdk = 33
         versionCode = 3

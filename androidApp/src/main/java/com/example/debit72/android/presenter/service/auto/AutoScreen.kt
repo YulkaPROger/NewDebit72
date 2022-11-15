@@ -1,10 +1,13 @@
 package com.example.debit72.android.presenter.service.auto
 
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Divider
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Icon
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
@@ -15,6 +18,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -38,14 +42,22 @@ fun AutoScreen(navController: NavHostController) {
     var error: String? by remember {
         mutableStateOf(null)
     }
+    var loader by remember {
+        mutableStateOf(false)
+    }
     when (state) {
         is AutoStore.State.Data -> {
             list = state.auto
             error = ""
+            loader = false
         }
         is AutoStore.State.LoadingError -> {
             error = state.error
             list = emptyList()
+            loader = false
+        }
+        is AutoStore.State.Loading -> {
+            loader = true
         }
         else -> {}
     }
@@ -71,6 +83,15 @@ fun AutoScreen(navController: NavHostController) {
             onChangeText = { query = it },
             count = list?.size
         )
+        if (loader) {
+            Column(
+                modifier = Modifier.fillMaxSize(),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                CircularProgressIndicator(color = colors.onSecondary)
+            }
+        }
         LazyColumn(
             verticalArrangement = Arrangement.spacedBy(8.dp),
             modifier = modifier
@@ -89,6 +110,7 @@ fun AutoScreen(navController: NavHostController) {
 @Composable
 fun CardAuto(auto: PresenterAuto, navController: NavHostController) {
     val modifier = Modifier.fillMaxWidth()
+    val width = LocalConfiguration.current.screenWidthDp
     Surface(
         modifier = modifier
             .clip(
@@ -135,20 +157,58 @@ fun CardAuto(auto: PresenterAuto, navController: NavHostController) {
                     )
                 }
             }
-            if (auto.comment.isNotBlank()) {
-                Divider(color = colors.onSecondary, modifier = Modifier.padding(vertical = 4.dp))
-                Text(
-                    text = stringResource(id = R.string.comment, auto.comment),
-                    style = DebitTheme.typography.body16.copy(color = DebitTheme.colors.text)
-                )
-            }
-            Row() {
-                auto.listIp.forEach { list->
+            LazyRow(
+                modifier = Modifier.padding(vertical = 8.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                auto.listIp.forEach { list ->
                     list?.let {
-                        Text(
-                            text = stringResource(id = R.string.reg_number_ip, it.regNumberIP),
-                            style = DebitTheme.typography.body16.copy(color = colors.text)
-                        )
+                        item {
+                            Column(
+                                modifier = Modifier
+                                    .width((width * 0.6).dp)
+                                    .border(
+                                        width = 2.dp,
+                                        color = colors.onSecondary,
+                                        shape = RoundedCornerShape(8.dp)
+                                    )
+                                    .padding(8.dp)
+                                    .clickable {
+                                        navController.navigate("fullIP/${it.number}")
+                                    },
+                                verticalArrangement = Arrangement.spacedBy(4.dp)
+                            ) {
+                                Text(
+                                    text = stringResource(
+                                        id = R.string.reg_number_ip,
+                                        it.regNumberIP
+                                    ),
+                                    style = DebitTheme.typography.body16.copy(color = colors.text)
+                                )
+                                Text(
+                                    text = it.claimant,
+                                    style = DebitTheme.typography.body16.copy(color = colors.text)
+                                )
+                                Text(
+                                    text = it.address,
+                                    style = DebitTheme.typography.body16.copy(color = colors.text)
+                                )
+                                Text(
+                                    text = stringResource(
+                                        id = R.string.total_amount_debt_with_params,
+                                        it.totalAmountDebt
+                                    ),
+                                    style = DebitTheme.typography.body16.copy(color = colors.text)
+                                )
+                                Text(
+                                    text = stringResource(
+                                        id = R.string.balance_owed_with_params,
+                                        it.balanceOwed
+                                    ),
+                                    style = DebitTheme.typography.body16.copy(color = colors.text)
+                                )
+                            }
+                        }
                     }
                 }
             }
