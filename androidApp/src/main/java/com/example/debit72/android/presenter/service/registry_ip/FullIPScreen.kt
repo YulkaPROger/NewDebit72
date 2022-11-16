@@ -909,7 +909,7 @@ fun QR(vCardText: String) {
     }
 
     val bits = QRCodeWriter().encode(vCardText, BarcodeFormat.QR_CODE, size, size, hints)
-    val bitmap = Bitmap.createBitmap(size, size, Bitmap.Config.RGB_565).also {
+    val bitmap = Bitmap.createBitmap(size, size, Bitmap.Config.RGBA_F16).also {
         for (x in 0 until size) {
             for (y in 0 until size) {
                 it.setPixel(x, y, if (bits[x, y]) Color.BLACK else Color.GRAY)
@@ -918,6 +918,7 @@ fun QR(vCardText: String) {
     }
     Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
         Image(bitmap = bitmap.asImageBitmap(), contentDescription = "QR")
+        //TODO не работает из-за изменения формата файла
         Icon(
             imageVector = Icons.Rounded.Share,
             contentDescription = "Share",
@@ -926,7 +927,7 @@ fun QR(vCardText: String) {
                 .clickable {
                     context
                         .let { it1 -> FileUtils.with(it1, TypeFile.PICTURE) }
-                        .share(bitmap, context as Activity)
+                        .share(bitmap, context as Activity, "QR")
                 },
             tint = colors.onSecondary
         )
