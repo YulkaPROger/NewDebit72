@@ -78,13 +78,61 @@ fun UpdateSettings(state: MoreStore.State?, store: MoreStore) {
                 text = stringResource(id = R.string.update_settings),
                 style = typography.titleMedium20.copy(color = colors.text)
             )
+            UpdateAll(state, store, dataStore)
             Spacer(modifier = Modifier.size(16.dp))
             UpdateIp(state, store, dataStore)
             Spacer(modifier = Modifier.size(16.dp))
             UpdateSpr(state, store, dataStore)
             Spacer(modifier = Modifier.size(16.dp))
             UpdateAuto(state, store, dataStore)
+            Spacer(modifier = Modifier.size(16.dp))
+            //TODO оставлено до того момента, когда арестованного имущества и авто будет под 1000
+//            UpdateArrestedAuto(state, store, dataStore)
+//            Spacer(modifier = Modifier.size(16.dp))
+//            UpdateArrestedProperty(state, store, dataStore)
         }
+    }
+}
+
+@Composable
+fun UpdateAll(state: MoreStore.State?, store: MoreStore, dataStore: UserSettings) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(
+            text = stringResource(id = R.string.update_all),
+            style = typography.bodyLarge16.copy(color = colors.text)
+        )
+        Icon(
+            Icons.Rounded.Update, contentDescription = "update",
+            tint = colors.primaryVariant,
+            modifier = Modifier.clickable {
+                store.dispatch(MoreStore.Action.UpdateAll)
+            }
+        )
+    }
+    when (state) {
+        is MoreStore.State.Loading -> {
+            if (state.updateAll)
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 4.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    LinearProgressIndicator(
+                        backgroundColor = colors.background,
+                        color = colors.primaryVariant,
+                        modifier = Modifier
+                            .fillMaxWidth(),
+                    )
+                }
+        }
+        else -> {}
     }
 }
 
@@ -147,7 +195,7 @@ fun UpdateIp(state: MoreStore.State?, store: MoreStore, dataStore: UserSettings)
     }
     when (state) {
         is MoreStore.State.Loading -> {
-            if (state.loadingIP)
+            if (state.loadingIP || state.updateAll)
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -226,7 +274,7 @@ fun UpdateSpr(state: MoreStore.State?, store: MoreStore, dataStore: UserSettings
     }
     when (state) {
         is MoreStore.State.Loading -> {
-            if (state.loadingSpr)
+            if (state.loadingSpr || state.updateAll)
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -305,7 +353,169 @@ fun UpdateAuto(state: MoreStore.State?, store: MoreStore, dataStore: UserSetting
     }
     when (state) {
         is MoreStore.State.Loading -> {
-            if (state.loadingAuto)
+            if (state.loadingAuto || state.updateAll)
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 4.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    LinearProgressIndicator(
+                        backgroundColor = colors.background,
+                        color = colors.primaryVariant,
+                        modifier = Modifier
+                            .fillMaxWidth(),
+                    )
+                }
+        }
+        else -> {}
+    }
+}
+
+@Composable
+fun UpdateArrestedAuto(state: MoreStore.State?, store: MoreStore, dataStore: UserSettings) {
+    val countAuto =
+        dataStore.getString(UserSettings.COUNT_ARRESTED_AUTO).collectAsState(initial = "")
+    val dateUpdate =
+        dataStore.getString(UserSettings.DATE_UPDATE_ARRESTED_AUTO).collectAsState(initial = "")
+    Text(
+        text = stringResource(id = R.string.arrested_cars),
+        style = typography.titleMedium20.copy(color = colors.text)
+    )
+    Row(
+        modifier = Modifier
+            .fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(
+            text = stringResource(id = R.string.last_update_date),
+            style = typography.bodyLarge16.copy(color = colors.text)
+        )
+        Text(
+            text = dateUpdate.value,
+            style = typography.bodyLarge16.copy(color = colors.text),
+            textAlign = TextAlign.End
+        )
+    }
+    Row(
+        modifier = Modifier
+            .fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(
+            text = stringResource(id = R.string.last_update_count),
+            style = typography.bodyLarge16.copy(color = colors.text)
+        )
+        Text(
+            text = countAuto.value,
+            style = typography.bodyLarge16.copy(color = colors.text)
+        )
+    }
+    Row(
+        modifier = Modifier
+            .fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(
+            text = stringResource(id = R.string.update),
+            style = typography.bodyLarge16.copy(color = colors.text)
+        )
+        Icon(
+            Icons.Rounded.Update, contentDescription = "update",
+            tint = colors.primaryVariant,
+            modifier = Modifier.clickable {
+                store.dispatch(MoreStore.Action.UpdateArrestedAuto)
+            }
+        )
+    }
+    when (state) {
+        is MoreStore.State.Loading -> {
+            if (state.loadingArrestedAuto || state.updateAll)
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 4.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    LinearProgressIndicator(
+                        backgroundColor = colors.background,
+                        color = colors.primaryVariant,
+                        modifier = Modifier
+                            .fillMaxWidth(),
+                    )
+                }
+        }
+        else -> {}
+    }
+}
+
+@Composable
+fun UpdateArrestedProperty(state: MoreStore.State?, store: MoreStore, dataStore: UserSettings) {
+    val countAuto =
+        dataStore.getString(UserSettings.COUNT_ARRESTED_PROPERTY).collectAsState(initial = "")
+    val dateUpdate =
+        dataStore.getString(UserSettings.DATE_UPDATE_ARRESTED_PROPERTY).collectAsState(initial = "")
+    Text(
+        text = stringResource(id = R.string.arrested_property),
+        style = typography.titleMedium20.copy(color = colors.text)
+    )
+    Row(
+        modifier = Modifier
+            .fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(
+            text = stringResource(id = R.string.last_update_date),
+            style = typography.bodyLarge16.copy(color = colors.text)
+        )
+        Text(
+            text = dateUpdate.value,
+            style = typography.bodyLarge16.copy(color = colors.text),
+            textAlign = TextAlign.End
+        )
+    }
+    Row(
+        modifier = Modifier
+            .fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(
+            text = stringResource(id = R.string.last_update_count),
+            style = typography.bodyLarge16.copy(color = colors.text)
+        )
+        Text(
+            text = countAuto.value,
+            style = typography.bodyLarge16.copy(color = colors.text)
+        )
+    }
+    Row(
+        modifier = Modifier
+            .fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(
+            text = stringResource(id = R.string.update),
+            style = typography.bodyLarge16.copy(color = colors.text)
+        )
+        Icon(
+            Icons.Rounded.Update, contentDescription = "update",
+            tint = colors.primaryVariant,
+            modifier = Modifier.clickable {
+                store.dispatch(MoreStore.Action.UpdateArrestedProperty)
+            }
+        )
+    }
+    when (state) {
+        is MoreStore.State.Loading -> {
+            if (state.loadingArrestedProperty || state.updateAll)
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()

@@ -8,11 +8,14 @@ import androidx.navigation.compose.composable
 import com.example.debit72.android.presenter.home.HomeScreen
 import com.example.debit72.android.presenter.more.MoreScreen
 import com.example.debit72.android.presenter.service.ServiceScreen
+import com.example.debit72.android.presenter.service.arrested_auto.ArrestedAutoScreen
+import com.example.debit72.android.presenter.service.arrested_property.ArrestedPropertyScreen
 import com.example.debit72.android.presenter.service.auto.AutoScreen
 import com.example.debit72.android.presenter.service.claimants.ClaimantsScreen
 import com.example.debit72.android.presenter.service.claimants_rosp.ClaimantsOnTheRospScreen
 import com.example.debit72.android.presenter.service.registry_ip.FullIPScreen
 import com.example.debit72.android.presenter.service.registry_ip.RegistryIP
+import com.example.debit72.android.presenter.service.sir.SirScreen
 import com.example.debit72.android.presenter.service.spr.SprScreen
 
 
@@ -31,7 +34,7 @@ fun Navigation(
         composable(NavigationItem.More.route) {
             MoreScreen(navController, showSnackbar = showSnackbar)
         }
-        composable("Registry IP") {
+        composable(NameRoute.RegistryIPRoute.route) {
             RegistryIP(navController)
         }
         composable(
@@ -39,23 +42,47 @@ fun Navigation(
         ) { backStackEntry ->
             FullIPScreen(backStackEntry.arguments?.getString("number"))
         }
-        composable("SPR screen") {
+        composable(NameRoute.SprRoute.route) {
             SprScreen(navController)
         }
-        composable("claimants") {
+        composable(NameRoute.ClaimantsRoute.route) {
             ClaimantsScreen(navController)
         }
-        composable("claimants_on_the_rosp") {
+        composable(NameRoute.ClaimantsOnRospRoute.route) {
             ClaimantsOnTheRospScreen(navController)
         }
-        composable("auto") {
+        composable(NameRoute.AutoRoute.route) {
             AutoScreen(navController)
+        }
+        composable(NameRoute.ArrestedAutoRoute.route) {
+            ArrestedAutoScreen(navController)
+        }
+        composable(NameRoute.ArrestedPropertyRoute.route) {
+            ArrestedPropertyScreen(navController)
+        }
+        composable(NameRoute.SirRoute.route) {
+            SirScreen(navController)
         }
 //        composable("createObject") { CreateObjectScreen(navController) }
 //        composable("choiceService") {
 //            ChoiceService(navController)
 //        }
     }
+}
+
+sealed class NameRoute(
+    val route: String,
+    val params: String? = null
+) {
+    object ArrestedAutoRoute : NameRoute("arrested_auto")
+    object ArrestedPropertyRoute : NameRoute("arrested_property")
+    object AutoRoute : NameRoute("auto")
+    object SprRoute : NameRoute("SPR screen")
+    object ClaimantsRoute : NameRoute("claimants")
+    object ClaimantsOnRospRoute: NameRoute("claimants_on_the_rosp")
+    object RegistryIPRoute: NameRoute("Registry IP")
+    object SirRoute: NameRoute("sir")
+    data class Ip(val param: String? = null): NameRoute("fullIP", param)
 }
 
 

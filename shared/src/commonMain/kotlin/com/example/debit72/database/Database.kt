@@ -1,9 +1,7 @@
 package com.example.debit72.database
 
 import com.example.debit72.kmm.shared.cache.AppDatabase
-import model.AutoInBD
-import model.IP
-import model.Spr
+import model.*
 
 internal class Database(databaseDriverFactory: DatabaseDriverFactory) {
     private val database = AppDatabase(databaseDriverFactory.createDriver())
@@ -209,6 +207,126 @@ internal class Database(databaseDriverFactory: DatabaseDriverFactory) {
 
     internal fun selectCountAuto(): Long {
         return dbQuery.selectCountAutoInDb().executeAsOne()
+    }
+
+    /**
+     * БЛОК арестованных автомобилей
+     * */
+
+    private fun insertArrestedAuto(auto: ArrestedAuto) {
+        dbQuery.insertArrestedAuto(
+            modelTs = auto.modelTs,
+            gosNumber = auto.gosNumber,
+            dateArrestedTs = auto.dateArrestedTs,
+            repository = auto.repository,
+            price = auto.price,
+            owner = auto.owner,
+            ipDebtor = auto.ipDebtor,
+            searchLine = auto.searchLine
+        )
+    }
+
+    internal fun clearArrestedAuto() {
+        dbQuery.transaction {
+            dbQuery.removeArrestedAllAuto()
+        }
+    }
+
+    internal fun createArrestedAuto(listAuto: List<ArrestedAuto>) {
+        dbQuery.transaction {
+            listAuto.forEach { auto ->
+                insertArrestedAuto(auto)
+            }
+        }
+    }
+
+    internal fun selectArrestedAutoFromString(query: String): List<ArrestedAuto> {
+        return dbQuery.selectArrestedAutoFromString(
+            query = query,
+            mapper = ::mapArrestedAutoDataBaseToAutoBD
+        ).executeAsList()
+    }
+
+    private fun mapArrestedAutoDataBaseToAutoBD(
+        modelTs: String,
+        gosNumber: String,
+        dateArrestedTs: String,
+        repository: String,
+        price: String,
+        owner: String,
+        ipDebtor: String,
+        searchLine: String
+    ): ArrestedAuto {
+        return ArrestedAuto(
+            modelTs, gosNumber, dateArrestedTs, repository, price, owner, ipDebtor, searchLine
+        )
+    }
+
+    internal fun selectCountArrestedAuto(): Long {
+        return dbQuery.selectCountArrestedAuto().executeAsOne()
+    }
+
+    internal fun selectAllArrestedAuto(): List<ArrestedAuto> {
+        return dbQuery.selectAllArrestedAuto(mapper = ::mapArrestedAutoDataBaseToAutoBD)
+            .executeAsList()
+    }
+
+    /**
+     * БЛОК арестованного имущества
+     * */
+
+    private fun insertArrestedProperty(prop: ArrestedProperty) {
+        dbQuery.insertArrestedProperty(
+            propertyDebtor = prop.propertyDebtor,
+            sum = prop.sum,
+            dateArrested = prop.dateArrested,
+            debtor = prop.debtor,
+            searchLine = prop.searchLine,
+            ipClaimant = prop.ipClaimant
+        )
+    }
+
+    internal fun clearArrestedAProperty() {
+        dbQuery.transaction {
+            dbQuery.removeArrestedAllProperty()
+        }
+    }
+
+    internal fun createArrestedProperty(listProperty: List<ArrestedProperty>) {
+        dbQuery.transaction {
+            listProperty.forEach { prop ->
+                insertArrestedProperty(prop)
+            }
+        }
+    }
+
+    internal fun selectArrestedPropertyFromString(query: String): List<ArrestedProperty> {
+        return dbQuery.selectArrestedPropertyFromString(
+            query = query,
+            mapper = ::mapArrestedPropertyDataBaseToAutoBD
+        ).executeAsList()
+    }
+
+    private fun mapArrestedPropertyDataBaseToAutoBD(
+        propertyDebtor: String,
+        sum: String,
+        dateArrested: String,
+        debtor: String,
+        searchLine: String,
+        ipClaimant: String
+    ): ArrestedProperty {
+        return ArrestedProperty(
+            propertyDebtor, sum, dateArrested, debtor, searchLine, ipClaimant
+        )
+    }
+
+    internal fun selectCountArrestedProperty(): Long {
+        return dbQuery.selectCountArrestedProperty().executeAsOne()
+    }
+
+    internal fun selectAllArrestedProperty(): List<ArrestedProperty> {
+        return dbQuery.selectAllArrestedProperty(mapper = ::mapArrestedPropertyDataBaseToAutoBD)
+            .executeAsList()
     }
 
 }

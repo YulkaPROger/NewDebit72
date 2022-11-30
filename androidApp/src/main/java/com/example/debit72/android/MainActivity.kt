@@ -40,7 +40,11 @@ class MainActivity : AppCompatActivity() {
                 MainScreen()
             }
         }
-        hideSystemUI()
+        try {
+            hideSystemUI()
+        } catch (_: Throwable) {
+
+        }
     }
 
     @RequiresApi(Build.VERSION_CODES.R)

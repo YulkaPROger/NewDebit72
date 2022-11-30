@@ -22,14 +22,14 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.example.debit72.android.utils.FileUtils
 import com.example.debit72.android.R
-import com.example.debit72.android.utils.TypeFile
-import com.example.debit72.android.utils.Shimmering
 import com.example.debit72.android.presenter.service.registry_ip.widgets.StoriesRowFullIP
-import com.example.debit72.android.utils.shimmering
 import com.example.debit72.android.presenter.theme.DebitTheme.colors
 import com.example.debit72.android.presenter.theme.DebitTheme.typography
+import com.example.debit72.android.utils.FileUtils
+import com.example.debit72.android.utils.Shimmering
+import com.example.debit72.android.utils.TypeFile
+import com.example.debit72.android.utils.shimmering
 import com.example.debit72.android.widgets.CardFace
 import com.example.debit72.android.widgets.FlipCard
 import com.example.debit72.android.widgets.RotationAxis
@@ -453,10 +453,6 @@ fun CardCard(ip: FullIP?) {
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun AutoCard(ip: FullIP?) {
-
-    var state by remember {
-        mutableStateOf(CardFace.Front)
-    }
     LazyRow(
         modifier = Modifier
             .fillMaxWidth()
@@ -465,6 +461,9 @@ fun AutoCard(ip: FullIP?) {
     ) {
         ip?.auto?.forEach {
             item {
+                var state by remember {
+                    mutableStateOf(CardFace.Front)
+                }
                 FlipCard(
                     cardFace = state,
                     onClick = {
@@ -514,7 +513,7 @@ fun AutoCard(ip: FullIP?) {
                         ) {
                             Icon(
                                 imageVector = Icons.Rounded.DirectionsCar, contentDescription = "",
-                                tint = colors.onSecondary,
+                                tint = if(it.arrested) colors.primaryVariant else colors.onSecondary,
                                 modifier = Modifier.weight(1f)
                             )
                             Column(
@@ -817,7 +816,7 @@ fun HeaderIP(ip: FullIP?) {
                 tint = colors.onSecondary
             )
             Text(
-                text = stringResource(id = R.string.numberExcel, ip?.numberExcel ?: aggregate1),
+                text = stringResource(id = R.string.number_case, ip?.numberExcel ?: aggregate1),
                 style = typography.body16.copy(
                     color = colors.text
                 ),

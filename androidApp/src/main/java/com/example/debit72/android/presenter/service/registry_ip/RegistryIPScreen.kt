@@ -24,6 +24,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.example.debit72.SpaceXSDK
 import com.example.debit72.android.R
+import com.example.debit72.android.presenter.navigation.NameRoute
 import com.example.debit72.android.presenter.theme.DebitTheme.colors
 import com.example.debit72.android.presenter.theme.DebitTheme.typography
 import com.example.debit72.android.widgets.ArrowBackWithSearch

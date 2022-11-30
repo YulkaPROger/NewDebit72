@@ -58,7 +58,7 @@ fun ColumnData() {
                         modifier = Modifier.padding(horizontal = 8.dp, vertical = 16.dp)
                     )
                     Text(
-                        text = info?.count?.toDouble()?.toInt().toString(),
+                        text = info?.count ?: "",
                         style = DebitTheme.typography.bodyLarge16.copy(
                             color = DebitTheme.colors.text
                         ),

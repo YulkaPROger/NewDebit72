@@ -9,6 +9,7 @@ import com.example.debit72.android.presenter.store.ReduxStore
 import com.example.debit72.android.presenter.store.ReduxStoreViewModel
 import com.example.debit72.database.DatabaseDriverFactory
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 
@@ -76,7 +77,9 @@ class AutoStore(context: Context) :
                                         claimant = ip.claimant,
                                         address = ip.address,
                                         balanceOwed = ip.balanceOwed,
-                                        number = numberWithoutSpace.toInt()
+                                        number = numberWithoutSpace.toInt(),
+                                        spi = ip.spi,
+                                        rosp = ip.rosp
                                     )
                                 } else null
                             }
@@ -85,6 +88,7 @@ class AutoStore(context: Context) :
                         modelTs = autoInBd.modelTs,
                         ipClaimant = autoInBd.ipClaimant,
                         gosNumber = autoInBd.gosNumber,
+                        arrested = autoInBd.arrested,
                         listIp = listIp
                     )
                 }
@@ -113,6 +117,7 @@ data class PresenterAuto(
     val gosNumber: String,
     val modelTs: String,
     val ipClaimant: String,
+    val arrested: Boolean,
     val listIp: List<PresenterIP?> = emptyList()
 )
 
@@ -122,5 +127,7 @@ data class PresenterIP(
     val address: String,
     val totalAmountDebt: String,
     val balanceOwed: String,
-    val number: Int
+    val number: Int,
+    val spi: String,
+    val rosp: String
 )
