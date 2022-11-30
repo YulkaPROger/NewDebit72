@@ -20,6 +20,12 @@ class UserSettings(private val context: Context) {
         val COUNT_IP = stringPreferencesKey("count_ip")
         val DATE_UPDATE_SPR = stringPreferencesKey("date_update_spr")
         val COUNT_SPR = stringPreferencesKey("count_spr")
+        val DATE_UPDATE_AUTO = stringPreferencesKey("date_update_auto")
+        val COUNT_AUTO = stringPreferencesKey("count_auto")
+        val DATE_UPDATE_ARRESTED_AUTO = stringPreferencesKey("date_update_arrested_auto")
+        val COUNT_ARRESTED_AUTO = stringPreferencesKey("count_arrested_auto")
+        val DATE_UPDATE_ARRESTED_PROPERTY = stringPreferencesKey("date_update_arrested_property")
+        val COUNT_ARRESTED_PROPERTY = stringPreferencesKey("count_arrested_property")
     }
 
     fun getString(name: Preferences.Key<String>): Flow<String> = context.dataStore.data

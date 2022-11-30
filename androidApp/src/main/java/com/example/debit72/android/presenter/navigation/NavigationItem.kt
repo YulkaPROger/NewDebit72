@@ -12,5 +12,4 @@ sealed class NavigationItem(var route: String, var icon: ImageVector, @StringRes
     object Main : NavigationItem("main", Icons.Rounded.Home, R.string.main)
     object Service : NavigationItem("service", Icons.Rounded.Mode, R.string.service)
     object More : NavigationItem("other", Icons.Rounded.DesignServices, R.string.other)
-
 }

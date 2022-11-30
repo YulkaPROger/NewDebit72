@@ -12,10 +12,7 @@ import io.ktor.http.*
 import io.ktor.serialization.kotlinx.*
 import io.ktor.serialization.kotlinx.json.*
 import io.ktor.utils.io.*
-import kotlinx.serialization.ExperimentalSerializationApi
-import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.JsonConfiguration
 import kotlin.native.concurrent.ThreadLocal
 
 
@@ -32,12 +29,21 @@ object Network {
     const val LINK_SPR = "spr_link_v2"
     const val CLAIMANTS = "claimants"
     const val CLAIMANTS_ON_ROSP = "claimants_on_the_rosp_v2"
+    const val AUTO = "auto_v2"
+    const val ARRESTED_AUTO = "AutoAresstedV2"
+    const val ARRESTED_PROPERTY = "arrested_property_v2"
+    const val SIR = "sir_v2"
+
+    @Deprecated("старая реализация")
+    const val OLD_ARRESTED_AUTO = "arestedTS"
+
+    @Deprecated("старая реализация")
+    const val OLD_ARRESTED_PROPERTY = "arestedProperty"
 
     const val KEY_API = "V784hfdsjUUreregTgv\$fgjhgkQhkNonStopfdgfJJonAV039MAS0714"
     const val FIO = "Колосов Виктор Константинович"
     const val BIRTHDAY = "14.04.1955 00:00:00"
 
-    @OptIn(ExperimentalSerializationApi::class)
     fun getHttpClient(): HttpClient {
         if (httpClient == null) {
             httpClient = HttpClient(CIO) {

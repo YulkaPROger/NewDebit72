@@ -9,6 +9,7 @@ import androidx.compose.material.IconButton
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Clear
+import androidx.compose.material.icons.outlined.EventAvailable
 import androidx.compose.material.icons.rounded.ArrowBackIos
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -31,7 +32,8 @@ fun ArrowBackWithSearch(
     query: String,
     error: String?,
     onChangeText: (String) -> Unit,
-    count: Int? = null
+    count: Int? = null,
+    additionalFilter: @Composable (()-> Unit)? = null,
 ) {
     val modifier = Modifier.fillMaxWidth()
     val focusRequester = remember { FocusRequester() }
@@ -75,6 +77,7 @@ fun ArrowBackWithSearch(
                             ),
                             modifier = Modifier.padding(end = 16.dp)
                         )
+                    additionalFilter?.invoke()
                 }
             },
             isClickable = false,

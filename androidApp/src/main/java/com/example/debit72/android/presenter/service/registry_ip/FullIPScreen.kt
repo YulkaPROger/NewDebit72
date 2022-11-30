@@ -22,14 +22,14 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.example.debit72.android.utils.FileUtils
 import com.example.debit72.android.R
-import com.example.debit72.android.utils.TypeFile
-import com.example.debit72.android.utils.Shimmering
 import com.example.debit72.android.presenter.service.registry_ip.widgets.StoriesRowFullIP
-import com.example.debit72.android.utils.shimmering
 import com.example.debit72.android.presenter.theme.DebitTheme.colors
 import com.example.debit72.android.presenter.theme.DebitTheme.typography
+import com.example.debit72.android.utils.FileUtils
+import com.example.debit72.android.utils.Shimmering
+import com.example.debit72.android.utils.TypeFile
+import com.example.debit72.android.utils.shimmering
 import com.example.debit72.android.widgets.CardFace
 import com.example.debit72.android.widgets.FlipCard
 import com.example.debit72.android.widgets.RotationAxis
@@ -453,10 +453,6 @@ fun CardCard(ip: FullIP?) {
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun AutoCard(ip: FullIP?) {
-
-    var state by remember {
-        mutableStateOf(CardFace.Front)
-    }
     LazyRow(
         modifier = Modifier
             .fillMaxWidth()
@@ -465,6 +461,9 @@ fun AutoCard(ip: FullIP?) {
     ) {
         ip?.auto?.forEach {
             item {
+                var state by remember {
+                    mutableStateOf(CardFace.Front)
+                }
                 FlipCard(
                     cardFace = state,
                     onClick = {
@@ -514,7 +513,7 @@ fun AutoCard(ip: FullIP?) {
                         ) {
                             Icon(
                                 imageVector = Icons.Rounded.DirectionsCar, contentDescription = "",
-                                tint = colors.onSecondary,
+                                tint = if(it.arrested) colors.primaryVariant else colors.onSecondary,
                                 modifier = Modifier.weight(1f)
                             )
                             Column(
@@ -817,7 +816,7 @@ fun HeaderIP(ip: FullIP?) {
                 tint = colors.onSecondary
             )
             Text(
-                text = stringResource(id = R.string.numberExcel, ip?.numberExcel ?: aggregate1),
+                text = stringResource(id = R.string.number_case, ip?.numberExcel ?: aggregate1),
                 style = typography.body16.copy(
                     color = colors.text
                 ),
@@ -909,7 +908,7 @@ fun QR(vCardText: String) {
     }
 
     val bits = QRCodeWriter().encode(vCardText, BarcodeFormat.QR_CODE, size, size, hints)
-    val bitmap = Bitmap.createBitmap(size, size, Bitmap.Config.RGB_565).also {
+    val bitmap = Bitmap.createBitmap(size, size, Bitmap.Config.RGBA_F16).also {
         for (x in 0 until size) {
             for (y in 0 until size) {
                 it.setPixel(x, y, if (bits[x, y]) Color.BLACK else Color.GRAY)
@@ -918,6 +917,7 @@ fun QR(vCardText: String) {
     }
     Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
         Image(bitmap = bitmap.asImageBitmap(), contentDescription = "QR")
+        //TODO не работает из-за изменения формата файла
         Icon(
             imageVector = Icons.Rounded.Share,
             contentDescription = "Share",
@@ -926,7 +926,7 @@ fun QR(vCardText: String) {
                 .clickable {
                     context
                         .let { it1 -> FileUtils.with(it1, TypeFile.PICTURE) }
-                        .share(bitmap, context as Activity)
+                        .share(bitmap, context as Activity, "QR")
                 },
             tint = colors.onSecondary
         )

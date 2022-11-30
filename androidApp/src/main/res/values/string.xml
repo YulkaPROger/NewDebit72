@@ -20,6 +20,7 @@
     <string name="total_debt">Общая сумма долга</string>
     <string name="amount_of_duty">Сумма пошлины</string>
     <string name="amount_of_legal_services">Сумма юр услуг</string>
+    <string name="amount_of_legal_services_with_params">Сумма юр услуг: %s</string>
     <string name="amount_penalty">Сумма пени</string>
     <string name="amount_of_communal_services">Сумма взыскания ЖКУ</string>
 
@@ -51,7 +52,7 @@
     <string name="total_amount_debt_with_params">Долг: %s руб.</string>
     <string name="balance_owed_with_params">Остаток: %s руб.</string>
 
-    <string name="numberExcel">Номер дела: %s</string>
+    <string name="number_case_with_n">Номер дела:\n%s</string>
     <string name="fond">Фонд:</string>
     <string name="balance_owed_with_param">Остаток долга: %s</string>
     <string name="total_debt_with_param">Общая сумма долга: %s</string>
@@ -84,6 +85,7 @@
     <string name="model">Модель: %s</string>
     <string name="gosnomer">Гос.номер: %s</string>
     <string name="auto_date_arrested">Дата ареста ТС: %s</string>
+    <string name="date_arrested">Дата ареста: %s</string>
     <string name="price_TS">Сумма по оценке: %s</string>
     <string name="storage">Место хранения: %s</string>
     <string name="type_rs">Тип счета: %s</string>
@@ -104,6 +106,7 @@
     <string name="rs">РС: %s</string>
     <string name="ks">КС: %s</string>
     <string name="price_cost">Стоимость доли: %s</string>
+    <string name="price">Стоимость: %s</string>
     <string name="size_cost">Размер доли: %s</string>
 
     <string name="unknown_error">Произошла непредвиденная ошибка</string>
@@ -111,6 +114,7 @@
     <string name="debtors">Должники:\n%s</string>
     <string name="date">Дата: %s</string>
     <string name="court">Суд: %s</string>
+    <string name="referee">Судья: %s</string>
     <string name="current_court">Суд, рассм. заявление: %S</string>
 
     <string name="claimant_full_name">Полное наименование:\n%s</string>
@@ -128,4 +132,12 @@
     <string name="number_id">Номер ИД: %s</string>
     <string name="number_case">Номер дела: %s</string>
     <string name="date_id">Дата ИД: %s</string>
+
+    <string name="model_ts">Модель: %s</string>
+    <string name="gos_number">Гос.номер: %s</string>
+    <string name="comment">Комментарий: %s</string>
+
+    <string name="update_all">Обновить всё</string>
+    <string name="date_conversation">Дата заседания: \n%s</string>
+    <string name="date_meeting">Дата беседы: \n%s</string>
 </resources>

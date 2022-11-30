@@ -10,40 +10,17 @@ data class ListIP(
 
 @Serializable
 data class IP(
-    @SerialName("НомерИД")
-    val idNumber: String,
-
-    @SerialName("НомерДела")
-    val caseNumber: String,
-
-    @SerialName("Должник")
-    val debtor: String,
-
-    @SerialName("Взыскатель")
-    val claimant: String,
-
-    @SerialName("Адресс")
-    val address: String,
-
-    @SerialName("АдрессДляПоиска")
-    val addressForSearch: String,
-
-    @SerialName("росп")
-    val rosp: String,
-
-    @SerialName("СПИ")
-    val spi: String,
-
-    @SerialName("Номер")
-    val number: Int,
-
-    @SerialName("РегНомерИП")
-    val regNumberIP: String,
-
-    @SerialName("ОбщаяСуммаДолга")
-    val totalAmountDebt: String,
-
-    @SerialName("ОстатокДолга")
-    val balanceOwed: String,
+    @SerialName("НомерИД") val idNumber: String,
+    @SerialName("НомерДела") val caseNumber: String,
+    @SerialName("Должник") val debtor: String,
+    @SerialName("Взыскатель") val claimant: String,
+    @SerialName("Адресс") val address: String,
+    @SerialName("АдрессДляПоиска") val addressForSearch: String,
+    @SerialName("росп") val rosp: String,
+    @SerialName("СПИ") val spi: String,
+    @SerialName("Номер") val number: Int,
+    @SerialName("РегНомерИП") val regNumberIP: String,
+    @SerialName("ОбщаяСуммаДолга") val totalAmountDebt: String,
+    @SerialName("ОстатокДолга") val balanceOwed: String,
 )
 

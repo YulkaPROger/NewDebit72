@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.debit72.android.R
+import com.example.debit72.android.presenter.navigation.NameRoute
 import com.example.debit72.android.presenter.theme.DebitTheme
 
 @Composable
@@ -82,6 +83,9 @@ fun SprAndSirWork(
             modifier = Modifier
                 .width(widthShortButton)
                 .clip(RoundedCornerShape(8.dp))
+                .clickable {
+                    navController.navigate(NameRoute.SirRoute.route)
+                }
         ) {
             Image(
                 painter = painterResource(id = R.drawable.sir),
@@ -105,7 +109,7 @@ fun SprAndSirWork(
                 .width(widthLongButton)
                 .clip(RoundedCornerShape(8.dp))
                 .clickable {
-                    navController.navigate("SPR screen")
+                    navController.navigate(NameRoute.SprRoute.route)
                 }
 
         ) {
@@ -170,6 +174,9 @@ fun AutoButton(
             modifier = Modifier
                 .width(widthShortButton)
                 .clip(RoundedCornerShape(8.dp))
+                .clickable {
+                    navController.navigate(NameRoute.AutoRoute.route)
+                }
         ) {
             Image(
                 painter = painterResource(id = R.drawable.auto_button),
@@ -209,7 +216,7 @@ fun AutoHouseAndIPButton(
                 .width(widthShortButton)
                 .clip(RoundedCornerShape(8.dp))
                 .clickable {
-                    navController.navigate("Registry IP")
+                    navController.navigate(NameRoute.RegistryIPRoute.route)
                 }
         ) {
             Image(
@@ -233,6 +240,9 @@ fun AutoHouseAndIPButton(
             modifier = Modifier
                 .width(widthShortButton)
                 .clip(RoundedCornerShape(8.dp))
+                .clickable {
+                    navController.navigate(NameRoute.ArrestedAutoRoute.route)
+                }
         ) {
             Image(
                 painter = painterResource(id = R.drawable.auto),
@@ -255,6 +265,9 @@ fun AutoHouseAndIPButton(
             modifier = Modifier
                 .width(widthShortButton)
                 .clip(RoundedCornerShape(8.dp))
+                .clickable {
+                    navController.navigate(NameRoute.ArrestedPropertyRoute.route)
+                }
         ) {
             Image(
                 painter = painterResource(id = R.drawable.hous),
@@ -294,7 +307,7 @@ fun ClaimantsButton(
                 .width(widthLongButton)
                 .clip(RoundedCornerShape(8.dp))
                 .clickable {
-                    navController.navigate("claimants_on_the_rosp")
+                    navController.navigate(NameRoute.ClaimantsOnRospRoute.route)
                 }
         ) {
             Image(
@@ -319,7 +332,7 @@ fun ClaimantsButton(
                 .width(widthShortButton)
                 .clip(RoundedCornerShape(8.dp))
                 .clickable {
-                    navController.navigate("claimants")
+                    navController.navigate(NameRoute.ClaimantsRoute.route)
                 }
         ) {
             Image(

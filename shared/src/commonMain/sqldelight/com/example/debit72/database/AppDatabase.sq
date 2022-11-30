@@ -25,20 +25,20 @@ SELECT count(*) FROM IpDataBase;
 
 selectIpFromNumber:
 SELECT * FROM IpDataBase
-WHERE number = ?;
+WHERE number = :number;
 
 selectIpFromString:
 SELECT * FROM IpDataBase
-WHERE idNumber LIKE '%' || :idNumber || '%'
-OR caseNumber LIKE '%' || :caseNumber || '%'
-OR debtor LIKE '%' || :debtor || '%'
-OR claimant LIKE '%' || :claimant || '%'
-OR addressForSearch LIKE '%' || :addressForSearch || '%'
-OR rosp LIKE '%' || :rosp || '%'
-OR spi LIKE '%' || :spi || '%'
-OR regNumberIP LIKE '%' || :regNumberIP || '%'
-OR totalAmountDebt LIKE '%' || :totalAmountDebt || '%'
-OR balanceOwed LIKE '%' || :balanceOwed || '%'
+WHERE idNumber LIKE ('%' || :query || '%')
+OR caseNumber LIKE ('%' || :query || '%')
+OR debtor LIKE ('%' || :query || '%')
+OR claimant LIKE ('%' || :query || '%')
+OR addressForSearch LIKE ('%' || :query || '%')
+OR rosp LIKE ('%' || :query || '%')
+OR spi LIKE ('%' || :query || '%')
+OR regNumberIP LIKE ('%' || :query || '%')
+OR totalAmountDebt LIKE ('%' || :query || '%')
+OR balanceOwed LIKE ('%' || :query || '%')
 LIMIT 100;
 
 
@@ -65,11 +65,100 @@ SELECT count(*) FROM SprDataBase;
 
 selectSprFromString:
 SELECT * FROM SprDataBase
-WHERE naKogo LIKE '%' || :naKogo || '%'
-OR claimant LIKE '%' || :claimant || '%'
-OR submissionDate LIKE '%' || :submissionDate || '%'
-OR court LIKE '%' || :court || '%'
-OR currentCourt LIKE '%' || :currentCourt || '%'
-OR addressForSearch LIKE '%' || :addressForSearch || '%'
-OR number LIKE '%' || :number || '%';
+WHERE naKogo LIKE ('%' || :query || '%')
+OR claimant LIKE ('%' || :query || '%')
+OR submissionDate LIKE ('%' || :query || '%')
+OR court LIKE ('%' || :query || '%')
+OR currentCourt LIKE ('%' || :query || '%')
+OR addressForSearch LIKE ('%' || :query || '%')
+OR number LIKE ('%' || :query || '%');
+
+CREATE TABLE AutoDataBase (
+    owner  TEXT NOT NULL,
+    modelTs TEXT NOT NULL,
+    gosNumber TEXT NOT NULL,
+    arrested INTEGER AS Boolean NOT NULL,
+    searchLine TEXT NOT NULL,
+    ipClaimant TEXT NOT NULL
+);
+
+insertAutoInDB:
+INSERT INTO AutoDataBase(owner, modelTs, gosNumber, arrested, searchLine, ipClaimant)
+VALUES (?,?,?,?,?,?);
+
+removeAllAutoInDB:
+DELETE FROM AutoDataBase;
+
+selectCountAutoInDb:
+SELECT count(*) FROM AutoDataBase;
+
+selectAutoFromString:
+SELECT * FROM AutoDataBase
+WHERE searchLine LIKE ('%' || :query || '%')
+OR owner LIKE ('%' || :query || '%')
+OR modelTs LIKE ('%' || :query || '%')
+OR gosNumber LIKE ('%' || :query || '%')
+LIMIT 100;
+
+CREATE TABLE ArrestedAutoDataBase (
+    modelTs  TEXT NOT NULL,
+    gosNumber TEXT NOT NULL,
+    dateArrestedTs TEXT NOT NULL,
+    repository  TEXT NOT NULL,
+    price TEXT NOT NULL,
+    owner TEXT NOT NULL,
+    ipDebtor  TEXT NOT NULL,
+    searchLine TEXT NOT NULL
+);
+
+insertArrestedAuto:
+INSERT INTO ArrestedAutoDataBase(modelTs, gosNumber, dateArrestedTs, repository, price, owner, ipDebtor, searchLine)
+VALUES (?,?,?,?,?,?, ?, ?);
+
+removeArrestedAllAuto:
+DELETE FROM ArrestedAutoDataBase;
+
+selectCountArrestedAuto:
+SELECT count(*) FROM ArrestedAutoDataBase;
+
+selectArrestedAutoFromString:
+SELECT * FROM ArrestedAutoDataBase
+WHERE searchLine LIKE ('%' || :query || '%')
+OR owner LIKE ('%' || :query || '%')
+OR modelTs LIKE ('%' || :query || '%')
+OR gosNumber LIKE ('%' || :query || '%')
+LIMIT 100;
+
+selectAllArrestedAuto:
+SELECT * FROM ArrestedAutoDataBase;
+
+CREATE TABLE ArrestedPropertyDataBase (
+    propertyDebtor TEXT NOT NULL,
+    sum TEXT NOT NULL,
+    dateArrested TEXT NOT NULL,
+    debtor  TEXT NOT NULL,
+    searchLine TEXT NOT NULL,
+    ipClaimant TEXT NOT NULL
+);
+
+insertArrestedProperty:
+INSERT INTO ArrestedPropertyDataBase(propertyDebtor, sum, dateArrested, debtor, searchLine, ipClaimant)
+VALUES (?,?,?,?,?,?);
+
+removeArrestedAllProperty:
+DELETE FROM ArrestedPropertyDataBase;
+
+selectCountArrestedProperty:
+SELECT count(*) FROM ArrestedPropertyDataBase;
+
+selectArrestedPropertyFromString:
+SELECT * FROM ArrestedPropertyDataBase
+WHERE searchLine LIKE ('%' || :query || '%')
+OR propertyDebtor LIKE ('%' || :query || '%')
+OR debtor LIKE ('%' || :query || '%')
+OR dateArrested LIKE ('%' || :query || '%')
+LIMIT 100;
+
+selectAllArrestedProperty:
+SELECT * FROM ArrestedPropertyDataBase;
 

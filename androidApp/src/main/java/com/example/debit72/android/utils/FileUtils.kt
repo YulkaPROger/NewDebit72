@@ -15,10 +15,10 @@ enum class TypeFile {
     DOCUMENT
 }
 
-class FileUtils(val typeFile: TypeFile) {
+class FileUtils(private val typeFile: TypeFile) {
     private var context: Context? = null
 
-    fun load(drawable: Bitmap, name: String): File? {
+    private fun load(drawable: Bitmap, name: String): File? {
         val baseDirectory =
             when (typeFile) {
                 TypeFile.PICTURE -> context?.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
@@ -43,21 +43,20 @@ class FileUtils(val typeFile: TypeFile) {
     }
 
 
-    fun share(drawable: Bitmap, activity: Activity): Boolean {
-        val notNullFile = load(drawable, "QR") ?: return false
+    fun share(drawable: Bitmap, activity: Activity, name: String): Boolean {
+        val notNullFile = load(drawable, name) ?: return false
         val fileUri = FileProvider
             .getUriForFile(activity, DebitApplication.FILE_PROVIDER, notNullFile)
         val shareIntent = Intent(Intent.ACTION_SEND)
-        shareIntent.type = "image/png"
+        shareIntent.type = "image/*"
         shareIntent.putExtra(Intent.EXTRA_STREAM, fileUri)
-        shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-        activity.startActivity(Intent.createChooser(shareIntent, "QR"))
+        activity.startActivity(Intent.createChooser(shareIntent, name))
         return true
     }
 
     fun share(text: String, name: String, activity: Activity): Boolean {
         val shareIntent = Intent(Intent.ACTION_SEND)
-        shareIntent.type="text/plain"
+        shareIntent.type = "text/plain"
         shareIntent.putExtra(Intent.EXTRA_TEXT, text)
         activity.startActivity(Intent.createChooser(shareIntent, name))
         return true
