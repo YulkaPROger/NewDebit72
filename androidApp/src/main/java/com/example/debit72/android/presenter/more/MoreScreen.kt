@@ -8,9 +8,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Update
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -18,15 +16,18 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.Dialog
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.example.debit72.android.R
 import com.example.debit72.android.data_store.UserSettings
+import com.example.debit72.android.presenter.theme.DebitTheme
 import com.example.debit72.android.presenter.theme.DebitTheme.colors
 import com.example.debit72.android.presenter.theme.DebitTheme.typography
-import com.example.debit72.android.utils.Shimmering
+import com.example.debit72.android.widgets.DebitTextFieldDense
 import kotlinx.coroutines.launch
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun MoreScreen(navController: NavHostController, showSnackbar: (String, SnackbarDuration) -> Unit) {
     val store: MoreStore = viewModel(factory = MoreStoreFactory(LocalContext.current))
@@ -39,30 +40,87 @@ fun MoreScreen(navController: NavHostController, showSnackbar: (String, Snackbar
         )
         else -> {}
     }
-    Shimmering(isVisible = state != null) {
-        LazyColumn(contentPadding = PaddingValues(bottom = 56.dp)) {
-            item {
-                SettingsText()
-            }
-            item {
-                GeneralSettings(state, store)
-            }
-            item {
-                ApplicationLoginSettings(state, store, showSnackbar)
-            }
-            item {
-                UpdateSettings(state, store)
-            }
+    var openDialog by remember { mutableStateOf(false) }
+    val context = LocalContext.current
+    val dataStore = UserSettings(context)
+    if (openDialog) {
+        AlertContent {
+            openDialog = false
+            if (it != null)
+                store.dispatch(MoreStore.Action.SetApiKey(it))
         }
     }
+
+    LazyColumn(contentPadding = PaddingValues(bottom = 56.dp)) {
+        item {
+            SettingsText()
+        }
+        item {
+            GeneralSettings(state, store)
+        }
+        item {
+            ApplicationLoginSettings(dataStore) {
+                openDialog = true
+            }
+        }
+        item {
+            UpdateSettings(state, store, dataStore)
+        }
+    }
+
 }
 
 @Composable
-fun UpdateSettings(state: MoreStore.State?, store: MoreStore) {
-    val context = LocalContext.current
-    val scope = rememberCoroutineScope()
-    val dataStore = UserSettings(context)
+fun AlertContent(onClick: (String?) -> Unit) {
+    var api by remember {
+        mutableStateOf("")
+    }
+    Dialog(
+        onDismissRequest = {
+            onClick.invoke(null)
+        },
+        content = {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(DebitTheme.colors.cardColor)
+                    .padding(16.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+            ) {
+                Text(
+                    text = stringResource(id = R.string.set_api_key),
+                    style = DebitTheme.typography.body16.copy(
+                        color = DebitTheme.colors.text
+                    ),
+                )
+                DebitTextFieldDense(
+                    text = api,
+                    onChange = {
+                        api = it
+                    },
+                    labelText = stringResource(id = R.string.api_key),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 16.dp),
+                )
+                Button(
+                    onClick = { onClick.invoke(api) },
+                    colors = ButtonDefaults.buttonColors(
+                        backgroundColor = DebitTheme.colors.onSecondary,
+                        contentColor = DebitTheme.colors.black
+                    ),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                ) {
+                    Text(text = stringResource(id = R.string.save).uppercase())
+                }
+            }
+        },
+    )
+}
 
+@Composable
+fun UpdateSettings(state: MoreStore.State?, store: MoreStore, dataStore: UserSettings) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -535,13 +593,14 @@ fun UpdateArrestedProperty(state: MoreStore.State?, store: MoreStore, dataStore:
     }
 }
 
-
 @Composable
 fun ApplicationLoginSettings(
-    state: MoreStore.State?,
-    store: MoreStore,
-    showSnackbar: (String, SnackbarDuration) -> Unit
+    dataStore: UserSettings,
+    onClick: () -> Unit
 ) {
+    val countAuto =
+        dataStore.getString(UserSettings.API_KEY).collectAsState(initial = "")
+
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -563,7 +622,7 @@ fun ApplicationLoginSettings(
                 modifier = Modifier
                     .fillMaxWidth()
                     .clickable {
-                        showSnackbar.invoke("Функционал в разработке", SnackbarDuration.Short)
+                        onClick.invoke()
                     },
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
@@ -573,7 +632,7 @@ fun ApplicationLoginSettings(
                     style = typography.bodyLarge16.copy(color = colors.text)
                 )
                 Text(
-                    text = stringResource(id = R.string.stars),
+                    text = countAuto.value,
                     style = typography.bodyLarge16.copy(color = colors.text)
                 )
 

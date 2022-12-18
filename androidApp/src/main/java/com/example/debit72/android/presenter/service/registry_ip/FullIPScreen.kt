@@ -3,6 +3,7 @@ package com.example.debit72.android.presenter.service.registry_ip
 import android.app.Activity
 import android.graphics.Bitmap
 import android.graphics.Color
+import android.graphics.drawable.BitmapDrawable
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -22,6 +23,7 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.core.graphics.drawable.toDrawable
 import com.example.debit72.android.R
 import com.example.debit72.android.presenter.service.registry_ip.widgets.StoriesRowFullIP
 import com.example.debit72.android.presenter.theme.DebitTheme.colors
@@ -911,13 +913,19 @@ fun QR(vCardText: String) {
     val bitmap = Bitmap.createBitmap(size, size, Bitmap.Config.RGBA_F16).also {
         for (x in 0 until size) {
             for (y in 0 until size) {
-                it.setPixel(x, y, if (bits[x, y]) Color.BLACK else Color.GRAY)
+                it.setPixel(x, y, if (bits[x, y]) Color.BLACK else Color.LTGRAY)
+            }
+        }
+    }
+    val bitmapLight = Bitmap.createBitmap(size, size, Bitmap.Config.RGBA_F16).also {
+        for (x in 0 until size) {
+            for (y in 0 until size) {
+                it.setPixel(x, y, if (bits[x, y]) Color.BLACK else Color.WHITE)
             }
         }
     }
     Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
         Image(bitmap = bitmap.asImageBitmap(), contentDescription = "QR")
-        //TODO не работает из-за изменения формата файла
         Icon(
             imageVector = Icons.Rounded.Share,
             contentDescription = "Share",
@@ -926,7 +934,7 @@ fun QR(vCardText: String) {
                 .clickable {
                     context
                         .let { it1 -> FileUtils.with(it1, TypeFile.PICTURE) }
-                        .share(bitmap, context as Activity, "QR")
+                        .share(bitmapLight, context as Activity)
                 },
             tint = colors.onSecondary
         )

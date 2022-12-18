@@ -33,6 +33,7 @@ object Network {
     const val ARRESTED_AUTO = "AutoAresstedV2"
     const val ARRESTED_PROPERTY = "arrested_property_v2"
     const val SIR = "sir_v2"
+    const val AUTO_NUMBER = "auto_number_v2"
 
     @Deprecated("старая реализация")
     const val OLD_ARRESTED_AUTO = "arestedTS"

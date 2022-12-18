@@ -48,8 +48,9 @@ class MoreStore(context: Context) :
         object UpdateSpr : Action
         object UpdateAuto : Action
         object UpdateArrestedAuto : Action
-        object UpdateArrestedProperty: Action
+        object UpdateArrestedProperty : Action
         object UpdateAll : Action
+        data class SetApiKey(val key: String) : Action
     }
 
     sealed interface Effect : ReduxStore.Effect {
@@ -71,7 +72,26 @@ class MoreStore(context: Context) :
             Action.UpdateArrestedAuto -> updateArrestedAuto(oldState)
             Action.UpdateArrestedProperty -> updateArrestedProperty(oldState)
             Action.UpdateAll -> updateAll(oldState)
+            is Action.SetApiKey -> setApiKey(action)
         }
+    }
+
+    private fun setApiKey(action: Action.SetApiKey): State {
+        launch(Dispatchers.IO) {
+            runCatching {
+                dataStore.setString(action.key, UserSettings.API_KEY)
+            }.onSuccess {
+                dispatch(
+                    Action.Loaded(
+                        State.Data
+                    )
+                )
+            }.onFailure {
+                dispatch(Action.Loaded(State.LoadingError(it)))
+                Log.e("MoreStore", "loading", it)
+            }
+        }
+        return State.Loading()
     }
 
     private fun updateIP(oldState: State?): State {

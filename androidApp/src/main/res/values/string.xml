@@ -10,7 +10,7 @@
     <string name="spr_work">"Судебно приказная\nработа"</string>
     <string name="spr_work_without_n">"Судебно приказная работа"</string>
     <string name="claimants">"Взыскатели"</string>
-    <string name="search_auto_real_time">"Поиск авто real-time"</string>
+    <string name="search_auto_real_time">"Поиск авто"</string>
     <string name="arrested_cars">"Арестованные автомобили"</string>
     <string name="arrested_property">"Арестованное имущество"</string>
     <string name="claimants_on_ROSP">"Взыскатели по РОСП"</string>
@@ -88,6 +88,7 @@
     <string name="date_arrested">Дата ареста: %s</string>
     <string name="price_TS">Сумма по оценке: %s</string>
     <string name="storage">Место хранения: %s</string>
+    <string name="date_realized">Дата реализации: %s</string>
     <string name="type_rs">Тип счета: %s</string>
     <string name="bank_with_params">Банк: %s</string>
     <string name="property_arrested">Арествано: %s</string>
@@ -140,4 +141,8 @@
     <string name="update_all">Обновить всё</string>
     <string name="date_conversation">Дата заседания: \n%s</string>
     <string name="date_meeting">Дата беседы: \n%s</string>
+
+    <string name="save">Сохранить</string>
+    <string name="set_api_key">Установка нового API key</string>
+    <string name="ts_debtor">ТС должника: %s</string>
 </resources>
