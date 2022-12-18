@@ -11,6 +11,7 @@ import com.example.debit72.android.presenter.service.ServiceScreen
 import com.example.debit72.android.presenter.service.arrested_auto.ArrestedAutoScreen
 import com.example.debit72.android.presenter.service.arrested_property.ArrestedPropertyScreen
 import com.example.debit72.android.presenter.service.auto.AutoScreen
+import com.example.debit72.android.presenter.service.auto_from_number.AutoNumberScreen
 import com.example.debit72.android.presenter.service.claimants.ClaimantsScreen
 import com.example.debit72.android.presenter.service.claimants_rosp.ClaimantsOnTheRospScreen
 import com.example.debit72.android.presenter.service.registry_ip.FullIPScreen
@@ -63,6 +64,9 @@ fun Navigation(
         composable(NameRoute.SirRoute.route) {
             SirScreen(navController)
         }
+        composable(NameRoute.AutoFromNumberRoute.route) {
+            AutoNumberScreen(navController)
+        }
 //        composable("createObject") { CreateObjectScreen(navController) }
 //        composable("choiceService") {
 //            ChoiceService(navController)
@@ -82,7 +86,9 @@ sealed class NameRoute(
     object ClaimantsOnRospRoute: NameRoute("claimants_on_the_rosp")
     object RegistryIPRoute: NameRoute("Registry IP")
     object SirRoute: NameRoute("sir")
+    object AutoFromNumberRoute: NameRoute("auto_from_number")
     data class Ip(val param: String? = null): NameRoute("fullIP", param)
+
 }
 
 

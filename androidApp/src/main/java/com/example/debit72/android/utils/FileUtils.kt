@@ -10,6 +10,7 @@ import com.example.debit72.android.DebitApplication
 import java.io.File
 import java.io.FileOutputStream
 
+
 enum class TypeFile {
     PICTURE,
     DOCUMENT
@@ -18,7 +19,7 @@ enum class TypeFile {
 class FileUtils(private val typeFile: TypeFile) {
     private var context: Context? = null
 
-    private fun load(drawable: Bitmap, name: String): File? {
+    fun load(drawable: Bitmap, name: String): File? {
         val baseDirectory =
             when (typeFile) {
                 TypeFile.PICTURE -> context?.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
@@ -43,14 +44,17 @@ class FileUtils(private val typeFile: TypeFile) {
     }
 
 
-    fun share(drawable: Bitmap, activity: Activity, name: String): Boolean {
+    fun share(drawable: Bitmap, activity: Activity, name: String = "QR.png"): Boolean {
         val notNullFile = load(drawable, name) ?: return false
         val fileUri = FileProvider
             .getUriForFile(activity, DebitApplication.FILE_PROVIDER, notNullFile)
         val shareIntent = Intent(Intent.ACTION_SEND)
-        shareIntent.type = "image/*"
+        shareIntent.type = "*/*"
+        shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+        shareIntent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
         shareIntent.putExtra(Intent.EXTRA_STREAM, fileUri)
-        activity.startActivity(Intent.createChooser(shareIntent, name))
+        shareIntent.putExtra(Intent.EXTRA_TEXT, "QR")
+        activity.startActivity(Intent.createChooser(shareIntent, "QR"))
         return true
     }
 
@@ -58,10 +62,9 @@ class FileUtils(private val typeFile: TypeFile) {
         val shareIntent = Intent(Intent.ACTION_SEND)
         shareIntent.type = "text/plain"
         shareIntent.putExtra(Intent.EXTRA_TEXT, text)
-        activity.startActivity(Intent.createChooser(shareIntent, name))
+        activity.startActivity(shareIntent)
         return true
     }
-
 
     companion object {
         fun with(context: Context, type: TypeFile = TypeFile.DOCUMENT): FileUtils {
