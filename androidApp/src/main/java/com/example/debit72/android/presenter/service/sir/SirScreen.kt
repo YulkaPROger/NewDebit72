@@ -118,7 +118,6 @@ fun SirScreen(navController: NavHostController) {
 @Composable
 fun SirCard(sir: Sir) {
     val modifier = Modifier.fillMaxWidth()
-    val width = LocalConfiguration.current.screenWidthDp
 
     var state by remember {
         mutableStateOf(CardFace.Front)

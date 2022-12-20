@@ -18,6 +18,7 @@ import com.example.debit72.android.presenter.service.registry_ip.FullIPScreen
 import com.example.debit72.android.presenter.service.registry_ip.RegistryIP
 import com.example.debit72.android.presenter.service.sir.SirScreen
 import com.example.debit72.android.presenter.service.spr.SprScreen
+import com.example.debit72.android.presenter.additional_service.ReportErrorScreen
 
 
 @Composable
@@ -67,6 +68,12 @@ fun Navigation(
         composable(NameRoute.AutoFromNumberRoute.route) {
             AutoNumberScreen(navController)
         }
+        composable(NameRoute.ReportErrorRoute.route) {
+            ReportErrorScreen(navController)
+        }
+
+
+
 //        composable("createObject") { CreateObjectScreen(navController) }
 //        composable("choiceService") {
 //            ChoiceService(navController)
@@ -87,6 +94,7 @@ sealed class NameRoute(
     object RegistryIPRoute: NameRoute("Registry IP")
     object SirRoute: NameRoute("sir")
     object AutoFromNumberRoute: NameRoute("auto_from_number")
+    object ReportErrorRoute: NameRoute("error_report")
     data class Ip(val param: String? = null): NameRoute("fullIP", param)
 
 }

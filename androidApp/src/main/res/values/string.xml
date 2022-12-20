@@ -118,6 +118,7 @@
     <string name="referee">Судья: %s</string>
     <string name="current_court">Суд, рассм. заявление: %S</string>
 
+    <string name="claimant">Взыскатель: %s</string>
     <string name="claimant_full_name">Полное наименование:\n%s</string>
     <string name="claimant_owner">Директор: %s</string>
     <string name="claimant_phone">Телефон: %s</string>
@@ -140,9 +141,21 @@
 
     <string name="update_all">Обновить всё</string>
     <string name="date_conversation">Дата заседания: \n%s</string>
+    <string name="date_petition">Дата ходатайства: %s</string>
     <string name="date_meeting">Дата беседы: \n%s</string>
 
     <string name="save">Сохранить</string>
     <string name="set_api_key">Установка нового API key</string>
     <string name="ts_debtor">ТС должника: %s</string>
+
+    <string name="report_error">Отчет\nописок</string>
+    <string name="request_court_work">Запросы судебной работы</string>
+    <string name="catalog_rosp">Справочник РОСП</string>
+    <string name="catalog_court">Справочник орган выдавший ИД</string>
+    <string name="tasks">Задачи</string>
+    <string name="catalog_spi">Справочник СПИ</string>
+
+    <string name="essence_error">Суть описки: %s</string>
+    <string name="comment_error">Комментарий описки: %s</string>
+    <string name="state_error">Статус описки: %s</string>
 </resources>
