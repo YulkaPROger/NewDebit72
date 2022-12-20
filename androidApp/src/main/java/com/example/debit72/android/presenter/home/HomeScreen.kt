@@ -1,9 +1,11 @@
 package com.example.debit72.android.presenter.home
 
-import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
@@ -11,7 +13,6 @@ import com.example.debit72.android.presenter.home.widgets.AvatarRow
 import com.example.debit72.android.presenter.home.widgets.ColumnData
 import com.example.debit72.android.presenter.home.widgets.StoriesRow
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun HomeScreen(navController: NavHostController) {
     Column(
@@ -24,11 +25,11 @@ fun HomeScreen(navController: NavHostController) {
             verticalArrangement = Arrangement.SpaceBetween,
             contentPadding = PaddingValues(bottom = 100.dp)
         ) {
-            stickyHeader {
+            item {
                 AvatarRow()
             }
             item {
-                StoriesRow()
+                StoriesRow(navController)
             }
             item {
                 ColumnData()
