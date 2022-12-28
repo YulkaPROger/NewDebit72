@@ -158,4 +158,15 @@
     <string name="essence_error">Суть описки: %s</string>
     <string name="comment_error">Комментарий описки: %s</string>
     <string name="state_error">Статус описки: %s</string>
+
+    <string name="request_to">Запрос кому: %s</string>
+    <string name="date_request">Дата подачи: %s</string>
+    <string name="date_response">Дата ответа: %s</string>
+    <string name="subject_request">Предмет запроса: %s</string>
+    <string name="short_phone">Тел: %s</string>
+    <string name="email">e-mail: %s</string>
+
+    <string name="executor">Исполнитель: %s</string>
+    <string name="task">Задача: %s</string>
+    <string name="description">Описание: %s</string>
 </resources>

@@ -1,6 +1,8 @@
 package com.example.debit72.android.presenter.navigation
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
@@ -11,12 +13,14 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
+import com.example.debit72.android.R
 import com.example.debit72.android.presenter.theme.DebitTheme
 
 
@@ -40,19 +44,19 @@ fun BottomNavigationBar(navController: NavController) {
         items.forEach { item ->
             BottomNavigationItem(
                 icon = {
-                    Icon(
-                        imageVector = item.icon,
+                    Image(
+                        painter = painterResource(id = item.icon),
                         contentDescription = stringResource(item.title),
-                        tint = Color.White
+                        modifier = Modifier.padding(top = 4.dp)
                     )
                 },
-                label = {
-                    Text(
-                        text = stringResource(item.title),
-                        color = Color.White,
-                        fontSize = 10.sp
-                    )
-                },
+//                label = {
+//                    Text(
+//                        text = stringResource(item.title),
+//                        color = Color.White,
+//                        fontSize = 10.sp
+//                    )
+//                },
                 selectedContentColor = Color.White,
                 unselectedContentColor = Color.White.copy(0.4f),
                 alwaysShowLabel = true,
