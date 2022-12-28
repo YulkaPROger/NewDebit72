@@ -29,32 +29,37 @@ fun StoriesRow(navController: NavHostController) {
                 painterResource = R.drawable.background2,
                 name = R.string.request_court_work,
                 modifier = storisWidth,
-                {}
-            )
+            ){
+                navController.navigate(NameRoute.RequestCourtWorkRoute.route)
+            }
             NavigationButton(
                 painterResource = R.drawable.background3,
                 name = R.string.catalog_rosp,
-                modifier = storisWidth,
-                {}
-            )
+                modifier = storisWidth
+            ){
+                navController.navigate(NameRoute.CatalogRospRoute.route)
+            }
             NavigationButton(
                 painterResource = R.drawable.background4,
                 name = R.string.catalog_court,
-                modifier = storisWidth,
-                {}
-            )
+                modifier = storisWidth
+            ){
+                navController.navigate(NameRoute.CatalogCourtRoute.route)
+            }
             NavigationButton(
                 painterResource = R.drawable.background5,
                 name = R.string.tasks,
-                modifier = storisWidth,
-                {}
-            )
+                modifier = storisWidth
+            ){
+                navController.navigate(NameRoute.TasksRoute.route)
+            }
             NavigationButton(
                 painterResource = R.drawable.background6,
                 name = R.string.catalog_spi,
                 modifier = storisWidth,
-                {}
-            )
+            ){
+                navController.navigate(NameRoute.CatalogSpiRoute.route)
+            }
 //            NavigationButton(
 //                painterResource = R.drawable.background7,
 //                name = R.string.arrested_property,

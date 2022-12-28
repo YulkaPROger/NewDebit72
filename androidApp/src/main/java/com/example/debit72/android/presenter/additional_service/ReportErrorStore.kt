@@ -3,7 +3,7 @@ package com.example.debit72.android.presenter.additional_service
 import android.util.Log
 import com.example.debit72.android.presenter.store.ReduxStore
 import com.example.debit72.android.presenter.store.ReduxStoreViewModel
-import com.example.debit72.repository.ReportErrorRepository
+import com.example.debit72.repository.AdditionalSerciceRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import model.ReportError
@@ -67,7 +67,7 @@ class ReportErrorStore :
     private fun loading(): State {
         launch(Dispatchers.IO) {
             runCatching {
-                ReportErrorRepository().getInfo()
+                AdditionalSerciceRepository().reportErrorList()
             }.onFailure {
                 dispatch(Action.Loaded(State.LoadingError(it.message.toString())))
                 Log.e("ReportErrorStore", "loading", it)

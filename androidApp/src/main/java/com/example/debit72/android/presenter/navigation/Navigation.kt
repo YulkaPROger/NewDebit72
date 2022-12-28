@@ -5,6 +5,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.debit72.android.presenter.additional_service.*
 import com.example.debit72.android.presenter.home.HomeScreen
 import com.example.debit72.android.presenter.more.MoreScreen
 import com.example.debit72.android.presenter.service.ServiceScreen
@@ -18,7 +19,6 @@ import com.example.debit72.android.presenter.service.registry_ip.FullIPScreen
 import com.example.debit72.android.presenter.service.registry_ip.RegistryIP
 import com.example.debit72.android.presenter.service.sir.SirScreen
 import com.example.debit72.android.presenter.service.spr.SprScreen
-import com.example.debit72.android.presenter.additional_service.ReportErrorScreen
 
 
 @Composable
@@ -71,9 +71,22 @@ fun Navigation(
         composable(NameRoute.ReportErrorRoute.route) {
             ReportErrorScreen(navController)
         }
+        composable(NameRoute.RequestCourtWorkRoute.route) {
+            RequestCourtWorkScreen(navController)
+        }
+        composable(NameRoute.CatalogRospRoute.route) {
+            CatalogRospScreen(navController)
+        }
+        composable(NameRoute.CatalogSpiRoute.route) {
+            CatalogSpiScreen(navController)
+        }
 
-
-
+        composable(NameRoute.CatalogCourtRoute.route) {
+            CatalogCourtScreen(navController)
+        }
+        composable(NameRoute.TasksRoute.route){
+            TasksScreen(navController)
+        }
 //        composable("createObject") { CreateObjectScreen(navController) }
 //        composable("choiceService") {
 //            ChoiceService(navController)
@@ -90,12 +103,18 @@ sealed class NameRoute(
     object AutoRoute : NameRoute("auto")
     object SprRoute : NameRoute("SPR screen")
     object ClaimantsRoute : NameRoute("claimants")
-    object ClaimantsOnRospRoute: NameRoute("claimants_on_the_rosp")
-    object RegistryIPRoute: NameRoute("Registry IP")
-    object SirRoute: NameRoute("sir")
-    object AutoFromNumberRoute: NameRoute("auto_from_number")
-    object ReportErrorRoute: NameRoute("error_report")
-    data class Ip(val param: String? = null): NameRoute("fullIP", param)
+    object ClaimantsOnRospRoute : NameRoute("claimants_on_the_rosp")
+    object RegistryIPRoute : NameRoute("Registry IP")
+    object SirRoute : NameRoute("sir")
+    object AutoFromNumberRoute : NameRoute("auto_from_number")
+    object ReportErrorRoute : NameRoute("error_report")
+    object RequestCourtWorkRoute : NameRoute("request_court_work")
+    object CatalogRospRoute : NameRoute("catalog_rosp")
+    object CatalogSpiRoute : NameRoute("catalog_spi")
+    object CatalogCourtRoute : NameRoute("catalog_cort")
+    object TasksRoute: NameRoute("tasks")
+
+    data class Ip(val param: String? = null) : NameRoute("fullIP", param)
 
 }
 

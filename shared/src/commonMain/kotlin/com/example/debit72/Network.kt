@@ -35,6 +35,12 @@ object Network {
     const val SIR = "sir_v2"
     const val AUTO_NUMBER = "auto_number_v2"
     const val ERROR_REPORT = "report_error_v2"
+    const val REQUEST_COURT_WORK = "request_court_work_v2"
+    const val CATALOG_ROSP = "catalog_rosp_v2"
+    const val CATALOG_SPI = "catalog_spi_v2"
+    const val CATALOG_COURT = "catalog_court_v2"
+    const val TASKS = "tasks_v2"
+
 
     @Deprecated("старая реализация")
     const val OLD_ARRESTED_AUTO = "arestedTS"

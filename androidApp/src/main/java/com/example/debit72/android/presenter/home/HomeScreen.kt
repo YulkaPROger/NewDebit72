@@ -34,7 +34,6 @@ fun HomeScreen(navController: NavHostController) {
             item {
                 ColumnData()
             }
-
         }
     }
 }
